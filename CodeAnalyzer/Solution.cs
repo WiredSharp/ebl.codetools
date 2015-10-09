@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CodeAnalyzer
 {
-    internal class Solution
+    public class Solution
     {
         public string Name { get; private set; }
 
@@ -17,11 +17,8 @@ namespace CodeAnalyzer
             var solution = new Solution
             {
                 Name = System.IO.Path.GetFileNameWithoutExtension(file)
-                ,
-                Path = file
-                ,
-                Projects = ReadProjects(file)
-
+                ,Path = file
+                ,Projects = ReadProjects(file)
             };
             return solution;
         }

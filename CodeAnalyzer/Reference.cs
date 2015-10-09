@@ -2,7 +2,7 @@
 
 namespace CodeAnalyzer
 {
-    internal class Reference
+	public class Reference
     {
         public string Name { get; private set; }
 
@@ -30,7 +30,7 @@ namespace CodeAnalyzer
         }
     }
 
-    internal class ProjectReference : Reference
+	public class ProjectReference : Reference
     {
         public Guid ProjectId { get; private set; }
         public ProjectReference(string name, string path, Guid projectId)

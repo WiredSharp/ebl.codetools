@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VSProjectNormalizer" GeneratedClassName="Resource">
+  <Profiles />
+  <Settings>
+    <Setting Name="ACCEPTANCE_TEST_OUTPUT_PATH" Type="System.String" Scope="User">
+      <Value Profile="(Default)">@"$(SolutionDir)Acceptance\$(Configuration)\Libraries\$(AssemblyName)"</Value>
+    </Setting>
+    <Setting Name="TEST_OUTPUT_PATH" Type="System.String" Scope="User">
+      <Value Profile="(Default)">@"$(SolutionDir)$(Configuration)\tests\$(AssemblyName)"</Value>
+    </Setting>
+    <Setting Name="BIN_OUTPUT_PATH" Type="System.String" Scope="User">
+      <Value Profile="(Default)">@"$(SolutionDir)$(Configuration)\bin\$(AssemblyName)"</Value>
+    </Setting>
+    <Setting Name="INTERMEDIATE_OUTPUT_PATH" Type="System.String" Scope="User">
+      <Value Profile="(Default)">@"$(SolutionDir)$(Configuration)\obj\$(AssemblyName)"</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

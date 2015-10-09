@@ -3,7 +3,7 @@ using System.IO;
 
 namespace CodeAnalyzer
 {
-    internal struct PathLink
+	public struct PathLink
     {
         public readonly string Path;
 

@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace CodeAnalyzer
 {
-    internal class Project
+	public class Project
     {
         public PathLink Path { get; private set; }
 

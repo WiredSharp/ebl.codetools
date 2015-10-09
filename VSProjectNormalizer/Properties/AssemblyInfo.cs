@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CodeAnalyzer")]
+[assembly: AssemblyTitle("VSProjectNormalizer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("CodeAnalyzer")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
+[assembly: AssemblyCompany("OFI-AM")]
+[assembly: AssemblyProduct("VSProjectNormalizer")]
+[assembly: AssemblyCopyright("Copyright © OFI-AM 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d5da6e92-9c92-4b46-a5a9-245ae10bd82e")]
+[assembly: Guid("5a1977c1-de74-4156-99b7-dd3b596d27d1")]
 
 // Version information for an assembly consists of the following four values:
 //
