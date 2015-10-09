@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalyzer", "CodeAnalyzer\CodeAnalyzer.csproj", "{B6CAB52E-6C20-4DDF-8B01-4EED15CC06FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalyzer", "sources\CodeAnalyzer\CodeAnalyzer.csproj", "{B6CAB52E-6C20-4DDF-8B01-4EED15CC06FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSProjectNormalizer", "VSProjectNormalizer\VSProjectNormalizer.csproj", "{55EB2595-20AB-4731-9A81-65A0427E4068}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSProjectNormalizer", "sources\VSProjectNormalizer\VSProjectNormalizer.csproj", "{55EB2595-20AB-4731-9A81-65A0427E4068}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
