@@ -1,0 +1,1 @@
+xcopy /e /d Release\bin\VSProjectNormalizer ..\..\Builds\VSProjectNormalizer
