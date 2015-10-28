@@ -26,9 +26,9 @@ namespace CodeAnalyzer
             else
             {
                 output.AppendLine(solution.Name);
-                if (solution.Projects != null)
+                if (solution.CSharpProjects != null)
                 {
-                    foreach (KeyValuePair<string, Project> projectItem in solution.Projects)
+                    foreach (KeyValuePair<string, CSharpProject> projectItem in solution.CSharpProjects)
                     {
                         output.Append("+ " + projectItem.Key + ": ");
                         Display(projectItem.Value, output);
@@ -38,7 +38,7 @@ namespace CodeAnalyzer
             return output.ToString();
         }
 
-        public static string Display(this Project project, StringBuilder output)
+        public static string Display(this CSharpProject project, StringBuilder output)
         {
             if (output == null) output = new StringBuilder();
             if (project == null)

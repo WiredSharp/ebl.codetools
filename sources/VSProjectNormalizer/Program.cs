@@ -41,7 +41,7 @@ namespace VSProjectNormalizer
 					{
 						VSProjectNormalizer normalizer = NewNormalizer();
 						var solution = Solution.Parse(fileName);
-						foreach (KeyValuePair<string, Project> reference in solution.Projects)
+						foreach (KeyValuePair<string, CSharpProject> reference in solution.CSharpProjects)
 						{
 							Console.WriteLine("converting project file '" + reference + "'");
 							string path = reference.Value.Path;

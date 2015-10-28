@@ -24,7 +24,7 @@ namespace CodeAnalyzer
             foreach (Solution solution in solutions)
             {
                 url.Append(BuildNode(solution) + "[label=\"" + solution.Name + "\"]" + Separator);
-                foreach (KeyValuePair<string, Project> projectItem in solution.Projects)
+                foreach (KeyValuePair<string, CSharpProject> projectItem in solution.CSharpProjects)
                 {
                     if (projects.Add(projectItem.Key + "-" + projectItem.Value.ProjectGuid))
                     {
@@ -43,12 +43,12 @@ namespace CodeAnalyzer
             return url.ToString();
         }
 
-        protected string NewProjectProjectRelation(string projectName, Project project, ProjectReference reference)
+        protected string NewProjectProjectRelation(string projectName, CSharpProject project, ProjectReference reference)
         {
             return BuildNode(projectName, project) + "->" + BuildNode(reference) + Separator;
         }
 
-        protected string NewSolutionProjectRelation(Solution solution, string projectName, Project project)
+        protected string NewSolutionProjectRelation(Solution solution, string projectName, CSharpProject project)
         {
             return BuildNode(solution) + "->" + BuildNode(projectName, project) + " [style=dotted]" + Separator;
         }
@@ -58,7 +58,7 @@ namespace CodeAnalyzer
             return Normalize(reference.Name) + ToProjectId(reference);// + "[label=\"" + reference.Name + "\"]";
         }
 
-        private static string BuildNode(string projectName, Project project)
+        private static string BuildNode(string projectName, CSharpProject project)
         {
             return Normalize(projectName) + ToProjectId(project);// + "[label=\"" + projectName + "\", style=dotted]";
         }
