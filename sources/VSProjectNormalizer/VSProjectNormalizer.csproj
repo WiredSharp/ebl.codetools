@@ -10,8 +10,9 @@
     <AssemblyName>VSProjectNormalizer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <OutputPath>$(SolutionDir)$(Configuration)\bin\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+    <BuildDir Condition=" '$(BuildDir)' == '' ">$(SolutionDir)..\</BuildDir>
+    <OutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\bin\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -51,16 +53,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resource.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeAnalyzer\CodeAnalyzer.csproj">
-      <Project>{b6cab52e-6c20-4ddf-8b01-4eed15cc06fb}</Project>
-      <Name>CodeAnalyzer</Name>
+    <ProjectReference Include="..\CodeTools.Core\CodeTools.Core.csproj">
+      <Project>{d993a555-bdc9-4514-b121-3699b7569397}</Project>
+      <Name>CodeTools.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

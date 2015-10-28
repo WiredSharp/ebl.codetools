@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Reflection.Emit;
 using System.Text;
+using CodeTools.Core;
 
 namespace CodeAnalyzer
 {

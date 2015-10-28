@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using CodeAnalyzer;
+using CodeTools.Core;
 
 namespace VSProjectNormalizer
 {
@@ -35,7 +35,7 @@ namespace VSProjectNormalizer
 
 					if (fileName.EndsWith(".csproj"))
 					{
-						File.WriteAllText(fileName, NewNormalizer().Normalize(fileName));
+						File.WriteAllText(fileName, NewNormalizer().Normalize(new FileInfo(fileName)));
 					}
 					else if (fileName.EndsWith(".sln"))
 					{
@@ -45,7 +45,7 @@ namespace VSProjectNormalizer
 						{
 							Console.WriteLine("converting project file '" + reference + "'");
 							string path = reference.Value.Path;
-							File.WriteAllText(path, normalizer.Normalize(path));
+							File.WriteAllText(path, normalizer.Normalize(new FileInfo(path)));
 						}
 					}
 					Console.WriteLine("Work complete !");
@@ -77,12 +77,10 @@ namespace VSProjectNormalizer
 			var normalizer = new VSProjectNormalizer(new VSProjectNormalizer.Settings()
 			{
 				TestOutputPath = Resource.Default.TEST_OUTPUT_PATH
-				,
-				AcceptanceTestOutputPath = Resource.Default.ACCEPTANCE_TEST_OUTPUT_PATH
-				,
-				BinOutputPath = Resource.Default.BIN_OUTPUT_PATH
-				,
-				IntermediateOutputPath = Resource.Default.INTERMEDIATE_OUTPUT_PATH
+				,AcceptanceTestOutputPath = Resource.Default.ACCEPTANCE_TEST_OUTPUT_PATH
+				,BinOutputPath = Resource.Default.BIN_OUTPUT_PATH
+				,IntermediateOutputPath = Resource.Default.INTERMEDIATE_OUTPUT_PATH
+				,BuildPath = Resource.Default.BUILD_DIR
 			});
 			return normalizer;
 		}
