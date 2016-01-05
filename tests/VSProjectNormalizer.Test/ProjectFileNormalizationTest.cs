@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Xml.Linq;
+using NetBike.XmlUnit.NUnitAdapter;
 using NUnit.Framework;
 
 namespace VSProjectNormalizer.Test
@@ -40,12 +41,12 @@ namespace VSProjectNormalizer.Test
 		}
 
 		[Test]
-		public void only_csharp_project_are_modified()
+		public void website_project_is_not_modified()
 		{
 			const string projectFile = @"playground\website.csproj.xml";
 			var normalizer = new VSProjectNormalizer(Settings);
 			string normalized = normalizer.Normalize(new FileInfo(projectFile));
-			Assert.That(normalized, NetBike.XmlUnit.NUnitAdapter.IsXml.Equals(File.ReadAllText(projectFile)), "website project should not be modified");			
+			Assert.That(normalized, IsXml.Equals(File.ReadAllText(projectFile)), "website project should not be modified");			
 		}
 	}
 }
