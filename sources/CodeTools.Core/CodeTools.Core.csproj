@@ -10,9 +10,10 @@
     <AssemblyName>CodeTools.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <BuildDir Condition=" '$(BuildDir)' == '' ">$(SolutionDir)..\</BuildDir>
-    <OutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\bin\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+    <OutputPath Condition=" '$(BuildDir)' != '' ">$(BuildDir)$(SolutionName)\$(Configuration)\bin\$(AssemblyName)</OutputPath>
+    <OutputPath Condition=" '$(BuildDir)' == '' ">$(SolutionDir)$(Configuration)\bin\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath Condition=" '$(BuildDir)' != '' ">$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+    <IntermediateOutputPath Condition=" '$(BuildDir)' == '' ">$(SolutionDir)$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
