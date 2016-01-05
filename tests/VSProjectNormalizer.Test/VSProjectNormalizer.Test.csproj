@@ -55,6 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Shared\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="ProjectFileNormalizationTest.cs" />
     <Compile Include="ProjectFileNormalizationWithoutPlatformTest.cs" />
     <Compile Include="ProjectFileNormalizationTestBase.cs" />

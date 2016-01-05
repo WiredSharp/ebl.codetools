@@ -18,6 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E9E088
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSProjectNormalizer.Test", "tests\VSProjectNormalizer.Test\VSProjectNormalizer.Test.csproj", "{0CFD3785-BC0D-4EAE-8930-391EAFA37A83}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{0431D2B3-DFD2-4986-8AFD-C14F0DA5CB74}"
+	ProjectSection(SolutionItems) = preProject
+		Shared\VersionInfo.cs = Shared\VersionInfo.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
