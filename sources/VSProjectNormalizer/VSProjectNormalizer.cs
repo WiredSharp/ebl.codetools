@@ -16,24 +16,34 @@ namespace VSProjectNormalizer
 
 		public class Settings
 		{
-			private const string DEFAULT_BUILD_DIR = @"$(SolutionDir)..\";
+			private const string DEFAULT_OUTPUT_PREFIX_WITH_PLATFORM = @"$(SolutionDir)$(Configuration).$(Platform)\";
+			private const string BUILD_DIR_WITH_PLATFORM = @"$(BuildDir)$(SolutionName)\$(Configuration).$(Platform)\";
 
-#if USE_PLATFORM
-			private const string CURRENT_BUILD_DIR = @"$(BuildDir)$(SolutionName)\$(Configuration).$(Platform)\";
-#else
-			private const string CURRENT_BUILD_DIR = @"$(BuildDir)$(SolutionName)\$(Configuration)\";
-#endif
+			private const string DEFAULT_OUTPUT_PREFIX = @"$(SolutionDir)$(Configuration)\";
+			private const string BUILD_DIR = @"$(BuildDir)$(SolutionName)\$(Configuration)\";
 
-			private const string ACCEPTANCE_TEST_OUTPUT_PATH = CURRENT_BUILD_DIR + @"acceptance\$(AssemblyName)";
-			private const string TEST_OUTPUT_PATH = CURRENT_BUILD_DIR + @"tests\$(AssemblyName)";
-			private const string BIN_OUTPUT_PATH = CURRENT_BUILD_DIR + @"bin\$(AssemblyName)";
-			private const string INTERMEDIATE_OUTPUT_PATH = CURRENT_BUILD_DIR + @"obj\$(AssemblyName)";
+			private const string ACCEPTANCE_TEST_OUTPUT_PATH = @"acceptance\$(AssemblyName)";
+			private const string TEST_OUTPUT_PATH = @"tests\$(AssemblyName)";
+			private const string BIN_OUTPUT_PATH = @"bin\$(AssemblyName)";
+			private const string INTERMEDIATE_OUTPUT_PATH = @"obj\$(AssemblyName)";
 
 			private static readonly Lazy<Settings> DEFAULT = new Lazy<Settings>();
 
 			public static Settings Default
 			{
 				get { return DEFAULT.Value; }
+			}
+
+			public bool UsePlatform { get; set; }
+
+			public string BuildPrefix
+			{
+				get { return UsePlatform ? BUILD_DIR_WITH_PLATFORM : BUILD_DIR; }
+			}
+
+			public string DefaultBuildPrefix
+			{
+				get { return UsePlatform ? DEFAULT_OUTPUT_PREFIX_WITH_PLATFORM : DEFAULT_OUTPUT_PREFIX; }
 			}
 
 			public string AcceptanceTestOutputPath { get; set; }
@@ -52,7 +62,6 @@ namespace VSProjectNormalizer
 				TestOutputPath = TEST_OUTPUT_PATH;
 				BinOutputPath = BIN_OUTPUT_PATH;
 				IntermediateOutputPath = INTERMEDIATE_OUTPUT_PATH;
-				BuildPath = DEFAULT_BUILD_DIR;
 			}
 		}
 
@@ -89,9 +98,36 @@ namespace VSProjectNormalizer
 			XNamespace defaultNamespace = root.GetDefaultNamespace();
 			RemoveNodes(root, OUTPUT_PATH_TAG, BUILD_DIRECTORY_TAG, INTERMEDIATE_OUTPUT_TAG);
 			XElement commonPropertyGroup = GetFirstCommonPropertyGroup(root);
-			commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(BUILD_DIRECTORY_TAG),
-				new XAttribute("Condition", " '$(BuildDir)' == '' "), CurrentSettings.BuildPath));
+			var buildTagExists = new XAttribute("Condition", " '$(" + BUILD_DIRECTORY_TAG + ")' == '' ");
+			var buildTagNotExists = new XAttribute("Condition", " '$(" + BUILD_DIRECTORY_TAG + ")' != '' ");
+			if (!String.IsNullOrEmpty(CurrentSettings.BuildPath))
+			{
+				commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(BUILD_DIRECTORY_TAG),
+					buildTagExists, CurrentSettings.BuildPath));
+			}
 			string assemblyName = commonPropertyGroup.Elements(defaultNamespace.GetName(ASSEMBLY_NAME_TAG)).Single().Value;
+			string outputPath = BuildOutputPath(assemblyName);
+			if (!String.IsNullOrEmpty(CurrentSettings.BuildPath))
+			{
+				commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(OUTPUT_PATH_TAG), CurrentSettings.BuildPrefix + outputPath)
+					, new XElement(defaultNamespace.GetName(INTERMEDIATE_OUTPUT_TAG), CurrentSettings.BuildPrefix + CurrentSettings.IntermediateOutputPath));
+			}
+			else
+			{
+				commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(OUTPUT_PATH_TAG)
+					, buildTagExists, CurrentSettings.BuildPrefix + outputPath)
+				, new XElement(defaultNamespace.GetName(OUTPUT_PATH_TAG)
+					, buildTagNotExists, CurrentSettings.DefaultBuildPrefix + outputPath)
+				, new XElement(defaultNamespace.GetName(INTERMEDIATE_OUTPUT_TAG)
+					, buildTagExists, CurrentSettings.BuildPrefix + CurrentSettings.IntermediateOutputPath)
+				, new XElement(defaultNamespace.GetName(INTERMEDIATE_OUTPUT_TAG)
+					, buildTagNotExists, CurrentSettings.DefaultBuildPrefix + CurrentSettings.IntermediateOutputPath));
+			}
+			return root.ToString();
+		}
+
+		private string BuildOutputPath(string assemblyName)
+		{
 			string outputPath;
 			if (assemblyName.EndsWith("Acceptance.Test", StringComparison.CurrentCultureIgnoreCase)
 			    || assemblyName.EndsWith("Acceptance.Tests", StringComparison.CurrentCultureIgnoreCase)
@@ -108,9 +144,7 @@ namespace VSProjectNormalizer
 			{
 				outputPath = CurrentSettings.BinOutputPath;
 			}
-			commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(OUTPUT_PATH_TAG), outputPath));
-			commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(INTERMEDIATE_OUTPUT_TAG), CurrentSettings.IntermediateOutputPath));
-			return root.ToString();
+			return outputPath;
 		}
 
 		protected void RemoveNodes(XContainer root, params string[] nodeNames)
