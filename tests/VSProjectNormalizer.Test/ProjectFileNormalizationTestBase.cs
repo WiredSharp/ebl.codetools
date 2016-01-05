@@ -9,8 +9,8 @@ namespace VSProjectNormalizer.Test
 	public abstract class ProjectFileNormalizationTestBase
 	{
 		protected VSProjectNormalizer.Settings Settings;
-		protected const string OUTPUT_PATH_TAG = "OutputPath";
-		protected const string INTERMEDIATE_OUTPUT_PATH = "IntermediateOutputPath";
+		internal const string OUTPUT_PATH_TAG = "OutputPath";
+		internal const string INTERMEDIATE_OUTPUT_PATH = "IntermediateOutputPath";
 		protected abstract string BuildPrefix { get; }
 		protected abstract string DefaultBuildPrefix { get; }
 		protected abstract VSProjectNormalizer.Settings NewSettings { get; }

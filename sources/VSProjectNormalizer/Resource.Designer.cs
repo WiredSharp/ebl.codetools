@@ -25,7 +25,7 @@ namespace VSProjectNormalizer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("$(SolutionDir)..\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string BUILD_DIR {
             get {
                 return ((string)(this["BUILD_DIR"]));
@@ -37,7 +37,7 @@ namespace VSProjectNormalizer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("$(BuildDir)$(SolutionName)\\$(Configuration)\\tests\\$(AssemblyName)")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string TEST_OUTPUT_PATH {
             get {
                 return ((string)(this["TEST_OUTPUT_PATH"]));
@@ -49,7 +49,7 @@ namespace VSProjectNormalizer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("$(BuildDir)$(SolutionName)\\$(Configuration)\\bin\\$(AssemblyName)")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string BIN_OUTPUT_PATH {
             get {
                 return ((string)(this["BIN_OUTPUT_PATH"]));
@@ -61,7 +61,7 @@ namespace VSProjectNormalizer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("$(BuildDir)$(SolutionName)\\$(Configuration)\\obj\\$(AssemblyName)")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string INTERMEDIATE_OUTPUT_PATH {
             get {
                 return ((string)(this["INTERMEDIATE_OUTPUT_PATH"]));
@@ -73,7 +73,7 @@ namespace VSProjectNormalizer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("$(BuildDir)$(SolutionName)\\$(Configuration)\\acceptance\\$(AssemblyName)")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ACCEPTANCE_TEST_OUTPUT_PATH {
             get {
                 return ((string)(this["ACCEPTANCE_TEST_OUTPUT_PATH"]));

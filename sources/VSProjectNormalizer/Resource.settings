@@ -3,19 +3,19 @@
   <Profiles />
   <Settings>
     <Setting Name="BUILD_DIR" Type="System.String" Scope="User">
-      <Value Profile="(Default)">$(SolutionDir)..\</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="TEST_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)">$(BuildDir)$(SolutionName)\$(Configuration)\tests\$(AssemblyName)</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="BIN_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)">$(BuildDir)$(SolutionName)\$(Configuration)\bin\$(AssemblyName)</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="INTERMEDIATE_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)">$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ACCEPTANCE_TEST_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)">$(BuildDir)$(SolutionName)\$(Configuration)\acceptance\$(AssemblyName)</Value>
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

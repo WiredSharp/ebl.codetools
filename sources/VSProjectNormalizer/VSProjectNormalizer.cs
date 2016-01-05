@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace VSProjectNormalizer
 {
 	public class VSProjectNormalizer
 	{
+		private const string CSHARP_PROJECT_TYPE = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}";
 		private const string OUTPUT_PATH_TAG = "OutputPath";
 		private const string BUILD_DIRECTORY_TAG = "BuildDir";
 		private const string ASSEMBLY_NAME_TAG = "AssemblyName";
@@ -110,50 +113,86 @@ namespace VSProjectNormalizer
 
 		public string Normalize(TextReader projectFileReader)
 		{
-			return Normalize(XElement.Load(projectFileReader));			
+			return Normalize(XDocument.Load(projectFileReader));			
 		}
 
 		public string Normalize(FileInfo projectFile)
 		{
-			return Normalize(XElement.Load(projectFile.FullName));
+			return Normalize(XDocument.Load(projectFile.FullName));
 		}
 
 		public string Normalize(string projectFileContent)
 		{
-			return Normalize(XElement.Parse(projectFileContent));
+			return Normalize(XDocument.Parse(projectFileContent));
 		}
 
-		private string Normalize(XElement root)
+		private string Normalize(XDocument document)
 		{
-			XNamespace defaultNamespace = root.GetDefaultNamespace();
-			RemoveNodes(root, OUTPUT_PATH_TAG, BUILD_DIRECTORY_TAG, INTERMEDIATE_OUTPUT_TAG);
-			XElement commonPropertyGroup = GetFirstCommonPropertyGroup(root);
-			var buildTagExists = new XAttribute("Condition", " '$(" + BUILD_DIRECTORY_TAG + ")' != '' ");
-			var buildTagNotExists = new XAttribute("Condition", " '$(" + BUILD_DIRECTORY_TAG + ")' == '' ");
-			if (!String.IsNullOrEmpty(CurrentSettings.BuildPath))
+			XElement root = document.Root;
+			if (root != null && HandleProjectFile(root))
 			{
-				commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(BUILD_DIRECTORY_TAG),
-					buildTagExists, CurrentSettings.BuildPath));
+				XNamespace defaultNamespace = root.GetDefaultNamespace();
+				RemoveNodes(root, OUTPUT_PATH_TAG, BUILD_DIRECTORY_TAG, INTERMEDIATE_OUTPUT_TAG);
+				XElement commonPropertyGroup = GetFirstCommonPropertyGroup(root);
+				var buildTagExists = new XAttribute("Condition", " '$(" + BUILD_DIRECTORY_TAG + ")' != '' ");
+				var buildTagNotExists = new XAttribute("Condition", " '$(" + BUILD_DIRECTORY_TAG + ")' == '' ");
+				if (!String.IsNullOrEmpty(CurrentSettings.BuildPath))
+				{
+					commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(BUILD_DIRECTORY_TAG),
+						buildTagExists, CurrentSettings.BuildPath));
+				}
+				string assemblyName = commonPropertyGroup.Elements(defaultNamespace.GetName(ASSEMBLY_NAME_TAG)).Single().Value;
+				string outputPath = BuildOutputPath(assemblyName);
+				if (!String.IsNullOrEmpty(CurrentSettings.BuildPath))
+				{
+					commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(OUTPUT_PATH_TAG), CurrentSettings.BuildPrefix + outputPath)
+						, new XElement(defaultNamespace.GetName(INTERMEDIATE_OUTPUT_TAG), CurrentSettings.BuildPrefix + CurrentSettings.IntermediateOutputPath));
+				}
+				else
+				{
+					commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(OUTPUT_PATH_TAG)
+						, buildTagExists, CurrentSettings.BuildPrefix + outputPath)
+						, new XElement(defaultNamespace.GetName(OUTPUT_PATH_TAG)
+							, buildTagNotExists, CurrentSettings.DefaultBuildPrefix + outputPath)
+						, new XElement(defaultNamespace.GetName(INTERMEDIATE_OUTPUT_TAG)
+							, buildTagExists, CurrentSettings.BuildPrefix + CurrentSettings.IntermediateOutputPath)
+						, new XElement(defaultNamespace.GetName(INTERMEDIATE_OUTPUT_TAG)
+							, buildTagNotExists, CurrentSettings.DefaultBuildPrefix + CurrentSettings.IntermediateOutputPath));
+				}
 			}
-			string assemblyName = commonPropertyGroup.Elements(defaultNamespace.GetName(ASSEMBLY_NAME_TAG)).Single().Value;
-			string outputPath = BuildOutputPath(assemblyName);
-			if (!String.IsNullOrEmpty(CurrentSettings.BuildPath))
+			return ToXml(document);
+		}
+
+		private static bool HandleProjectFile(XElement root)
+		{
+			string projectType = GetProjectType(root);
+			return projectType == null || projectType == CSHARP_PROJECT_TYPE;
+		}
+
+		private static string GetProjectType(XElement root)
+		{
+			XElement projectTypeNode =
+				root.Descendants(root.GetDefaultNamespace().GetName("ProjectTypeGuids")).FirstOrDefault();
+			return projectTypeNode != null ? projectTypeNode.Value : null;
+		}
+
+		private static string ToXml(XDocument document)
+		{
+			Encoding encoding;
+			try
 			{
-				commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(OUTPUT_PATH_TAG), CurrentSettings.BuildPrefix + outputPath)
-					, new XElement(defaultNamespace.GetName(INTERMEDIATE_OUTPUT_TAG), CurrentSettings.BuildPrefix + CurrentSettings.IntermediateOutputPath));
+				encoding = Encoding.GetEncoding(document.Declaration.Encoding);
 			}
-			else
+			catch
 			{
-				commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(OUTPUT_PATH_TAG)
-					, buildTagExists, CurrentSettings.BuildPrefix + outputPath)
-				, new XElement(defaultNamespace.GetName(OUTPUT_PATH_TAG)
-					, buildTagNotExists, CurrentSettings.DefaultBuildPrefix + outputPath)
-				, new XElement(defaultNamespace.GetName(INTERMEDIATE_OUTPUT_TAG)
-					, buildTagExists, CurrentSettings.BuildPrefix + CurrentSettings.IntermediateOutputPath)
-				, new XElement(defaultNamespace.GetName(INTERMEDIATE_OUTPUT_TAG)
-					, buildTagNotExists, CurrentSettings.DefaultBuildPrefix + CurrentSettings.IntermediateOutputPath));
+				encoding = Encoding.UTF8;
 			}
-			return root.ToString();
+			using (var writer = new StringWriterWithEncoding(encoding))
+			{
+				document.Save(writer);
+				writer.Flush();
+				return writer.ToString();
+			}
 		}
 
 		private string BuildOutputPath(string assemblyName)
@@ -201,6 +240,21 @@ namespace VSProjectNormalizer
 			return
 				 root.Elements().
 					  FirstOrDefault(node => !node.HasAttributes && node.Name.ToString().EndsWith("PropertyGroup"));
+		}
+
+		private class StringWriterWithEncoding : StringWriter
+		{
+			private readonly Encoding _encoding;
+
+			public StringWriterWithEncoding(Encoding encoding)
+			{
+				_encoding = encoding;
+			}
+
+			public override Encoding Encoding
+			{
+				get { return _encoding; }
+			}
 		}
 	}
 }
