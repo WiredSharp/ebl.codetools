@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Xml.Linq;
 using NetBike.XmlUnit.NUnitAdapter;
 using NUnit.Framework;
 
@@ -8,7 +7,7 @@ namespace VSProjectNormalizer.Test
 	[TestFixture]
 	public class ProjectFileNormalizationTest
 	{
-		protected VSProjectNormalizer.Settings Settings;
+		protected Settings Settings;
 
 		[SetUp]
 		public void Setup()
@@ -16,11 +15,11 @@ namespace VSProjectNormalizer.Test
 			Settings = NewSettings;
 		}
 
-		public VSProjectNormalizer.Settings NewSettings
+		public Settings NewSettings
 		{
 			get
 			{
-				return new VSProjectNormalizer.Settings()
+				return new Settings()
 				{
 					AcceptanceTestOutputPath = "ProjectFileNormalizationTest.AcceptanceTestOutputPath"
 					,BinOutputPath = "ProjectFileNormalizationTest.BinOutputPath"

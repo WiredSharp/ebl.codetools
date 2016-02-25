@@ -57,7 +57,11 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="ConsoleHelpers.cs" />
+    <Compile Include="Normalizers\CsharpProjectFileNormalizer.cs" />
+    <Compile Include="Normalizers\ProjectFileNormalizer.cs" />
+    <Compile Include="Normalizers\WebApplicationProjectFileNormalizer.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="VSProjectNormalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.Designer.cs">

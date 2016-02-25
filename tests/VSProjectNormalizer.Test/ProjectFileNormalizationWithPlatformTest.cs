@@ -18,11 +18,11 @@ namespace VSProjectNormalizer.Test
 			get { return DEFAULT_BUILD_PREFIX_WITH_PLATFORM; }
 		}
 
-		protected override VSProjectNormalizer.Settings NewSettings
+		protected override Settings NewSettings
 		{
 			get
 			{
-				return new VSProjectNormalizer.Settings()
+				return new Settings()
 				{
 					AcceptanceTestOutputPath = "ProjectFileNormalizationWithPlatformTest.AcceptanceTestOutputPath"
 					,BinOutputPath = "ProjectFileNormalizationWithPlatformTest.BinOutputPath"

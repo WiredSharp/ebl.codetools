@@ -74,7 +74,7 @@ namespace VSProjectNormalizer
 
 		private static VSProjectNormalizer NewNormalizer()
 		{
-			var normalizer = new VSProjectNormalizer(new VSProjectNormalizer.Settings()
+			var normalizer = new VSProjectNormalizer(new Settings()
 			{
 				TestOutputPath = Resource.Default.TEST_OUTPUT_PATH
 				,AcceptanceTestOutputPath = Resource.Default.ACCEPTANCE_TEST_OUTPUT_PATH
