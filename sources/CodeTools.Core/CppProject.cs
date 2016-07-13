@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -7,6 +9,7 @@ namespace CodeTools.Core
 {
 	public class CppProject : Project
 	{
+		private IEnumerable<PathLink> _items;
 		public string Version { get; private set; }
 
 		public string Name { get; private set; }
@@ -16,6 +19,49 @@ namespace CodeTools.Core
 			var project = new CppProject(projectPath);
 			project.Parse();
 			return project;
+		}
+
+		public IEnumerable<PathLink> Items
+		{
+			get
+			{
+				if (_items == null)
+				{
+					_items = ParseIncludes();
+				}
+				return _items;
+			}
+		}
+
+		private IEnumerable<PathLink> ParseIncludes()
+		{
+			if (System.IO.Path.GetExtension(Path) == ".vcxproj")
+			{
+				string projectPath = System.IO.Path.GetDirectoryName(Path);
+				XElement root = XElement.Parse(File.ReadAllText(Path));
+				IEnumerable<XElement> includedItems = FindInProject(root, "ClInclude")
+					.Union(FindInProject(root, "ClCompile"))
+					.Union(FindInProject(root, "ResourceCompile")).ToArray();
+				var items = new List<PathLink>();
+				foreach (XElement item in includedItems)
+				{
+					var path = item.Attribute("Include");
+					if (path != null && ! String.IsNullOrEmpty(path.Value))
+					{
+						items.Add(new PathLink(PathHelpers.Combine(projectPath, path.Value)));
+					}
+					else
+					{
+						Trace.TraceWarning("missing include path in project " + Name + " (" + Path + ") (" + item + ")");
+					}
+				}
+				return items;
+			}
+			else
+			{
+				Trace.TraceWarning(Path + ": not supported");
+				return new PathLink[0];
+			}
 		}
 
 		protected void Parse()

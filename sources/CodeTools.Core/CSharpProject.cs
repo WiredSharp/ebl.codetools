@@ -7,39 +7,6 @@ using System.Xml.Linq;
 
 namespace CodeTools.Core
 {
-	public class Project
-	{
-		protected const string ns = "http://schemas.microsoft.com/developer/msbuild/2003";
-
-		public PathLink Path { get; protected set; }
-		public Guid ProjectGuid { get; protected set; }
-
-		protected Project(string path)
-		{
-			if (String.IsNullOrEmpty(path)) throw new ArgumentException("path");
-			Path = new PathLink(path);
-		}
-
-		protected static IEnumerable<XElement> FindInProject(XContainer root, string localName, string xns = ns)
-		{
-			return root.Descendants(XName.Get(localName, xns));
-		}
-
-		protected string FindValueInProject(XContainer root, string localName)
-		{
-			XElement element = FindInProject(root, localName).FirstOrDefault();
-			if (element != null)
-			{
-				return element.Value;
-			}
-			else
-			{
-				Trace.TraceWarning(localName + " not found in " + Path);
-				return null;
-			}
-		}
-	}
-
 	public class CSharpProject : Project
 	{
 		public string TargetFrameworkVersion { get; private set; }
@@ -50,11 +17,45 @@ namespace CodeTools.Core
 
 		private static readonly Reference[] EMPTY_REFERENCES = new Reference[0];
 		private static readonly ProjectReference[] EMPTY_LOCAL_REFERENCES = new ProjectReference[0];
+		private IEnumerable<PathLink> _items;
+
 		public CSharpProject(string path)
 			:base(path)
 		{
 			LocalReferences = EMPTY_LOCAL_REFERENCES;
 			References = EMPTY_REFERENCES;
+		}
+
+		public IEnumerable<PathLink> Items
+		{
+			get
+			{
+				if (_items == null)
+				{
+					_items = ParseIncludes();
+				}
+				return _items;
+			}
+		}
+
+		private IEnumerable<PathLink> ParseIncludes()
+		{
+			XElement root = XElement.Parse(File.ReadAllText(Path));
+			string projectPath = System.IO.Path.GetDirectoryName(Path);
+			var items = new List<PathLink>();
+			foreach (XElement item in FindInProject(root, "Compile"))
+			{
+				var path = item.Attribute("Include");
+				if (path != null && !String.IsNullOrEmpty(path.Value))
+				{
+					items.Add(new PathLink(PathHelpers.Combine(projectPath, path.Value)));
+				}
+				else
+				{
+					Trace.TraceWarning("missing include path in project " + Path + " (" + item + ")");
+				}
+			}
+			return items;
 		}
 
 		protected void Parse()
