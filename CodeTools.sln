@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalyzer", "sources\CodeAnalyzer\CodeAnalyzer.csproj", "{B6CAB52E-6C20-4DDF-8B01-4EED15CC06FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalyzer", "src\CodeAnalyzer\CodeAnalyzer.csproj", "{B6CAB52E-6C20-4DDF-8B01-4EED15CC06FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSProjectNormalizer", "sources\VSProjectNormalizer\VSProjectNormalizer.csproj", "{55EB2595-20AB-4731-9A81-65A0427E4068}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSProjectNormalizer", "src\VSProjectNormalizer\VSProjectNormalizer.csproj", "{55EB2595-20AB-4731-9A81-65A0427E4068}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTools.Core", "sources\CodeTools.Core\CodeTools.Core.csproj", "{D993A555-BDC9-4514-B121-3699B7569397}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTools.Core", "src\CodeTools.Core\CodeTools.Core.csproj", "{D993A555-BDC9-4514-B121-3699B7569397}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E9E0889A-7534-4CB0-A2A6-364DB8DF7EA0}"
 	ProjectSection(SolutionItems) = preProject
