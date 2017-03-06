@@ -18,11 +18,7 @@ namespace VSProjectNormalizer.Normalizers
 			var buildTagNotExists = new XAttribute("Condition", " '$(" + BUILD_DIRECTORY_TAG + ")' == '' ");
 			if (!String.IsNullOrEmpty(CurrentSettings.BuildPath))
 			{
-				commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(BUILD_DIRECTORY_TAG),
-					buildTagExists, CurrentSettings.BuildPath));
-			}
-			if (!String.IsNullOrEmpty(CurrentSettings.BuildPath))
-			{
+				commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(BUILD_DIRECTORY_TAG), buildTagExists, CurrentSettings.BuildPath));
 				commonPropertyGroup.Add(new XElement(defaultNamespace.GetName(INTERMEDIATE_OUTPUT_TAG), CurrentSettings.BuildPrefix + CurrentSettings.IntermediateOutputPath));
 			}
 			else

@@ -67,7 +67,7 @@ namespace VSProjectNormalizer
 		private static void ShowHelp()
 		{
 			var name = Assembly.GetEntryAssembly().GetName().Name;
-			Console.WriteLine("Visual Studio project file converter v{0} (c) 2011 Natixis AM", Assembly.GetExecutingAssembly().GetName().Version);
+			Console.WriteLine("Visual Studio project file converter v{0} (c) 2016 OFI AM", Assembly.GetExecutingAssembly().GetName().Version);
 			Console.WriteLine(name + " <projectfile.csproj> : convert specified project file");
 			Console.WriteLine(name + " <solutionfile.sln> : convert all project files in solution");
 		}
@@ -81,6 +81,7 @@ namespace VSProjectNormalizer
 				,BinOutputPath = Resource.Default.BIN_OUTPUT_PATH
 				,IntermediateOutputPath = Resource.Default.INTERMEDIATE_OUTPUT_PATH
 				,BuildPath = Resource.Default.BUILD_DIR
+                ,UsePlatform = Resource.Default.USE_PLATFORM
 			});
 			return normalizer;
 		}

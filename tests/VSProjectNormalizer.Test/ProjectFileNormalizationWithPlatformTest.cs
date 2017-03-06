@@ -1,37 +1,46 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+using NUnit.Framework;
 
 namespace VSProjectNormalizer.Test
 {
 	[TestFixture]
 	public class ProjectFileNormalizationWithPlatformTest : ProjectFileNormalizationTestBase
 	{
-		private const string BUILD_PREFIX_WITH_PLATFORM = @"$(BuildDir)$(SolutionName)\$(Configuration).$(Platform)\";
-		private const string DEFAULT_BUILD_PREFIX_WITH_PLATFORM = @"$(SolutionDir)$(Configuration).$(Platform)\";
+		private const string BUILD_PREFIX = @"$(BuildDir)$(SolutionName)\$(Configuration)\";
+		private const string DEFAULT_BUILD_PREFIX = @"$(SolutionDir)$(Configuration)\";
 
-		protected override string BuildPrefix
-		{
-			get { return BUILD_PREFIX_WITH_PLATFORM; }
-		}
+		protected override string BuildPrefix => BUILD_PREFIX;
 
-		protected override string DefaultBuildPrefix
-		{
-			get { return DEFAULT_BUILD_PREFIX_WITH_PLATFORM; }
-		}
+	    protected override string DefaultBuildPrefix => DEFAULT_BUILD_PREFIX;
 
-		protected override Settings NewSettings
-		{
-			get
-			{
-				return new Settings()
-				{
-					AcceptanceTestOutputPath = "ProjectFileNormalizationWithPlatformTest.AcceptanceTestOutputPath"
-					,BinOutputPath = "ProjectFileNormalizationWithPlatformTest.BinOutputPath"
-					,BuildPath = "ProjectFileNormalizationWithPlatformTest.BuildPath"
-					,IntermediateOutputPath = "ProjectFileNormalizationWithPlatformTest.IntermediateOutputPath"
-					,TestOutputPath = "ProjectFileNormalizationWithPlatformTest.TestOutputPath"
-					,UsePlatform = true
-				};
-			}
-		}
-	}
+	    protected override Settings NewSettings => new Settings()
+		                                           {
+		                                               UsePlatform = true
+		                                               ,BuildPath = "ProjectFileNormalizationWithPlatformTest.BuildPath"
+		                                           };
+
+        [Test]
+        public void outputpath_ends_with_platform_tag(
+            [Values(@"playground\regular.csproj.xml"
+                , @"playground\test.csproj.xml"
+                , @"playground\acceptance.csproj.xml")] string projectFile)
+        {
+            XElement root = Normalize(projectFile);
+            IEnumerable<XElement> matchingNodes = TestHelpers.FindNodes(root, "OutputPath");
+            Assert.IsTrue(matchingNodes.All(n => n.Value.EndsWith("$(Platform)")), "all output path should end with $Platform tag");
+        }
+
+        [Test]
+        public void intermediate_outputpath_ends_with_platform_tag(
+            [Values(@"playground\regular.csproj.xml"
+                , @"playground\test.csproj.xml"
+                , @"playground\acceptance.csproj.xml")] string projectFile)
+        {
+            XElement root = Normalize(projectFile);
+            IEnumerable<XElement> matchingNodes = TestHelpers.FindNodes(root, "IntermediateOutputPath");
+            Assert.IsTrue(matchingNodes.All(n => n.Value.EndsWith("$(Platform)")), "all intermediate output path should end with $Platform tag");
+        }
+    }
 }

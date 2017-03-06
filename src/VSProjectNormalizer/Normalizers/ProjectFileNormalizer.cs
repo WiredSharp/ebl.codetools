@@ -16,7 +16,7 @@ namespace VSProjectNormalizer.Normalizers
 
 		protected ProjectFileNormalizer(Settings settings)
 		{
-			if (settings == null) throw new ArgumentNullException("settings");
+			if (settings == null) throw new ArgumentNullException(nameof(settings));
 			CurrentSettings = settings;
 		}
 
@@ -45,7 +45,7 @@ namespace VSProjectNormalizer.Normalizers
 
 		protected void RemoveNodes(XContainer root, params string[] nodeNames)
 		{
-			if (nodeNames == null) throw new ArgumentNullException("nodeNames");
+			if (nodeNames == null) throw new ArgumentNullException(nameof(nodeNames));
 			if (nodeNames.Length == 0) return;
 			var toRemove = new List<XElement>();
 			foreach (

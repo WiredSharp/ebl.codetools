@@ -35,7 +35,7 @@ namespace VSProjectNormalizer.Test
 		{
 			const string projectFile = @"playground\regular.csproj.xml";
 			XElement root = Normalize(projectFile);
-			AssertIsUniqueAndEqualsTo(root, OUTPUT_PATH_TAG, BuildPrefix  + Settings.BinOutputPath);
+		    TestHelpers.AssertIsUniqueAndEqualsTo(root, OUTPUT_PATH_TAG, BuildPrefix  + Settings.BinOutputPath);
 		}
 
 		[Test]
@@ -44,7 +44,7 @@ namespace VSProjectNormalizer.Test
 			const string projectFile = @"playground\regular.csproj.xml";
 			Settings.BuildPath = null;
 			XElement root = Normalize(projectFile);
-			AssertEqualsTo(root, OUTPUT_PATH_TAG, DefaultBuildPrefix + Settings.BinOutputPath);
+		    TestHelpers.AssertEqualsTo(root, OUTPUT_PATH_TAG, DefaultBuildPrefix + Settings.BinOutputPath);
 		}
 
 		[Test]
@@ -52,7 +52,7 @@ namespace VSProjectNormalizer.Test
 		{
 			const string projectFile = @"playground\regular.csproj.xml";
 			XElement root = Normalize(projectFile);
-			AssertIsUniqueAndEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, BuildPrefix + Settings.IntermediateOutputPath);
+		    TestHelpers.AssertIsUniqueAndEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, BuildPrefix + Settings.IntermediateOutputPath);
 		}
 
 		[Test]
@@ -61,7 +61,7 @@ namespace VSProjectNormalizer.Test
 			const string projectFile = @"playground\regular.csproj.xml";
 			Settings.BuildPath = null;
 			XElement root = Normalize(projectFile);
-			AssertEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, DefaultBuildPrefix + Settings.IntermediateOutputPath);
+		    TestHelpers.AssertEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, DefaultBuildPrefix + Settings.IntermediateOutputPath);
 		}
 
 		[Test]
@@ -69,7 +69,7 @@ namespace VSProjectNormalizer.Test
 		{
 			const string projectFile = @"playground\test.csproj.xml";
 			XElement root = Normalize(projectFile);
-			AssertIsUniqueAndEqualsTo(root, OUTPUT_PATH_TAG, BuildPrefix + Settings.TestOutputPath);
+		    TestHelpers.AssertIsUniqueAndEqualsTo(root, OUTPUT_PATH_TAG, BuildPrefix + Settings.TestOutputPath);
 		}
 
 		[Test]
@@ -78,7 +78,7 @@ namespace VSProjectNormalizer.Test
 			const string projectFile = @"playground\test.csproj.xml";
 			Settings.BuildPath = null;
 			XElement root = Normalize(projectFile);
-			AssertEqualsTo(root, OUTPUT_PATH_TAG, DefaultBuildPrefix + Settings.TestOutputPath);
+		    TestHelpers.AssertEqualsTo(root, OUTPUT_PATH_TAG, DefaultBuildPrefix + Settings.TestOutputPath);
 		}
 
 		[Test]
@@ -86,7 +86,7 @@ namespace VSProjectNormalizer.Test
 		{
 			const string projectFile = @"playground\test.csproj.xml";
 			XElement root = Normalize(projectFile);
-			AssertIsUniqueAndEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, BuildPrefix + Settings.IntermediateOutputPath);
+		    TestHelpers.AssertIsUniqueAndEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, BuildPrefix + Settings.IntermediateOutputPath);
 		}
 
 		[Test]
@@ -95,7 +95,7 @@ namespace VSProjectNormalizer.Test
 			const string projectFile = @"playground\test.csproj.xml";
 			Settings.BuildPath = null;
 			XElement root = Normalize(projectFile);
-			AssertEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, DefaultBuildPrefix + Settings.IntermediateOutputPath);
+		    TestHelpers.AssertEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, DefaultBuildPrefix + Settings.IntermediateOutputPath);
 		}
 
 		[Test]
@@ -103,7 +103,7 @@ namespace VSProjectNormalizer.Test
 		{
 			const string projectFile = @"playground\acceptance.csproj.xml";
 			XElement root = Normalize(projectFile);
-			AssertIsUniqueAndEqualsTo(root, OUTPUT_PATH_TAG, BuildPrefix + Settings.AcceptanceTestOutputPath);
+		    TestHelpers.AssertIsUniqueAndEqualsTo(root, OUTPUT_PATH_TAG, BuildPrefix + Settings.AcceptanceTestOutputPath);
 		}
 
 		[Test]
@@ -112,7 +112,7 @@ namespace VSProjectNormalizer.Test
 			const string projectFile = @"playground\acceptance.csproj.xml";
 			Settings.BuildPath = null;
 			XElement root = Normalize(projectFile);
-			AssertEqualsTo(root, OUTPUT_PATH_TAG, DefaultBuildPrefix + Settings.AcceptanceTestOutputPath);
+		    TestHelpers.AssertEqualsTo(root, OUTPUT_PATH_TAG, DefaultBuildPrefix + Settings.AcceptanceTestOutputPath);
 		}
 
 		[Test]
@@ -120,7 +120,7 @@ namespace VSProjectNormalizer.Test
 		{
 			const string projectFile = @"playground\acceptance.csproj.xml";
 			XElement root = Normalize(projectFile);
-			AssertIsUniqueAndEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, BuildPrefix + Settings.IntermediateOutputPath);
+		    TestHelpers.AssertIsUniqueAndEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, BuildPrefix + Settings.IntermediateOutputPath);
 		}
 
 		[Test]
@@ -129,17 +129,17 @@ namespace VSProjectNormalizer.Test
 			const string projectFile = @"playground\acceptance.csproj.xml";
 			Settings.BuildPath = null;
 			XElement root = Normalize(projectFile);
-			AssertEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, DefaultBuildPrefix + Settings.IntermediateOutputPath);
+		    TestHelpers.AssertEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, DefaultBuildPrefix + Settings.IntermediateOutputPath);
 		}
 
-		[Test]
+        [Test]
 		public void build_dir_property_is_added_and_unique_if_builddir_set(
 			[Values(@"playground\regular.csproj.xml"
 				, @"playground\test.csproj.xml"
 				, @"playground\acceptance.csproj.xml")] string projectFile)
 		{
 			XElement root = Normalize(projectFile);
-			AssertIsUniqueAndEqualsTo(root, "BuildDir", Settings.BuildPath);
+		    TestHelpers.AssertIsUniqueAndEqualsTo(root, "BuildDir", Settings.BuildPath);
 		}
 
 		[Test]
@@ -150,40 +150,12 @@ namespace VSProjectNormalizer.Test
 		{
 			Settings.BuildPath = null;
 			XElement root = Normalize(projectFile);
-			Assert.IsFalse(Enumerable.Any<XElement>(FindNodes(root, "BuildDir")), "buildDir element should not have been set");
+			Assert.IsFalse(TestHelpers.FindNodes(root, "BuildDir").Any(), "buildDir element should not have been set");
 		}
 
-		protected void AssertIsUniqueAndEqualsTo(XElement root, string localName, string expectedValue)
-		{
-			IEnumerable<XElement> matchingNodes = FindNodes(root, localName);
-			Assert.IsNotNull(matchingNodes, "no " + localName + " inserted");
-			Assert.AreEqual(1, matchingNodes.Count(), "only one " + localName + " node should remain");
-			Assert.AreEqual(expectedValue, matchingNodes.First().Value, "unexpected value for " + localName);
-		}
-
-		protected void AssertEqualsTo(XElement root, string localName, string expectedValue)
-		{
-			IEnumerable<XElement> matchingNodes = FindNodes(root, localName);
-			Assert.IsNotNull(matchingNodes, "no " + localName + " inserted");
-			Assert.IsTrue(matchingNodes.Any(n => n.Value == expectedValue), "unexpected value for " + localName);
-		}
-
-		protected static IEnumerable<XElement> FindNodes(XElement root, string localName)
-		{
-			XNamespace defaultNamespace = root.GetDefaultNamespace();
-			var outputPathNodes = root.Descendants(defaultNamespace.GetName(localName));
-			return outputPathNodes;
-		}
-
-		protected XElement Normalize(string projectFile)
-		{
-			var normalizer = new VSProjectNormalizer(Settings);
-			string normalized = normalizer.Normalize(new FileInfo(projectFile));
-			File.WriteAllText(
-				Path.Combine(Path.GetDirectoryName(projectFile), Path.GetFileNameWithoutExtension(projectFile)) + ".normalized.xml",
-				normalized);
-			XElement root = XElement.Parse(normalized);
-			return root;
-		}
+        protected XElement Normalize(string projectFile)
+        {
+            return TestHelpers.Normalize(new FileInfo(projectFile), Settings);
+        }
 	}
 }
