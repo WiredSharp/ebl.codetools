@@ -51,12 +51,12 @@ namespace CodeTools.Core
 					}
 					try
 					{
-						cSharpProjects.Add(projectName, CSharpProject.Parse(projectPath));
+						cSharpProjects.Add(projectName, CSharpProject.Parse(new FileInfo(projectPath)));
 					}
 					catch (Exception ex)
 					{
 						Trace.TraceError("parsing '" + file + "' : " + projectName + ": " + ex.Message + " (" + projectPath + ")");
-						cSharpProjects.Add(projectName, new CSharpProject(projectPath));
+						cSharpProjects.Add(projectName, new CSharpProject(new FileInfo(projectPath)));
 					}
 				}
 				else if (line.StartsWith("Microsoft Visual Studio Solution File"))
@@ -76,12 +76,12 @@ namespace CodeTools.Core
 					}
 					try
 					{
-						cppProjects.Add(projectName, CppProject.Parse(projectPath));
+						cppProjects.Add(projectName, CppProject.Parse(new FileInfo(projectPath)));
 					}
 					catch (Exception ex)
 					{
 						Trace.TraceError("parsing '" + file + "' : " + projectName + ": " + ex.Message + " (" + projectPath + ")");
-						cppProjects.Add(projectName, new CppProject(projectPath));
+						cppProjects.Add(projectName, new CppProject(new FileInfo(projectPath)));
 					}
 				}
 				else

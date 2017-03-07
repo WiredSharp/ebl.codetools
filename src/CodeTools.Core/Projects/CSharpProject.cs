@@ -19,7 +19,7 @@ namespace CodeTools.Core.Projects
 		private static readonly ProjectReference[] EMPTY_LOCAL_REFERENCES = new ProjectReference[0];
 		private IEnumerable<PathLink> _items;
 
-		public CSharpProject(string path)
+		public CSharpProject(FileInfo path)
 			:base(path)
 		{
 			LocalReferences = EMPTY_LOCAL_REFERENCES;
@@ -46,7 +46,7 @@ namespace CodeTools.Core.Projects
 			foreach (XElement item in FindInProject(root, "Compile"))
 			{
 				var path = item.Attribute("Include");
-				if (path != null && !String.IsNullOrEmpty(path.Value))
+				if (!String.IsNullOrEmpty(path?.Value))
 				{
 					items.Add(new PathLink(PathHelpers.Combine(projectPath, path.Value)));
 				}
@@ -63,7 +63,7 @@ namespace CodeTools.Core.Projects
 			XElement root = XElement.Parse(File.ReadAllText(Path));
 			var references = new List<Reference>();
 			string folder = System.IO.Path.GetDirectoryName(Path);
-			FindValueInProject(root, "TargetFrameworkVersion");
+			TargetFrameworkVersion = FindValueInProject(root, "TargetFrameworkVersion");
 			ProjectGuid = Guid.Parse(FindInProject(root, "ProjectGuid").First().Value);
 			foreach (XElement xref in FindInProject(root, "Reference"))
 			{
@@ -85,7 +85,7 @@ namespace CodeTools.Core.Projects
 			LocalReferences = localReferences.ToArray();
 		}
 
-		public static CSharpProject Parse(string projectPath)
+		public static CSharpProject Parse(FileInfo projectPath)
 		{
 			var project = new CSharpProject(projectPath);
 			project.Parse();

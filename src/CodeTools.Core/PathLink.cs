@@ -5,10 +5,17 @@ namespace CodeTools.Core
 {
 	public struct PathLink
     {
-        public readonly string Path;
+        public readonly FileInfo Path;
 
-        public bool Valid { get { return !String.IsNullOrEmpty(Path) && File.Exists(Path); } }
+        public bool Valid => Path != null && Path.Exists;
+
         public PathLink(string path)
+            :this(new FileInfo(path))
+        {
+            
+        }
+
+        public PathLink(FileInfo path)
             : this()
         {
             Path = path;
@@ -16,11 +23,11 @@ namespace CodeTools.Core
 
         public static implicit operator string(PathLink path)
         {
-            return path.Path;
+            return path.Path?.FullName;
         }
         public override string ToString()
         {
-            return Path;
+            return Path?.FullName ?? String.Empty;
         }
     }
 }

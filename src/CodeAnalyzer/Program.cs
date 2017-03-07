@@ -73,15 +73,15 @@ namespace CodeAnalyzer
 		{
 			return
 				solution.CSharpProjects.Values.SelectMany(csp => csp.Items)
-					.Select(item => item.Path)
-					.Union(solution.CppProjects.Values.SelectMany(csp => csp.Items).Select(item => item.Path))
+					.Select(item => item.ToString())
+					.Union(solution.CppProjects.Values.SelectMany(csp => csp.Items).Select(item => item.ToString()))
 					.Distinct()
 					.OrderBy(n => n);
 		}
 
 		private static IEnumerable<string> GetProjectReferences(Solution solution)
 		{
-			return solution.CSharpProjects.SelectMany(csp => GetProjectReferences(csp.Value)).Select(r => r.Path.Path).OrderBy(n => n).Distinct();
+			return solution.CSharpProjects.SelectMany(csp => GetProjectReferences(csp.Value)).Select(r => r.Path.ToString()).OrderBy(n => n).Distinct();
 		}
 
 		private static IEnumerable<Reference> GetProjectReferences(CSharpProject csProject)
@@ -91,7 +91,7 @@ namespace CodeAnalyzer
 
 		private static IEnumerable<string> GetProjectPathes(Solution s)
 		{
-			return s.CSharpProjects.Select(csp => csp.Value.Path.Path).Union(s.CppProjects.Select(cp => cp.Value.Path.Path)).OrderBy(n => n);
+			return s.CSharpProjects.Select(csp => csp.Value.Path.ToString()).Union(s.CppProjects.Select(cp => cp.Value.Path.ToString())).OrderBy(n => n);
 		}
 
 		private static void BuildGraphVizDiagram(string outputDiagramFile, params Solution[] solutions)

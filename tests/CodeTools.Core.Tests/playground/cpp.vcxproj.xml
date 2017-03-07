@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>OFIUserProject</ProjectName>
+    <ProjectGuid>{F5E59440-FA2B-453F-807E-DD452C2C6422}</ProjectGuid>
+    <RootNamespace>OFIUserProject</RootNamespace>
+    <Keyword>MFCDLLProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfAtl>false</UseOfAtl>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)shared\common-sophis.props" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Midl>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Midl>
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\src;$(FI_TOOLKIT)\SphReportingInc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_OFIUSERPROJECT_EXPORT_;_VC80_UPGRADE=0x0710;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalOptions>-Zm239 %(AdditionalOptions)</AdditionalOptions>
+      <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Sophis.lib;SophisAPI.lib;SophisAccounting.lib;SophisAssetManagement.lib;SophisAssetManagementGUI.lib;SophisBackOfficeKernel.lib;SophisBackOfficeOTC.lib;SophisBasicData.lib;SophisBasicTradeAllocator.lib;SophisCB.lib;SophisCollateral.lib;SophisCollateralGUI.lib;SophisEventManager.lib;SophisDBC.lib;SophisAMTools.lib;SophisFinance.lib;SophisFundBase.lib;SophisFundBaseGUI.lib;SophisInterface.lib;SophisLimits.lib;SophisPerfAnalysis.lib;SophisPerfAnalysisBase.lib;SophisPerfAnalysisGUI.lib;SophisPortfolio.lib;SophisPortfolioGUI.lib;SophisSpecific.lib;SophisSpecificGUI.lib;SophisTools.lib;SophisTradeAllocation.lib;SophisTradeAllocationGUI.lib;SophisBackOfficeKernelGUI.lib;SophisBasicDataGUI.lib;SophisGUIComponents.lib;Sophis.Core.lib;SophisReporting.lib;SophisModelPortfolio.lib;SophisExecution.lib</AdditionalDependencies>
+      <ModuleDefinitionFile>OfiUserProject.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_DEBUG_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level2</WarningLevel>
+    </ClCompile>
+    <Link>
+      <Profile>true</Profile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="resource\bitmap1.bmp" />
+    <None Include="resource\bm1.bmp" />
+    <None Include="resource\bm2_open.bmp" />
+    <None Include="resource\bmp00001.bmp" />
+    <None Include="OFIUserProject.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\ADICutOffManager.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\ADISettlementManager.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\InstrumentHelper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\GisementsHelper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\KernelHelper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\LogHelper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\MailHelper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\OFIFolioHelper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\OFIGlobalFunctions.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\OFITCNSwapHelper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\OrderHelper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\RatingManager.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\SqlUtility.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\StringTokenizer.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\FundFieldHelper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\FundHelper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\TimeUtil.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\Timezone.cpp">
+      <CompileAsManaged>true</CompileAsManaged>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)OFI_SharedCPP\OfiTiersHelper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\ADIBloombergConnector.cpp" />
+    <ClCompile Include="src\ADIBloombergData.cpp" />
+    <ClCompile Include="src\BBUtility.cpp" />
+    <ClCompile Include="src\DlgBloomberg.cpp" />
+    <ClCompile Include="src\DlgGroupAnalyseCredit.cpp" />
+    <ClCompile Include="src\DlgLoanAndRepoTransaction.cpp" />
+    <ClCompile Include="src\DlgSwapTransaction.cpp" />
+    <ClCompile Include="src\DlgTransactionBestExe.cpp" />
+    <ClCompile Include="src\DlgTransactionInfosConvertibles.cpp" />
+    <ClCompile Include="src\DOBIndicators.cpp" />
+    <ClCompile Include="src\entrypoint.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\OFICriterium_AssetFxCcy.cpp" />
+    <ClCompile Include="src\OFICriterium_AssetFxCcyWithoutCrossFx.cpp" />
+    <ClCompile Include="src\OFICriterium_PendingTickets.cpp" />
+    <ClCompile Include="src\OFIExecutionsAggregator.cpp" />
+    <ClCompile Include="src\gui\GridCtrl.cpp" />
+    <ClCompile Include="src\gui\GridDropTarget.cpp" />
+    <ClCompile Include="src\gui\InPlaceEdit.cpp" />
+    <ClCompile Include="src\gui\InPlaceList.cpp" />
+    <ClCompile Include="src\gui\TitleTip.cpp" />
+    <ClCompile Include="src\IRSwapTradeBlotter.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\OFIColumn_InstrumentNotionalMaturity.cpp" />
+    <ClCompile Include="src\OFIColumn_MaturityYear.cpp" />
+    <ClCompile Include="src\OFIColumn_MaturityYearAllIncl.cpp" />
+    <ClCompile Include="src\OFICriteriumInstrumentNotionalMaturity.cpp" />
+    <ClCompile Include="src\OFICriteriumInstrumentReference.cpp" />
+    <ClCompile Include="src\OFICriteriumTransparancy.cpp" />
+    <ClCompile Include="src\OFICriteriumUnderlyingCurrency.cpp" />
+    <ClCompile Include="src\OFIExternalFundModel.cpp" />
+    <ClCompile Include="src\OFIMarkPnLColumn.cpp" />
+    <ClCompile Include="src\OFIMarkPnLPricing.cpp" />
+    <ClCompile Include="src\OFIModellingColumn.cpp" />
+    <ClCompile Include="src\OFI_EventHandler.cpp" />
+    <ClCompile Include="src\ReportHelper.cpp" />
+    <ClCompile Include="src\stdafx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\tinyxml2.cpp" />
+    <ClCompile Include="src\Utility.cpp" />
+    <ClCompile Include="src\ADIDayCountBasis.cpp" />
+    <ClCompile Include="src\ADICriterium_Strategy.cpp" />
+    <ClCompile Include="src\ADICriteriumInstrumentName.cpp" />
+    <ClCompile Include="src\Criterium_ABS.cpp" />
+    <ClCompile Include="src\OFI_ChineCriterium.cpp" />
+    <ClCompile Include="src\OFI_DispoCriterium.cpp" />
+    <ClCompile Include="src\OFICriterium_CashEquivalent.cpp" />
+    <ClCompile Include="src\OFICriterium_DeltaAllAssets.cpp" />
+    <ClCompile Include="src\OFICriterium_HasCountryCurrency.cpp" />
+    <ClCompile Include="src\OFICriterium_OpenClosedPosition.cpp" />
+    <ClCompile Include="src\OFICriterium_PortfolioManager.cpp" />
+    <ClCompile Include="src\OFICriterium_RiskArb.cpp" />
+    <ClCompile Include="src\OFICriterium_UltimateParent.cpp" />
+    <ClCompile Include="src\OFICriteriumCurrency.cpp" />
+    <ClCompile Include="src\OFICriteriumFund.cpp" />
+    <ClCompile Include="src\OFICriteriumInstrument.cpp" />
+    <ClCompile Include="src\OFICriteriumIssuerSeniorityCreditEvent.cpp" />
+    <ClCompile Include="src\OFICriteriumLinkedAllotment.cpp" />
+    <ClCompile Include="src\OFICriteriumMarketCap.cpp" />
+    <ClCompile Include="src\OFICriteriumTickerCorp.cpp" />
+    <ClCompile Include="src\OFICriteriumTradeId.cpp" />
+    <ClCompile Include="src\OFIIssuerCriterium.cpp" />
+    <ClCompile Include="src\OFISensibiliteCriterium.cpp" />
+    <ClCompile Include="src\OFISpreadCriterium.cpp" />
+    <ClCompile Include="src\interpreteur\AnalyseurGenerique.cpp" />
+    <ClCompile Include="src\interpreteur\AnalyseurLexical.cpp" />
+    <ClCompile Include="src\interpreteur\CSRCommonExpression.cpp" />
+    <ClCompile Include="src\FP.cpp" />
+    <ClCompile Include="src\interpreteur\Noeud.cpp" />
+    <ClCompile Include="src\OFIPensionManager.cpp" />
+    <ClCompile Include="src\OFIStrategyHelper.cpp" />
+    <ClCompile Include="src\OFIStockLoan.cpp" />
+    <ClCompile Include="src\OFIIssuer.cpp" />
+    <ClCompile Include="src\ADIGlobalFunction.cpp" />
+    <ClCompile Include="src\ADIInstrumentOverloader.cpp" />
+    <ClCompile Include="src\ADIInstrumentOverloader_Helper.cpp" />
+    <ClCompile Include="src\OFICreditDefaultSwap.cpp" />
+    <ClCompile Include="src\ADIBond.cpp" />
+    <ClCompile Include="src\DlgBond.cpp" />
+    <ClCompile Include="src\OFIOISInterestRate.cpp" />
+    <ClCompile Include="src\ADICustomMenu.cpp" />
+    <ClCompile Include="src\gui\mfc\ADITreeDialog.cpp" />
+    <ClCompile Include="src\DlgIssuer.cpp" />
+    <ClCompile Include="src\DlgPortfolio.cpp" />
+    <ClCompile Include="src\DlgFundTransaction.cpp" />
+    <ClCompile Include="src\DlgGlobalTransaction.cpp" />
+    <ClCompile Include="src\DlgIrlPreview.cpp" />
+    <ClCompile Include="src\DlgTransaction.cpp" />
+    <ClCompile Include="src\DlgTransactionChampsLibres.cpp" />
+    <ClCompile Include="src\DlgTransactionSpecificTcnSwap.cpp" />
+    <ClCompile Include="src\OFITCNSwapScenario.cpp" />
+    <ClCompile Include="src\DlgDecisionFO.cpp" />
+    <ClCompile Include="src\OFIDecisionContextMenu.cpp" />
+    <ClCompile Include="src\DlgMOExternalRef.cpp" />
+    <ClCompile Include="src\OFIMOExternalRefContextMenu.cpp" />
+    <ClCompile Include="src\ADIColumn_Base.cpp" />
+    <ClCompile Include="src\ADIColumn_Cache.cpp" />
+    <ClCompile Include="src\ADIColumn_InstrumentDescription.cpp" />
+    <ClCompile Include="src\ADIColumn_State.cpp" />
+    <ClCompile Include="src\OFICollateralColumn.cpp" />
+    <ClCompile Include="src\OFIColumn_Benchmark.cpp" />
+    <ClCompile Include="src\OFIColumn_DureeDeVie.cpp" />
+    <ClCompile Include="src\OFIColumn_Engagement.cpp" />
+    <ClCompile Include="src\OFIColumn_EngagementSolvency.cpp" />
+    <ClCompile Include="src\OFIColumn_Issuer.cpp" />
+    <ClCompile Include="src\OFIColumn_LevierAMF.cpp" />
+    <ClCompile Include="src\OFIColumn_Rating.cpp" />
+    <ClCompile Include="src\OFIColumn_Spread.cpp" />
+    <ClCompile Include="src\OFIColumnHelper.cpp" />
+    <ClCompile Include="src\FuturesTauxGisement.cpp" />
+    <ClCompile Include="src\DlgOFIExtraction.cpp" />
+    <ClCompile Include="src\OFIExtractionScenario.cpp" />
+    <ClCompile Include="src\ADICutOffScenario.cpp" />
+    <ClCompile Include="src\DlgCutOff.cpp" />
+    <ClCompile Include="src\MOCutOffLib.cpp" />
+    <ClCompile Include="src\ADIImportT0Scenario.cpp" />
+    <ClCompile Include="src\Dialogt0detail.cpp" />
+    <ClCompile Include="src\DlgImportT0.cpp" />
+    <ClCompile Include="src\T0Parser.cpp" />
+    <ClCompile Include="src\T0ParserLine.cpp" />
+    <ClCompile Include="src\T0Value.cpp" />
+    <ClCompile Include="src\DlgModifDateValCommMvt.cpp" />
+    <ClCompile Include="src\OFIModifDateValCommMvtScenario.cpp" />
+    <ClCompile Include="src\MoExportQuickLaunchScenario.cpp" />
+    <ClCompile Include="src\DlgOFIThirdPartyAutorisation.cpp" />
+    <ClCompile Include="src\OFIThirdPartyAutorisationScenario.cpp" />
+    <ClCompile Include="src\BondDetailScenario.cpp" />
+    <ClCompile Include="src\DlgBondDetail.cpp" />
+    <ClCompile Include="src\DlgCombinedDeals.cpp" />
+    <ClCompile Include="src\OFICombinedScenario.cpp" />
+    <ClCompile Include="src\DlgTCNMultiSouche.cpp" />
+    <ClCompile Include="src\OFIScenario_TransactionPrint.cpp" />
+    <ClCompile Include="src\ADICreditRisk.cpp" />
+    <ClCompile Include="src\ADIDeformedMarketData.cpp" />
+    <ClCompile Include="src\ADIMarketData.cpp" />
+    <ClCompile Include="src\ADIMarketDataOverloader.cpp" />
+    <ClCompile Include="src\OFIFundIndicators.cpp" />
+    <ClCompile Include="src\OFIPortfolioContextMenu.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\ADICutOffManager.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\ADISettlementManager.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\FundFieldHelper.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\FundHelper.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\GisementsHelper.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\InstrumentHelper.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\KernelHelper.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\LogHelper.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\MailHelper.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\ReportHelper.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\OFIFolioHelper.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\OFIGlobalFunctions.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\OFITCNSwapHelper.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\OrderHelper.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\RatingManager.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\SqlUtility.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\StringTokenizer.h" />
+    <ClInclude Include="$(SolutionDir)OFI_SharedCPP\TimeUtil.h" />
+    <ClInclude Include="..\OFI_SharedCPP\OfiTiersHelper.h" />
+    <ClInclude Include="resource\resourceV5.h" />
+    <ClInclude Include="src\ADIBloombergConnector.h" />
+    <ClInclude Include="src\ADIBloombergData.h" />
+    <ClInclude Include="src\ADIBloombergEnum.h" />
+    <ClInclude Include="src\BBUtility.h" />
+    <ClInclude Include="src\DlgBloomberg.h" />
+    <ClInclude Include="src\DlgGroupAnalyseCredit.h" />
+    <ClInclude Include="src\DlgLoanAndRepoTransaction.h" />
+    <ClInclude Include="src\DlgSwapTransaction.h" />
+    <ClInclude Include="src\DlgTransactionBestExe.h" />
+    <ClInclude Include="src\DlgTransactionInfosConvertibles.h" />
+    <ClInclude Include="src\DOBIndicators.h" />
+    <ClInclude Include="src\OFICriterium_AssetFxCcy.h" />
+    <ClInclude Include="src\OFICriterium_AssetFxCcyWithoutCrossFx.h" />
+    <ClInclude Include="src\OFICriterium_PendingTickets.h" />
+    <ClInclude Include="src\OFIExecutionsAggregator.h" />
+    <ClInclude Include="src\gui\CellRange.h" />
+    <ClInclude Include="src\gui\GridCtrl.h" />
+    <ClInclude Include="src\gui\GridDropTarget.h" />
+    <ClInclude Include="src\gui\InPlaceEdit.h" />
+    <ClInclude Include="src\gui\InPlaceList.h" />
+    <ClInclude Include="src\gui\MemDC.h" />
+    <ClInclude Include="src\gui\TitleTip.h" />
+    <ClInclude Include="src\IRSwapTradeBlotter.h" />
+    <ClInclude Include="src\OFIColumn_InstrumentNotionalMaturity.h" />
+    <ClInclude Include="src\OFIColumn_MaturityYear.h" />
+    <ClInclude Include="src\OFIColumn_MaturityYearAllIncl.h" />
+    <ClInclude Include="src\OFICriteriumInstrumentNotionalMaturity.h" />
+    <ClInclude Include="src\OFICriteriumInstrumentReference.h" />
+    <ClInclude Include="src\OFICriteriumTransparancy.h" />
+    <ClInclude Include="src\OFICriteriumUnderlyingCurrency.h" />
+    <ClInclude Include="src\OFIExternalFundModel.h" />
+    <ClInclude Include="src\OFIGenericBlotter.h" />
+    <ClInclude Include="src\OFIMarkPnLColumn.h" />
+    <ClInclude Include="src\OFIMarkPnLPricing.h" />
+    <ClInclude Include="src\OFIModellingColumn.h" />
+    <ClInclude Include="src\OFI_EventHandler.h" />
+    <ClInclude Include="src\ReportHelper.h" />
+    <ClInclude Include="src\StdAfx.h" />
+    <ClInclude Include="src\tinyxml2.h" />
+    <ClInclude Include="src\Utility.h" />
+    <ClInclude Include="src\ADIDayCountBasis.h" />
+    <ClInclude Include="src\ADICriterium_Seniority.h" />
+    <ClInclude Include="src\ADICriterium_Strategy.h" />
+    <ClInclude Include="src\ADICriteriumInstrumentName.h" />
+    <ClInclude Include="src\Criterium_ABS.h" />
+    <ClInclude Include="src\OFI_ChineCriterium.h" />
+    <ClInclude Include="src\OFI_DispoCriterium.h" />
+    <ClInclude Include="src\OFICriterium_CashEquivalent.h" />
+    <ClInclude Include="src\OFICriterium_DeltaAllAssets.h" />
+    <ClInclude Include="src\OFICriterium_HasCountryCurrency.h" />
+    <ClInclude Include="src\OFICriterium_OpenClosedPosition.h" />
+    <ClInclude Include="src\OFICriterium_PortfolioManager.h" />
+    <ClInclude Include="src\OFICriterium_RiskArb.h" />
+    <ClInclude Include="src\OFICriterium_UltimateParent.h" />
+    <ClInclude Include="src\OFICriteriumCurrency.h" />
+    <ClInclude Include="src\OFICriteriumFund.h" />
+    <ClInclude Include="src\OFICriteriumInstrument.h" />
+    <ClInclude Include="src\OFICriteriumIssuerSeniorityCreditEvent.h" />
+    <ClInclude Include="src\OFICriteriumLinkedAllotment.h" />
+    <ClInclude Include="src\OFICriteriumMarketCap.h" />
+    <ClInclude Include="src\OFICriteriumTickerCorp.h" />
+    <ClInclude Include="src\OFICriteriumTradeId.h" />
+    <ClInclude Include="src\OFIIssuerCriterium.h" />
+    <ClInclude Include="src\OFISensibiliteCriterium.h" />
+    <ClInclude Include="src\OFISpreadCriterium.h" />
+    <ClInclude Include="src\interpreteur\AnalyseurGenerique.h" />
+    <ClInclude Include="src\interpreteur\AnalyseurLexical.h" />
+    <ClInclude Include="src\interpreteur\CSRCommonExpression.h" />
+    <ClInclude Include="src\interpreteur\CSRDealToken.h" />
+    <ClInclude Include="src\FP.h" />
+    <ClInclude Include="src\interpreteur\Noeud.h" />
+    <ClInclude Include="src\interpreteur\Pile.h" />
+    <ClInclude Include="src\SafeArrayManager.h" />
+    <ClInclude Include="src\OFIPensionManager.h" />
+    <ClInclude Include="src\OFIStrategyHelper.h" />
+    <ClInclude Include="src\OFIStockLoan.h" />
+    <ClInclude Include="src\OFIIssuer.h" />
+    <ClInclude Include="src\ADIGlobalFunction.h" />
+    <ClInclude Include="src\ADIInstrumentOverloader.h" />
+    <ClInclude Include="src\ADIInstrumentOverloader_Helper.h" />
+    <ClInclude Include="src\OFIInstrument.h" />
+    <ClInclude Include="src\OFICreditDefaultSwap.h" />
+    <ClInclude Include="src\ADIBond.h" />
+    <ClInclude Include="src\DlgBond.h" />
+    <ClInclude Include="src\OFIOISInterestRate.h" />
+    <ClInclude Include="src\ADICustomMenu.h" />
+    <ClInclude Include="src\ADIFitDialog.h" />
+    <ClInclude Include="src\gui\mfc\ADITreeDialog.h" />
+    <ClInclude Include="src\DlgIssuer.h" />
+    <ClInclude Include="src\DlgPortfolio.h" />
+    <ClInclude Include="src\DlgFundTransaction.h" />
+    <ClInclude Include="src\DlgGlobalTransaction.h" />
+    <ClInclude Include="src\DlgIrlPreview.h" />
+    <ClInclude Include="src\DlgTransaction.h" />
+    <ClInclude Include="src\DlgTransactionChampsLibres.h" />
+    <ClInclude Include="src\DlgTransactionSpecificTcnSwap.h" />
+    <ClInclude Include="src\OFITCNSwapScenario.h" />
+    <ClInclude Include="src\DlgDecisionFO.h" />
+    <ClInclude Include="src\OFIDecisionContextMenu.h" />
+    <ClInclude Include="src\DlgMOExternalRef.h" />
+    <ClInclude Include="src\OFIMOExternalRefContextMenu.h" />
+    <ClInclude Include="src\ADIColumn_Base.h" />
+    <ClInclude Include="src\ADIColumn_Cache.h" />
+    <ClInclude Include="src\ADIColumn_InstrumentDescription.h" />
+    <ClInclude Include="src\ADIColumn_State.h" />
+    <ClInclude Include="src\OFICollateralColumn.h" />
+    <ClInclude Include="src\OFIColumn_Benchmark.h" />
+    <ClInclude Include="src\OFIColumn_DureeDeVie.h" />
+    <ClInclude Include="src\OFIColumn_Engagement.h" />
+    <ClInclude Include="src\OFIColumn_EngagementSolvency.h" />
+    <ClInclude Include="src\OFIColumn_Issuer.h" />
+    <ClInclude Include="src\OFIColumn_LevierAMF.h" />
+    <ClInclude Include="src\OFIColumn_Rating.h" />
+    <ClInclude Include="src\OFIColumn_Spread.h" />
+    <ClInclude Include="src\OFIColumnHelper.h" />
+    <ClInclude Include="src\FuturesTauxGisement.h" />
+    <ClInclude Include="src\DlgOFIExtraction.h" />
+    <ClInclude Include="src\OFIExtractionScenario.h" />
+    <ClInclude Include="src\ADICutOffScenario.h" />
+    <ClInclude Include="src\DlgCutOff.h" />
+    <ClInclude Include="src\MOCutOffLib.h" />
+    <ClInclude Include="src\ADIImportT0Scenario.h" />
+    <ClInclude Include="src\Dialogt0detail.h" />
+    <ClInclude Include="src\DlgImportT0.h" />
+    <ClInclude Include="src\T0Enum.h" />
+    <ClInclude Include="src\T0Parser.h" />
+    <ClInclude Include="src\T0ParserLine.h" />
+    <ClInclude Include="src\T0Value.h" />
+    <ClInclude Include="src\BenchDeskTauxScenario.h" />
+    <ClInclude Include="src\DlgBenchDeskTaux.h" />
+    <ClInclude Include="src\DlgModifDateValCommMvt.h" />
+    <ClInclude Include="src\OFIModifDateValCommMvtScenario.h" />
+    <ClInclude Include="src\MoExportQuickLaunchScenario.h" />
+    <ClInclude Include="src\DlgOFIThirdPartyAutorisation.h" />
+    <ClInclude Include="src\OFIThirdPartyAutorisationScenario.h" />
+    <ClInclude Include="src\BondDetailScenario.h" />
+    <ClInclude Include="src\DlgBondDetail.h" />
+    <ClInclude Include="src\DlgCombinedDeals.h" />
+    <ClInclude Include="src\OfiCombinedScenario.h" />
+    <ClInclude Include="src\DlgTCNMultiSouche.h" />
+    <ClInclude Include="src\OFIScenario_TransactionPrint.h" />
+    <ClInclude Include="src\ADICreditRisk.h" />
+    <ClInclude Include="src\ADIDeformedMaketData.h" />
+    <ClInclude Include="src\ADIMarketData.h" />
+    <ClInclude Include="src\ADIMarketDataOverloader.h" />
+    <ClInclude Include="src\OFIFundIndicators.h" />
+    <ClInclude Include="src\OFIPortfolioCOntextMenu.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource\OFIUserProjectV5.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="resource\OFIUserProjectV4.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)publish.proj" />
+  <PropertyGroup>
+    <OutputPath>$(OutDir)</OutputPath>
+  </PropertyGroup>
+  <Target Name="AfterBuild" AfterTargets="Build">
+    <CallTarget Condition="'$(Configuration)'=='Debug'" Targets="PublishOutputToClient" />
+  </Target>
+</Project>

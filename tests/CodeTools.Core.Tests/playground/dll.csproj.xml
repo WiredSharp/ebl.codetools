@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A0E873F8-A9B6-46D2-8A8C-086FADD9B362}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ofi.Toolkit.Main</RootNamespace>
+    <AssemblyName>Ofi.Toolkit.Main</AssemblyName>
+    <TargetFrameworkVersion Condition="'$(VisualStudioVersion)' == '10.0'">v4.0.3</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(VisualStudioVersion)' == '12.0'">v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <OutputPath Condition=" '$(BuildDir)' != '' ">$(BuildDir)$(SolutionName)\$(Configuration)\bin\$(AssemblyName)</OutputPath>
+    <OutputPath Condition=" '$(BuildDir)' == '' ">$(SolutionDir)$(Configuration)\bin\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath Condition=" '$(BuildDir)' != '' ">$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+    <IntermediateOutputPath Condition=" '$(BuildDir)' == '' ">$(SolutionDir)$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>TRACE;DEBUG;SOPHIS_V5</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>SOPHIS_V5</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Bloomberglp.Blpapi">
+      <HintPath>$(SolutionDir)local-dependencies\Bloomberg\Bloomberglp.Blpapi.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Framework.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8c18ef0389f8a6c7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SolutionDir)local-dependencies\Common.framework\Common.Framework.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Framework.DataAccess, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8c18ef0389f8a6c7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SolutionDir)local-dependencies\Common.framework\Common.Framework.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v11.2.Core, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.Charts.v11.2.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.Data.v11.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v11.2.Core, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.PivotGrid.v11.2.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v11.2.Core, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.Printing.v11.2.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.XtraBars.v11.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.XtraCharts.v11.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v11.2.UI, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.XtraCharts.v11.2.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.XtraEditors.v11.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.XtraGrid.v11.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.XtraLayout.v11.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.XtraPivotGrid.v11.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.XtraPrinting.v11.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.XtraReports.v11.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.XtraTreeList.v11.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraVerticalGrid.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.XtraVerticalGrid.v11.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\Iesi.Collections.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v11.2, Version=11.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(FI_CLIENT)\DevExpress.Utils.v11.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="oracle.dataaccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>$(SolutionDir)local-dependencies\Oracle\odp.net\bin\2.x\Oracle.DataAccess.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Core.Data">
+      <HintPath>$(FI_CLIENT)\Sophis.Core.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Core">
+      <HintPath>$(FI_CLIENT)\Sophis.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Common">
+      <HintPath>$(FI_CLIENT)\Sophis.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Event.Core">
+      <HintPath>$(FI_CLIENT)\Sophis.Event.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Event.Risque">
+      <HintPath>$(FI_CLIENT)\Sophis.Event.Risque.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Reporting">
+      <HintPath>$(FI_CLIENT)\Sophis.Reporting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Web.Api">
+      <HintPath>$(FI_CLIENT)\Sophis.Web.Api.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Windows">
+      <HintPath>$(FI_CLIENT)\Sophis.Windows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Windows.Widgets">
+      <HintPath>$(FI_CLIENT)\Sophis.Windows.Widgets.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.Windows.Widgets.Core">
+      <HintPath>$(FI_CLIENT)\Sophis.Windows.Widgets.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisAMTools">
+      <HintPath>$(FI_CLIENT)\SophisAMTools.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisAssetManagement">
+      <HintPath>$(FI_CLIENT)\SophisAssetManagement.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetToolkit">
+      <HintPath>$(FI_CLIENT)\SophisDotNetToolkit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetToolkitBackOffice">
+      <HintPath>$(FI_CLIENT)\SophisDotNetToolkitBackOffice.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetToolkitGUI">
+      <HintPath>$(FI_CLIENT)\SophisDotNetToolkitGUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetTools">
+      <HintPath>$(FI_CLIENT)\SophisDotNetTools.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisDotNetValue">
+      <HintPath>$(FI_CLIENT)\SophisDotNetValue.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisGuiCommon">
+      <HintPath>$(FI_CLIENT)\SophisGuiCommon.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisOrderGeneration">
+      <HintPath>$(FI_CLIENT)\SophisOrderGeneration.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisPortfoliosGUI">
+      <HintPath>$(FI_CLIENT)\SophisPortfoliosGUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisInvestmentAccounting">
+      <HintPath>$(FI_CLIENT)\SophisInvestmentAccounting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisReporting">
+      <HintPath>$(FI_CLIENT)\SophisReporting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisWcfFramework">
+      <HintPath>$(FI_CLIENT)\SophisWcfFramework.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.DailyData">
+      <HintPath>$(FI_CLIENT)\Sophis.DailyData.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.DataAccess.ADO">
+      <HintPath>$(FI_CLIENT)\Sophis.DataAccess.ADO.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.DataExchange.ClientProxy.30">
+      <HintPath>$(FI_CLIENT)\Sophis.DataExchange.ClientProxy.30.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.DataAccess.NH">
+      <HintPath>$(FI_CLIENT)\Sophis.DataAccess.NH.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.LoggingServices">
+      <HintPath>$(FI_CLIENT)\Sophis.LoggingServices.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.OMS.BL">
+      <HintPath>$(FI_CLIENT)\Sophis.OMS.BL.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.OMS.Client">
+      <HintPath>$(FI_CLIENT)\Sophis.OMS.Client.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.OMS.Utils">
+      <HintPath>$(FI_CLIENT)\Sophis.OMS.Utils.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sophis.WF.Core">
+      <HintPath>$(FI_CLIENT)\Sophis.WF.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisAMCommon">
+      <HintPath>$(FI_CLIENT)\SophisAMCommon.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisAMDotNetUtils">
+      <HintPath>$(FI_CLIENT)\SophisAMDotNetUtils.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisAMGuiCommon">
+      <HintPath>$(FI_CLIENT)\SophisAMGuiCommon.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisAssemblyResolver">
+      <HintPath>$(FI_CLIENT)\SophisAssemblyResolver.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisOrderBlotters">
+      <HintPath>$(FI_CLIENT)\SophisOrderBlotters.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisOrderEntry">
+      <HintPath>$(FI_CLIENT)\SophisOrderEntry.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisOrderEntryGUI">
+      <HintPath>$(FI_CLIENT)\SophisOrderEntryGUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SophisTradeAllocation">
+      <HintPath>$(FI_CLIENT)\SophisTradeAllocation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="Accessibility">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)OFIManagedCppWrapper\OFIManagedCppWrapper.vcxproj">
+      <Project>{7799B327-7724-40CC-8C0B-14F464B1F3A0}</Project>
+      <Name>OFIManagedCppWrapper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(SolutionDir)shared\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Columns\Positions\OFIColumn_InstrumentCurrency.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_FundId.cs" />
+    <Compile Include="Orders\Columns_OrderBlotter\GrossAmountPropertyDescriptor.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_ComplianceRemainingPosition.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_MaturityAlert.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Columns\Orders\OFIColumn_OrderAmount.cs" />
+    <Compile Include="Columns\Orders\OFIColumn_OrderQuantity.cs" />
+    <Compile Include="Columns\Positions\OFIColumnsPosition_Generic.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_BondsInformations.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Nominal.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_S2References.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_S2Underlying.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_SolvencyConcentration.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_SolvencyCredit.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_SolvencyCurrency.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_SolvencyEquity.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_SolvencyGeneric.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_SolvencyMarket.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_SolvencyOPCVM.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_SolvencyProperty.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_SolvencyRating.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_SolvencyTaux.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFIColumn_SolvencyVanille.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFISolvencyConcentrationHelper.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFISolvencyCreditHelper.cs" />
+    <Compile Include="Columns\Positions\Solvency II\OFISolvencyTauxHelper.cs" />
+    <Compile Include="Criterium\OFICriteriumIrIndexTerm.cs" />
+    <Compile Include="Criterium\OFICriterium_Broker.cs" />
+    <Compile Include="Criterium\OFICriterium_Sector.cs" />
+    <Compile Include="Criterium\OFI_CriteriumJournalRealises.cs" />
+    <Compile Include="Instrument\OFICallClauseNoPrice.cs" />
+    <Compile Include="Instrument\OFICreditDefaultSwap.cs" />
+    <Compile Include="Instrument\OFI_CFD.cs" />
+    <Compile Include="Instrument\OFI_TcnMetaModel.cs" />
+    <Compile Include="Instrument\OFI_V5TcnModel.cs" />
+    <Compile Include="MainClass.cs" />
+    <Compile Include="MarkPnl\MarkPnLPricing.cs" />
+    <Compile Include="MarkPnl\OFIColumn_PricingLastMoins1.cs" />
+    <Compile Include="MarkPnl\OFIColumn_PricingOPCVMLastMoinsN.cs" />
+    <Compile Include="MenuContextuel\OFIContext_Agora.cs" />
+    <Compile Include="MenuContextuel\OFIContext_InventairesComptablesFIFOViewer.cs" />
+    <Compile Include="MenuContextuel\OFIContext_InventairesComptablesViewer.cs" />
+    <Compile Include="MenuContextuel\OFIContext_PNLViewer.cs" />
+    <Compile Include="MenuContextuel\OFIContext_MatchingViewer.cs" />
+    <Compile Include="MenuContextuel\OFIContext_PassifViewer.cs" />
+    <Compile Include="MenuContextuel\OFIContext_PrintTransaction.cs" />
+    <Compile Include="MenuContextuel\OFIContext_RapprochementPositions.cs" />
+    <Compile Include="MenuContextuel\OFIContext_ReportSophis.cs" />
+    <Compile Include="MenuContextuel\OFIContext_SuspensViewer.cs" />
+    <Compile Include="MenuContextuel\StockLoanModifier.cs" />
+    <Compile Include="Orders\Columns_OrderBlotter\IssuerInstrumentPropertyDescriptor.cs" />
+    <Compile Include="Orders\Generator\OFIAllocationSet.cs" />
+    <Compile Include="Orders\Generator\OFIDefaultWorkflowSelector.cs" />
+    <Compile Include="Orders\Generator\OFIMergedOrderKey.cs" />
+    <Compile Include="Orders\Generator\OFIMergedOrderProperties.cs" />
+    <Compile Include="Orders\Generator\OFIMergedOrdersGenerator.cs" />
+    <Compile Include="Orders\Generator\OFIOrdersGenerator.cs" />
+    <Compile Include="Orders\Generator\OFISendOrderAsyncParameters.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\ArchiveSensi\DetailArchivageSensi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\ArchiveSensi\DetailArchivageSensi.Designer.cs">
+      <DependentUpon>DetailArchivageSensi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\ArchiveSensi\ScenarioArchiveSensi.cs" />
+    <Compile Include="Scenario\ArchiveSensi\ScenarioArchiveSensiManuel.cs" />
+    <Compile Include="Scenario\Change Context Date\DlgChangeContextDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\Change Context Date\DlgChangeContextDate.Designer.cs">
+      <DependentUpon>DlgChangeContextDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Change Context Date\ScenarioChangeContextDate.cs" />
+    <Compile Include="Scenario\Check PU .Net\OFIScenario_CheckPUNet.cs" />
+    <Compile Include="Scenario\Code CIC\Scenario_SetCodeCIC.cs" />
+    <Compile Include="Scenario\CreateArbo\ScenarioCreateArbo.cs" />
+    <Compile Include="Scenario\CreateTableHistoAttribPerf\CreateTableHistoAttribPerf.cs" />
+    <Compile Include="Scenario\Events\ScenarioManageEvents.cs" />
+    <Compile Include="Scenario\ExportCashFlow\OFIExportCashFlowScenario.cs" />
+    <Compile Include="Scenario\Fees Management\FeesManagementData.cs" />
+    <Compile Include="Scenario\Fees Management\FeesManagementForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\Fees Management\FeesManagementForm.designer.cs">
+      <DependentUpon>FeesManagementForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Fees Management\FeesManagementObjects.cs" />
+    <Compile Include="Scenario\Fees Management\ScenarioFeesManagement.cs" />
+    <Compile Include="Scenario\Fund Nav Dates\FundNavDates.cs" />
+    <Compile Include="Scenario\Gisement Clone\OFI_CloneGisement.cs" />
+    <Compile Include="Scenario\Instruments\ScenarioGetImpliedVolatilityForOption.cs" />
+    <Compile Include="Scenario\Instruments\ScenarioTCNPricingToOCTOPUS.cs" />
+    <Compile Include="Scenario\Issuer Audit\OFIIssuerAuditDataLayer.cs" />
+    <Compile Include="Scenario\Issuer Audit\OFIIssuerAuditModel.cs" />
+    <Compile Include="Scenario\Issuer Audit\OFIIssuerAuditScenario.cs" />
+    <Compile Include="Scenario\Issuer Audit\OFIIssuerAuditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\Issuer Audit\OFIIssuerAuditForm.Designer.cs">
+      <DependentUpon>OFIIssuerAuditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Issuer Audit\OFIIssuerAuditViewModel.cs" />
+    <Compile Include="Scenario\IssuerMacif\OFIIssuerMacifHelper.cs" />
+    <Compile Include="Scenario\IssuerMacif\OFIScenario_ComputeAllMacifIssuers.cs" />
+    <Compile Include="Scenario\MultiGestion\OFIMultiGestion.cs" />
+    <Compile Include="Scenario\NewInstrumentBooked\OFiNewInstrumentBooked.cs" />
+    <Compile Include="Scenario\OFI Coupon Bond\OFICouponBondDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFI Coupon Bond\OFICouponBondDialog.Designer.cs">
+      <DependentUpon>OFICouponBondDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OFI Coupon Bond\OFICouponBondScenario.cs" />
+    <Compile Include="Scenario\OFI Extraction\OFIExtractionScenario.cs" />
+    <Compile Include="Scenario\OFI Moniteur_Performances\MoniteurPerformancesParamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFI Moniteur_Performances\MoniteurPerformancesParamForm.designer.cs">
+      <DependentUpon>MoniteurPerformancesParamForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OFI Moniteur_Performances\MoniteurPerformancesViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFI Moniteur_Performances\MoniteurPerformancesViewer.designer.cs">
+      <DependentUpon>MoniteurPerformancesViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OFI Moniteur_Performances\MoniteurPerf_Serializer.cs" />
+    <Compile Include="Scenario\OFI Moniteur_Performances\ScenarioMoniteurPerformances.cs" />
+    <Compile Include="Scenario\OFI PnL Date\OFIPnlDate.cs" />
+    <Compile Include="Scenario\OFI PnL Date\OFIPnlDateViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFI PnL Date\OFIPnlDateViewer.Designer.cs">
+      <DependentUpon>OFIPnlDateViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OFI Reset Comptable\OFIResetComptable.cs" />
+    <Compile Include="Scenario\OFI Reset Comptable\ResetComptableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFI Reset Comptable\ResetComptableForm.Designer.cs">
+      <DependentUpon>ResetComptableForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OFI Reset Comptable\ResetComptableViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFI Reset Comptable\ResetComptableViewer.Designer.cs">
+      <DependentUpon>ResetComptableViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OFI Reset Comptable\Taxlot_Import.cs" />
+    <Compile Include="Scenario\OFIGenericScenario.cs" />
+    <Compile Include="Scenario\OFIGenericViewer\MyGridControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFIGenericViewer\MyGridHandler.cs" />
+    <Compile Include="Scenario\OFIGenericViewer\MyGridRegistration.cs" />
+    <Compile Include="Scenario\OFIGenericViewer\MyGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFIGenericViewer\MyGridViewInfo.cs" />
+    <Compile Include="Scenario\OFIInventairesComptablesFIFOViewer\OFI_InventairesComptablesFIFOViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFIInventairesComptablesFIFOViewer\OFI_InventairesComptablesFIFOViewer.Designer.cs">
+      <DependentUpon>OFI_InventairesComptablesFIFOViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OFIInventairesComptablesFIFOViewer\OFI_InventairesComptablesFIFOViewer1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OFI_InventairesComptablesFIFOViewer.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OIS Bloomberg Blotter\DlgOisBbgBlotter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\OIS Bloomberg Blotter\DlgOisBbgBlotter.designer.cs">
+      <DependentUpon>DlgOisBbgBlotter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OIS Bloomberg Blotter\OisBbgBlotterEngine.cs" />
+    <Compile Include="Scenario\OIS Bloomberg Blotter\ScenarioOisBbgBlotter.cs" />
+    <Compile Include="Scenario\OIS RTO Oblig\DlgOisRtoOblig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\OIS RTO Oblig\DlgOisRtoOblig.designer.cs">
+      <DependentUpon>DlgOisRtoOblig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OIS RTO Oblig\OisRtoObligModel.cs" />
+    <Compile Include="Scenario\OIS RTO Oblig\ScenarioOisRtoOblig.cs" />
+    <Compile Include="Scenario\OIS Services\ScenarioOISServices.cs" />
+    <Compile Include="Scenario\Open Reports Mandats\ScenarioOpenReportsMandats.cs" />
+    <Compile Include="Scenario\Open Reports Mandats\OpenReportsMandatsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\Open Reports Mandats\OpenReportsMandatsForm.Designer.cs">
+      <DependentUpon>OpenReportsMandatsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Perfomance Monitor\PerfomanceMonitor.cs" />
+    <Compile Include="Scenario\Recap Pension\PensionRecap.cs" />
+    <Compile Include="Scenario\Recap Pension\PensionRecapDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\Recap Pension\PensionRecapDate.Designer.cs">
+      <DependentUpon>PensionRecapDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Recap Pension\PensionRecapScenario.cs" />
+    <Compile Include="Scenario\RejectedOrderAlert\ScenarioRejectedOrderAlert.cs" />
+    <Compile Include="Scenario\ScenarioLoadFolio.cs" />
+    <Compile Include="Scenario\SCR\ComputeScrDependency.cs" />
+    <Compile Include="Scenario\SCR\ScenarioSaveSRCForOPCVM.cs" />
+    <Compile Include="Scenario\Sectors\OFISectorLongNameDlg.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\Sectors\OFISectorLongNameDlg.Designer.cs">
+      <DependentUpon>OFISectorLongNameDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Sectors\OFISectorLongNameScenario.cs" />
+    <Compile Include="Scenario\Sectors\SectorLongNameBean.cs" />
+    <Compile Include="Scenario\Temp Scenario\TempScenario.cs" />
+    <Compile Include="Scenario\OFIRapprochementPositionsViewer\OFI_RapprochementPositionsViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFIRapprochementPositionsViewer\OFI_RapprochementPositionsViewer.designer.cs">
+      <DependentUpon>OFI_RapprochementPositionsViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Trade Allocation\FundSelector.cs" />
+    <Compile Include="Scenario\Trade Allocation\LineAllocation.cs" />
+    <Compile Include="Scenario\TradePnLRealised\ScenarioGetTradesPnLRealized.cs" />
+    <Compile Include="Scenario\Trafic\Trafic.cs" />
+    <Compile Include="Scenario\TransfertTitres Insert\DealTransfertTitres.cs" />
+    <Compile Include="Scenario\TransfertTitres Insert\ScenarioTransfertTitresMassInsert.cs" />
+    <Compile Include="Scenario\TransfertTitres Insert\TransfertTitresMassInsert.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\TransfertTitres Insert\TransfertTitresMassInsert.Designer.cs">
+      <DependentUpon>TransfertTitresMassInsert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\TransfertTitres Insert\TransfertTitresViewModel.cs" />
+    <Compile Include="Service References\OfiDataServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\OFIISSUERService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="SOA\CreateStressFile_EquitySCR.cs" />
+    <Compile Include="SOA\CreateStressFile_TauxSCR.cs" />
+    <Compile Include="SOA\CreditStressFile_CreditSCR.cs" />
+    <Compile Include="SOA\DeleteFile.cs" />
+    <Compile Include="SOA\GetPriceFromOCTOPUS.cs" />
+    <Compile Include="SOA\GetReferentielRiskParent.cs" />
+    <Compile Include="SOA\ExportMvtsOPCVM\ExportMvtsOPCVM.cs" />
+    <Compile Include="SOA\ImportStressResult\CSVFileConnector.cs" />
+    <Compile Include="SOA\ImportStressResult\DBInjector.cs" />
+    <Compile Include="SOA\ExportMvtsOPCVM\ExportMvtsOPCVMParser.cs" />
+    <Compile Include="SOA\ImportStressResult\ImportStressFile.cs" />
+    <Compile Include="SOA\ImportStressResult\SOASaveSRCForOPCVM.cs" />
+    <Compile Include="SOA\ImportStressResult\StressPosition.cs" />
+    <Compile Include="SOA\ImportStressResult\XmlFileParser.cs" />
+    <Compile Include="SOA\ImportStressResult\XmlFileParserConcentration.cs" />
+    <Compile Include="SOA\LoadAndComputeFolio.cs" />
+    <Compile Include="SOA\OFIExportCashFlowSOA.cs" />
+    <Compile Include="SOA\ReplaceInFile.cs" />
+    <Compile Include="SOA\GetContextDate.cs" />
+    <Compile Include="SOA\CreateExcelDoc.cs" />
+    <Compile Include="SOA\LinqExtensions.cs" />
+    <Compile Include="SOA\ReportingTresoreriePrevisionnelle\ReportingTreso.cs" />
+    <Compile Include="SOA\ReportingTresoreriePrevisionnelle\ReportingTresoParser.cs" />
+    <Compile Include="SOA\Reporting Mnemosyne\MandatPortCours\MandatPortCours.cs" />
+    <Compile Include="SOA\Reporting Mnemosyne\MandatPortEONIA\MandatPortEONIA.cs" />
+    <Compile Include="SOA\Reporting Mnemosyne\MandatPortFlux\MandatPortFlux.cs" />
+    <Compile Include="SOA\Reporting Mnemosyne\MandatPortFlux\MandatPortFluxParser.cs" />
+    <Compile Include="SOA\Reporting Mnemosyne\MandatPortInflationIndex\MandatPortInflationIndex.cs" />
+    <Compile Include="SOA\Reporting Mnemosyne\MandatPortInstruments\MandatPortInstruments.cs" />
+    <Compile Include="SOA\Reporting Mnemosyne\MandatPortInstruments\MandatPortInstrumentsParser.cs" />
+    <Compile Include="SOA\Reporting Mnemosyne\MandatPortPositions\MandatPortPositions.cs" />
+    <Compile Include="SOA\Reporting Mnemosyne\MandatPortPositions\MandatPortPositionsParser.cs" />
+    <Compile Include="SOA\Reporting Mnemosyne\MandatPortTrades\MandatPortTrades.cs" />
+    <Compile Include="SOA\Reporting Mnemosyne\MandatPortTrades\MandatPortTradesParser.cs" />
+    <Compile Include="SOA\StressFileCsvToXml.cs" />
+    <Compile Include="Transaction\OFI_CommentsParserAction.cs" />
+    <Compile Include="Transaction\OFI_TransactionEvent.cs" />
+    <Compile Include="Utility\DlgFolioChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utility\DlgFolioChooser.Designer.cs">
+      <DependentUpon>DlgFolioChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Trade Allocation\DlgTradeAllocation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\Trade Allocation\DlgTradeAllocation.Designer.cs">
+      <DependentUpon>DlgTradeAllocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Trade Allocation\FundParams.cs" />
+    <Compile Include="Scenario\Trade Allocation\OFIAllocationTicketMenu.cs" />
+    <Compile Include="Scenario\Broker Recap\DlgRecapBrokerHelper.cs" />
+    <Compile Include="Scenario\CSO Negociation\AvailableCounterparty.cs" />
+    <Compile Include="Scenario\CSO Negociation\CdsToValidate.cs" />
+    <Compile Include="Scenario\CSO Negociation\DlgCSONeg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\CSO Negociation\DlgCSONeg.Designer.cs">
+      <DependentUpon>DlgCSONeg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\CSO Negociation\ScenarioCSONeg.cs" />
+    <Compile Include="Scenario\Decision gestion\OFIDecGestAuditMnuTransac.cs" />
+    <Compile Include="Scenario\Decision gestion\DecisionGestionHelper.cs" />
+    <Compile Include="Scenario\Decision gestion\DlgDecisionGestionAudit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\Decision gestion\DlgDecisionGestionAudit.Designer.cs">
+      <DependentUpon>DlgDecisionGestionAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Fees\DlgFees.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\Fees\DlgFees.Designer.cs">
+      <DependentUpon>DlgFees.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Fees\ScenarioFees.cs" />
+    <Compile Include="Scenario\Instruments\ScenarioInstrumentNeutralModification.cs" />
+    <Compile Include="Scenario\Nav Validation\DlgNavValidation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\Nav Validation\DlgNavValidation.Designer.cs">
+      <DependentUpon>DlgNavValidation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Nav Validation\ScenarioNavValidation.cs" />
+    <Compile Include="Scenario\Nav Validation\TradeNavValidation.cs" />
+    <Compile Include="Scenario\OFIGenericViewer\OFIGenericViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFIGenericViewer\OFIGenericViewer.Designer.cs">
+      <DependentUpon>OFIGenericViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OFIInventairesComptablesViewer\OFI_InventairesComptablesViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFIInventairesComptablesViewer\OFI_InventairesComptablesViewer.Designer.cs">
+      <DependentUpon>OFI_InventairesComptablesViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OFIMatchingViewer\OFI_MatchingViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFIMatchingViewer\OFI_MatchingViewer.designer.cs">
+      <DependentUpon>OFI_MatchingViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OfiPassifViewer\OFI_PassifViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\OfiPassifViewer\OFI_PassifViewer.Designer.cs">
+      <DependentUpon>OFI_PassifViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Broker Recap\DlgRecapBroker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\Broker Recap\DlgRecapBroker.Designer.cs">
+      <DependentUpon>DlgRecapBroker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\Broker Recap\ScenarioBrokerRecap.cs" />
+    <Compile Include="Scenario\Broker Recap\TradeRecapBroker.cs" />
+    <Compile Include="Scenario\OFIReportSophisViewer\OFI_ReportSophisViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFIReportSophisViewer\OFI_ReportSophisViewer.Designer.cs">
+      <DependentUpon>OFI_ReportSophisViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OFISuspensViewer\OFI_suspensViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scenario\OFISuspensViewer\OFI_suspensViewer.Designer.cs">
+      <DependentUpon>OFI_suspensViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OIS Extract ITG\DlgExtract_ITG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\OIS Extract ITG\DlgExtract_ITG.Designer.cs">
+      <DependentUpon>DlgExtract_ITG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\OIS Extract ITG\ScenarioOISExtractITG.cs" />
+    <Compile Include="Scenario\PositionFinder\DlgPositionFinder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\PositionFinder\DlgPositionFinder.Designer.cs">
+      <DependentUpon>DlgPositionFinder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\PositionFinder\ScenarioPostionFinder.cs" />
+    <Compile Include="Scenario\PriceContributor\ContextPriceContributor.cs" />
+    <Compile Include="Scenario\PriceContributor\PriceContributor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\PriceContributor\PriceContributor.Designer.cs">
+      <DependentUpon>PriceContributor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario\PriceContributor\PriceToContribute.cs" />
+    <Compile Include="Scenario\PurgeOrders\ScenarioPurgeOrders.cs" />
+    <Compile Include="Scenario\StrategyAllocation\ContextStrategyAllocation.cs" />
+    <Compile Include="Scenario\StrategyAllocation\StrategyAllocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenario\StrategyAllocation\StrategyAllocation.Designer.cs">
+      <DependentUpon>StrategyAllocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\MatchingService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\OfiDataFlux\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\OfiDataService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\RapprochementPositionsServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\CheckMarkSelection.cs" />
+    <Compile Include="Utility\OFIBenchHelper.cs" />
+    <Compile Include="Utility\OFICashAccountHelper.cs" />
+    <Compile Include="Utility\OFIDailyDataHelper.cs" />
+    <Compile Include="Utility\OFIKernelHelper.cs" />
+    <Compile Include="Utility\OFIOPCMHelper.cs" />
+    <Compile Include="Utility\OFIOrderHelper.cs" />
+    <Compile Include="Utility\OFISCRHelper.cs" />
+    <Compile Include="Utility\OFIStrategyHelper.cs" />
+    <Compile Include="Utility\OFITCNSwapHelper.cs" />
+    <Compile Include="Utility\OFIThirdPartyHelper.cs" />
+    <Compile Include="Utility\OFIReportHelper.cs" />
+    <Compile Include="Utility\OFIRatingHelper.cs" />
+    <Compile Include="Workflow\OFIDateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Workflow\OFi_ModifiableFields.cs" />
+    <Compile Include="Workflow\OFi_Sector_SettlementRulesCondition.cs" />
+    <Compile Include="Columns\OTC\OFIColumnOTC_Depositary.cs" />
+    <Compile Include="Columns\OTC\OFIColumnOTC_Generic.cs" />
+    <Compile Include="Columns\OTC\OFIColumnOTC_InstrumentTranche.cs" />
+    <Compile Include="Columns\OTC\OFIColumnOTC_MIC.cs" />
+    <Compile Include="Columns\OTC\OFIColumnOTC_NDFSoulte.cs" />
+    <Compile Include="Columns\OTC\OFIColumnOTC_TiersProperties.cs" />
+    <Compile Include="Columns\OTC\OFIColumnOTC_YTMFundManager.cs" />
+    <Compile Include="Columns\Positions\OFIColumns_CommMvt.cs" />
+    <Compile Include="Columns\Positions\OFIColumns_NominalYTM.cs" />
+    <Compile Include="Columns\Positions\OFIColumns_Ratings.cs" />
+    <Compile Include="Columns\Positions\OFIColumns_Taux.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_AIFMDAum.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_AllotmentLinked.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_AmountIssue.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_AmountOutstanding.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_AveragePrice.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Benchmark.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_BenchmarkLevelDynPnLFreeze.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_CashFlow.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_CDS.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_CDSSpreadDynPnLFreeze.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_ClosedInBench.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_ClosedInBenchmark.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_CounterpartyBIC.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_CountryOfCurrency.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_DateLastDynPnLFreeze.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Delta.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_DiffResultwithoutFxDynPnLFreeze.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_FloatingNotional.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Freeze_Perf.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_FundAdminNav.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_FundTotalGAV.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Historique.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Inflation.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_LastAndSpreadDynPnLFreeze.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_MarketValue.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Maturity.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_MaturityDays.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_MIC.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_NbJourDynPnLFreeze.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_NextCouponDate.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_OC.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_PerfBenchmarkDynPnLFreeze.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Performances.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_PortfolioModeling.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Quantity.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_RateType.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_RatioEmprise.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_ReferenceLinked.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_RiskArb.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_SectorICBLevel2.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Spread.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_SpreadRiskSensitivity.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_TiersProperty.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_UltimateParentCompany.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_UnderlingToolkit.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Underlying.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_UnderlyingDateLastDynPnLFreeze.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_UnderlyingLastDynPnLFreeze.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_ValuationSpotDynPnLFreeze.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_VLCurrPtfDynPnLFreeze.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_WAMWAL.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_YTMIboxx.cs" />
+    <Compile Include="Columns\Transactions\OFIColumns_CommMvt.cs" />
+    <Compile Include="Columns\Transactions\OFIColumns_Generic.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_BoMessage.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_DecisionGestion.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_Desk.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_Information.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_InstrumentTranche.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_Orders.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_OTCMessages.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_TiersProperty.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_TypeOperation.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_YTMFundManager.cs" />
+    <Compile Include="Columns\Orders\OFIColumn_DOBTarget.cs" />
+    <Compile Include="Columns\OTC\OFIColumnOTC_TransactionExternalRef.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Accounting.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Collateral.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_DiffConttbution.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Engagement.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Exposure.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_FundProperty.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_HistoriqueLastDate.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_BondIssueDateReporting.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_IRIndexTerm.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_NetAccounting.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_SensitauxColumns.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_StrategyRatio.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_UnderlyingRho.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_StressTestCredit.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_UserColumns2.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_CreditRiskDeltaUnitaire.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Environnement.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_InflationLast.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_InfoIssuerSsj.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_InstrumentValidated.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_IssuerMacif.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_LEI.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_NextClauseType.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Opscore.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_RatingS2ValidityDate.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_S2EnrichedInventories.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_SectorLvX.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_Sectors.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_SidMutex.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_TwoLegsInstrumentInfos.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_UnderlyingRate.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_UserColumns.cs" />
+    <Compile Include="Columns\Positions\OFIColumn_WeightInFund.cs" />
+    <Compile Include="Columns\TaxLot\Column_TaxLot_NetAccounting.cs" />
+    <Compile Include="Columns\TaxLot\Column_TaxLot_FreeInput.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_DealFreeInput.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_FolioParentId.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_Platform.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_FundManager.cs" />
+    <Compile Include="Columns\Transactions\OFIColumn_TransactionExternalRef.cs" />
+    <Compile Include="Criterium\OFICriterium_FundProperty.cs" />
+    <Compile Include="Utility\OFIGlobalFunctions.cs" />
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\AllotmentHelper.cs">
+      <Link>Utility\AllotmentHelper.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\FundHelper.cs">
+      <Link>Utility\FundHelper.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\OFIColumnHelper.cs">
+      <Link>Utility\OFIColumnHelper.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\OfiConverter.cs">
+      <Link>Utility\OfiConverter.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\OFIFolioHelper.cs">
+      <Link>Utility\OFIFolioHelper.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\OFICashFlowHelper.cs">
+      <Link>Utility\OFICashFlowHelper.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\OFIDBResult.cs">
+      <Link>Utility\SQL\OFIDBResult.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\OFIInstrumentHelper.cs">
+      <Link>Utility\OFIInstrumentHelper.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\OFIMailHelper.cs">
+      <Link>Utility\OFIMailHelper.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\OFI_CicHelper.cs">
+      <Link>Utility\OFI_CicHelper.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\OFI_EventHandler.cs">
+      <Link>Utility\OFI_EventHandler.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\OFI_PreferencesHelper.cs">
+      <Link>Utility\OFI_PreferencesHelper.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\SqlUtility.cs">
+      <Link>Utility\SQL\SqlUtility.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\OFI_PortfolioRefresh.cs">
+      <Link>Utility\OFI_PortfolioRefresh.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\ReferenceData.cs">
+      <Link>Utility\ReferenceData.cs</Link>
+    </Compile>
+    <Compile Include="$(SolutionDir)OFI_SharedDotNet\CutoffDelay.cs">
+      <Link>Utility\CutoffDelay.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <!--EmbeddedResource Include="Properties\licenses.licx" /-->
+    <!--<EmbeddedResource Include="Properties\licenses.licx" />-->
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\ArchiveSensi\DetailArchivageSensi.resx">
+      <DependentUpon>DetailArchivageSensi.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\Change Context Date\DlgChangeContextDate.resx">
+      <DependentUpon>DlgChangeContextDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\CSO Negociation\DlgCSONeg.resx">
+      <DependentUpon>DlgCSONeg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\Decision gestion\DlgDecisionGestionAudit.resx">
+      <DependentUpon>DlgDecisionGestionAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\Fees Management\FeesManagementForm.resx">
+      <DependentUpon>FeesManagementForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\Fees\DlgFees.resx">
+      <DependentUpon>DlgFees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\Issuer Audit\OFIIssuerAuditForm.resx">
+      <DependentUpon>OFIIssuerAuditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\OFI Coupon Bond\OFICouponBondDialog.resx">
+      <DependentUpon>OFICouponBondDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\OFI Moniteur_Performances\MoniteurPerformancesParamForm.resx">
+      <DependentUpon>MoniteurPerformancesParamForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\OFI Moniteur_Performances\MoniteurPerformancesViewer.resx">
+      <DependentUpon>MoniteurPerformancesViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\OFI Reset Comptable\ResetComptableForm.resx">
+      <DependentUpon>ResetComptableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\OFIInventairesComptablesFIFOViewer\OFI_InventairesComptablesFIFOViewer.resx">
+      <DependentUpon>OFI_InventairesComptablesFIFOViewer.cs</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OFI_InventairesComptablesFIFOViewer1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\OFIMatchingViewer\OFI_MatchingViewer.resx">
+      <DependentUpon>OFI_MatchingViewer.cs</DependentUpon>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>OFI_MatchingViewer1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\OfiPassifViewer\OFI_PassifViewer.resx">
+      <DependentUpon>OFI_PassifViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\Broker Recap\DlgRecapBroker.resx">
+      <DependentUpon>DlgRecapBroker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\OIS Bloomberg Blotter\DlgOisBbgBlotter.resx">
+      <DependentUpon>DlgOisBbgBlotter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\OIS Extract ITG\DlgExtract_ITG.resx">
+      <DependentUpon>DlgExtract_ITG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\OIS RTO Oblig\DlgOisRtoOblig.resx">
+      <DependentUpon>DlgOisRtoOblig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\Open Reports Mandats\OpenReportsMandatsForm.resx">
+      <DependentUpon>OpenReportsMandatsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\PositionFinder\DlgPositionFinder.resx">
+      <DependentUpon>DlgPositionFinder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\PriceContributor\PriceContributor.resx">
+      <DependentUpon>PriceContributor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\Recap Pension\PensionRecapDate.resx">
+      <DependentUpon>PensionRecapDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\Sectors\OFISectorLongNameDlg.resx">
+      <DependentUpon>OFISectorLongNameDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\StrategyAllocation\StrategyAllocation.resx">
+      <DependentUpon>StrategyAllocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\OFIRapprochementPositionsViewer\OFI_RapprochementPositionsViewer.resx">
+      <DependentUpon>OFI_RapprochementPositionsViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\TransfertTitres Insert\TransfertTitresMassInsert.resx">
+      <DependentUpon>TransfertTitresMassInsert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utility\DlgFolioChooser.resx">
+      <DependentUpon>DlgFolioChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenario\Trade Allocation\DlgTradeAllocation.resx">
+      <DependentUpon>DlgTradeAllocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Workflow\OFIDateForm.resx">
+      <DependentUpon>OFIDateForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\MatchingService\OFIUserProjectDotNet.MatchingService.EcritureEspece.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MatchingService\OFIUserProjectDotNet.MatchingService.InventaireComptable.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MatchingService\OFIUserProjectDotNet.MatchingService.OperationComptable.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MatchingService\OFIUserProjectDotNet.MatchingService.ReportSophis.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MatchingService\OFIUserProjectDotNet.MatchingService.SoldeBalance.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MatchingService\OFIUserProjectDotNet.MatchingService.Suspend.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OfiDataFlux\OFIUserProjectDotNet.OfiDataFlux.OFISRDETAIL.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Import Project="$(SolutionDir)publish.proj" />
+  <Target Name="AfterBuild">
+    <CallTarget Condition="'$(Configuration)'=='Debug'" Targets="PublishOutputToClient" />
+  </Target>
+</Project>

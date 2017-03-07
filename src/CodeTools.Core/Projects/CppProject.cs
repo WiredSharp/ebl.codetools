@@ -14,7 +14,7 @@ namespace CodeTools.Core.Projects
 
 		public string Name { get; private set; }
 
-		public static CppProject Parse(string projectPath)
+		public static CppProject Parse(FileInfo projectPath)
 		{
 			var project = new CppProject(projectPath);
 			project.Parse();
@@ -92,7 +92,7 @@ namespace CodeTools.Core.Projects
 			return attribute != null ? attribute.Value : null;
 		}
 
-		public CppProject(string projectPath)
+		public CppProject(FileInfo projectPath)
 			: base(projectPath)
 		{
 		}

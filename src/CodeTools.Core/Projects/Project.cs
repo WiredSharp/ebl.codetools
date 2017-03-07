@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -13,9 +14,9 @@ namespace CodeTools.Core.Projects
 		public PathLink Path { get; protected set; }
 		public Guid ProjectGuid { get; protected set; }
 
-		protected Project(string path)
+		protected Project(FileInfo path)
 		{
-			if (String.IsNullOrEmpty(path)) throw new ArgumentException("path");
+			if (path == null) throw new ArgumentNullException("path");
 			Path = new PathLink(path);
 		}
 

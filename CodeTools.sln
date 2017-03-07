@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeAnalyzer", "src\CodeAnalyzer\CodeAnalyzer.csproj", "{B6CAB52E-6C20-4DDF-8B01-4EED15CC06FB}"
 EndProject
@@ -9,19 +9,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSProjectNormalizer", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTools.Core", "src\CodeTools.Core\CodeTools.Core.csproj", "{D993A555-BDC9-4514-B121-3699B7569397}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E9E0889A-7534-4CB0-A2A6-364DB8DF7EA0}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSProjectNormalizer.Test", "tests\VSProjectNormalizer.Test\VSProjectNormalizer.Test.csproj", "{0CFD3785-BC0D-4EAE-8930-391EAFA37A83}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{0431D2B3-DFD2-4986-8AFD-C14F0DA5CB74}"
 	ProjectSection(SolutionItems) = preProject
 		Shared\VersionInfo.cs = Shared\VersionInfo.cs
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1EFCEF12-7DD7-48D8-9934-AFD0D860E821}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTools.Core.Tests", "tests\CodeTools.Core.Tests\CodeTools.Core.Tests.csproj", "{A1A69676-1376-4172-B03C-B73C576AE423}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,8 +51,18 @@ Global
 		{0CFD3785-BC0D-4EAE-8930-391EAFA37A83}.Publish|Any CPU.Build.0 = Release|Any CPU
 		{0CFD3785-BC0D-4EAE-8930-391EAFA37A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CFD3785-BC0D-4EAE-8930-391EAFA37A83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1A69676-1376-4172-B03C-B73C576AE423}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1A69676-1376-4172-B03C-B73C576AE423}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1A69676-1376-4172-B03C-B73C576AE423}.Publish|Any CPU.ActiveCfg = Release|Any CPU
+		{A1A69676-1376-4172-B03C-B73C576AE423}.Publish|Any CPU.Build.0 = Release|Any CPU
+		{A1A69676-1376-4172-B03C-B73C576AE423}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1A69676-1376-4172-B03C-B73C576AE423}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0CFD3785-BC0D-4EAE-8930-391EAFA37A83} = {1EFCEF12-7DD7-48D8-9934-AFD0D860E821}
+		{A1A69676-1376-4172-B03C-B73C576AE423} = {1EFCEF12-7DD7-48D8-9934-AFD0D860E821}
 	EndGlobalSection
 EndGlobal
