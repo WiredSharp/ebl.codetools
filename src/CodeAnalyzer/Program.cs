@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using CodeTools.Core;
+using CodeTools.Core.Projects;
 
 namespace CodeAnalyzer
 {

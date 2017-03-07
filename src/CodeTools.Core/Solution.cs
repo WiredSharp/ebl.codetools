@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using CodeTools.Core.Projects;
 
 namespace CodeTools.Core
 {
@@ -16,7 +17,10 @@ namespace CodeTools.Core
 		public IReadOnlyDictionary<string, CSharpProject> CSharpProjects { get; private set; }
 
 		public IReadOnlyDictionary<string, CppProject> CppProjects { get; private set; }
-		
+
+	    protected Solution()
+	    {}
+
 		public static Solution Parse(string file)
 		{
 			var solution = new Solution

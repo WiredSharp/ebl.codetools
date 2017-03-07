@@ -7,6 +7,7 @@ using System.Net;
 using System.Reflection.Emit;
 using System.Text;
 using CodeTools.Core;
+using CodeTools.Core.Projects;
 
 namespace CodeAnalyzer
 {
@@ -148,17 +149,17 @@ namespace CodeAnalyzer
 
 		protected string NewSolutionProjectRelation(string solution, string projectName, Project project)
 		{
-			return String.Format("[{0}{{bg:{1}}}]-.->[{2}-{3}{{bg:{4}}}],", solution + "_S", GetSolutionColor(solution), projectName, ToProjectId(project), GetProjetColor(projectName, project));
+			return $"[{solution + "_S"}{{bg:{GetSolutionColor(solution)}}}]-.->[{projectName}-{ToProjectId(project)}{{bg:{GetProjetColor(projectName, project)}}}],";
 		}
 
 		private string NewProjectProjectRelation(string projectName, Project project, Reference reference)
 		{
-			return String.Format("[{0}-{1}{{bg:{2}}}]->[{3}{{bg:{4}}}],", projectName, ToProjectId(project), GetProjetColor(projectName, project), reference.Name, EXTERNAL_REFERENCE_COLOR);
+			return $"[{projectName}-{ToProjectId(project)}{{bg:{GetProjetColor(projectName, project)}}}]->[{reference.Name}{{bg:{EXTERNAL_REFERENCE_COLOR}}}],";
 		}
 
 		protected string NewProjectProjectRelation(string projectName, Project project, ProjectReference reference)
 		{
-			return String.Format("[{0}-{1}{{bg:{2}}}]->[{3}-{4}{{bg:{5}}}],", projectName, ToProjectId(project), GetProjetColor(projectName, project), reference.Name, ToProjectId(reference), REFERENCE_COLOR);
+			return $"[{projectName}-{ToProjectId(project)}{{bg:{GetProjetColor(projectName, project)}}}]->[{reference.Name}-{ToProjectId(reference)}{{bg:{REFERENCE_COLOR}}}],";
 		}
 
 		private static string GetSolutionColor(string solutionName)

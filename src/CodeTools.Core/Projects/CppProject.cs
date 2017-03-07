@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace CodeTools.Core
+namespace CodeTools.Core.Projects
 {
 	public class CppProject : Project
 	{

@@ -1,5 +1,6 @@
 using System;
 using CodeTools.Core;
+using CodeTools.Core.Projects;
 
 namespace CodeAnalyzer
 {

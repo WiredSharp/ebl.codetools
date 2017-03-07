@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using CodeTools.Core;
+using CodeTools.Core.Projects;
 
 namespace VSProjectNormalizer
 {
