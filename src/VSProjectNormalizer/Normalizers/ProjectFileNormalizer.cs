@@ -62,6 +62,11 @@ namespace VSProjectNormalizer.Normalizers
 			}
 		}
 
+	    protected XElement[] FindNodeByName(XContainer root, string nodeName)
+	    {
+	        return root.DescendantNodes().OfType<XElement>().Where(node => node.Name.LocalName == nodeName).ToArray();
+	    }
+
 		protected XElement GetFirstCommonPropertyGroup(XContainer root)
 		{
 			return
@@ -78,5 +83,10 @@ namespace VSProjectNormalizer.Normalizers
 		{
 			return new XAttribute("Condition", " '$(" + tag + ")' == '' ");
 		}
+
+	    protected XAttribute EqualCondition(string lhs, string rhs)
+	    {
+            return new XAttribute("Condition", $"'{lhs}'=='{rhs}'");
+        }
 	}
 }

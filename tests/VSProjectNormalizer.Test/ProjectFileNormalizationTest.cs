@@ -30,7 +30,6 @@ namespace VSProjectNormalizer.Test
         {
             AcceptanceTestOutputPath = TestContext.CurrentContext.Test.Name + ".AcceptanceTestOutputPath"
             ,BinOutputPath = TestContext.CurrentContext.Test.Name + ".BinOutputPath"
-            ,BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath"
             ,IntermediateOutputPath = TestContext.CurrentContext.Test.Name + ".IntermediateOutputPath"
             ,TestOutputPath = TestContext.CurrentContext.Test.Name + ".TestOutputPath"
         };
@@ -39,6 +38,7 @@ namespace VSProjectNormalizer.Test
         public void execution_is_idempotent()
         {
             const string projectFile = @"playground\test.csproj.xml";
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
             var normalizer = new VSProjectNormalizer(Settings);
             var first = normalizer.Normalize(new FileInfo(projectFile));
             Assert.AreEqual(first, normalizer.Normalize(first), "second execution is not idempotent");
@@ -48,6 +48,7 @@ namespace VSProjectNormalizer.Test
         public void regular_project_outputpath_node_is_replaced_and_unique_if_builddir_set()
         {
             const string projectFile = @"playground\regular.csproj.xml";
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
             XElement root = Normalize(projectFile);
             TestHelpers.AssertIsUniqueAndEqualsTo(root, OUTPUT_PATH_TAG, BuildPrefix + Settings.BinOutputPath);
         }
@@ -56,7 +57,6 @@ namespace VSProjectNormalizer.Test
         public void regular_project_outputpath_node_is_replaced_if_builddir_not_set()
         {
             const string projectFile = @"playground\regular.csproj.xml";
-            Settings.BuildPath = null;
             XElement root = Normalize(projectFile);
             TestHelpers.AssertEqualsTo(root, OUTPUT_PATH_TAG, DefaultBuildPrefix + Settings.BinOutputPath);
         }
@@ -65,6 +65,7 @@ namespace VSProjectNormalizer.Test
         public void regular_project_intermediatepath_node_is_replaced_and_unique_if_builddir_set()
         {
             const string projectFile = @"playground\regular.csproj.xml";
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
             XElement root = Normalize(projectFile);
             TestHelpers.AssertIsUniqueAndEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, BuildPrefix + Settings.IntermediateOutputPath);
         }
@@ -73,7 +74,6 @@ namespace VSProjectNormalizer.Test
         public void regular_project_intermediatepath_node_is_replaced_if_builddir_not_set()
         {
             const string projectFile = @"playground\regular.csproj.xml";
-            Settings.BuildPath = null;
             XElement root = Normalize(projectFile);
             TestHelpers.AssertEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, DefaultBuildPrefix + Settings.IntermediateOutputPath);
         }
@@ -82,6 +82,7 @@ namespace VSProjectNormalizer.Test
         public void test_project_outputpath_node_is_replaced_and_unique_if_builddir_set()
         {
             const string projectFile = @"playground\test.csproj.xml";
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
             XElement root = Normalize(projectFile);
             TestHelpers.AssertIsUniqueAndEqualsTo(root, OUTPUT_PATH_TAG, BuildPrefix + Settings.TestOutputPath);
         }
@@ -90,7 +91,6 @@ namespace VSProjectNormalizer.Test
         public void test_project_outputpath_node_is_replaced_if_builddir_not_set()
         {
             const string projectFile = @"playground\test.csproj.xml";
-            Settings.BuildPath = null;
             XElement root = Normalize(projectFile);
             TestHelpers.AssertEqualsTo(root, OUTPUT_PATH_TAG, DefaultBuildPrefix + Settings.TestOutputPath);
         }
@@ -99,6 +99,7 @@ namespace VSProjectNormalizer.Test
         public void test_project_intermediatepath_node_is_replaced_and_unique_if_builddir_set()
         {
             const string projectFile = @"playground\test.csproj.xml";
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
             XElement root = Normalize(projectFile);
             TestHelpers.AssertIsUniqueAndEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, BuildPrefix + Settings.IntermediateOutputPath);
         }
@@ -107,7 +108,6 @@ namespace VSProjectNormalizer.Test
         public void test_project_intermediatepath_node_is_replaced_if_builddir_not_set()
         {
             const string projectFile = @"playground\test.csproj.xml";
-            Settings.BuildPath = null;
             XElement root = Normalize(projectFile);
             TestHelpers.AssertEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, DefaultBuildPrefix + Settings.IntermediateOutputPath);
         }
@@ -116,6 +116,7 @@ namespace VSProjectNormalizer.Test
         public void acceptance_project_outputpath_node_is_replaced_and_unique_if_builddir_set()
         {
             const string projectFile = @"playground\acceptance.csproj.xml";
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
             XElement root = Normalize(projectFile);
             TestHelpers.AssertIsUniqueAndEqualsTo(root, OUTPUT_PATH_TAG, BuildPrefix + Settings.AcceptanceTestOutputPath);
         }
@@ -124,7 +125,6 @@ namespace VSProjectNormalizer.Test
         public void acceptance_project_outputpath_node_is_replaced_if_builddir_not_set()
         {
             const string projectFile = @"playground\acceptance.csproj.xml";
-            Settings.BuildPath = null;
             XElement root = Normalize(projectFile);
             TestHelpers.AssertEqualsTo(root, OUTPUT_PATH_TAG, DefaultBuildPrefix + Settings.AcceptanceTestOutputPath);
         }
@@ -133,6 +133,7 @@ namespace VSProjectNormalizer.Test
         public void acceptance_project_intermediatepath_node_is_replaced_and_unique_if_builddir_set()
         {
             const string projectFile = @"playground\acceptance.csproj.xml";
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
             XElement root = Normalize(projectFile);
             TestHelpers.AssertIsUniqueAndEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, BuildPrefix + Settings.IntermediateOutputPath);
         }
@@ -141,7 +142,6 @@ namespace VSProjectNormalizer.Test
         public void acceptance_project_intermediatepath_node_is_replaced_if_builddir_not_set()
         {
             const string projectFile = @"playground\acceptance.csproj.xml";
-            Settings.BuildPath = null;
             XElement root = Normalize(projectFile);
             TestHelpers.AssertEqualsTo(root, INTERMEDIATE_OUTPUT_PATH, DefaultBuildPrefix + Settings.IntermediateOutputPath);
         }
@@ -153,6 +153,7 @@ namespace VSProjectNormalizer.Test
                 , @"playground\acceptance.csproj.xml")] string projectFile)
         {
             XElement root = Normalize(projectFile);
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
             TestHelpers.AssertIsUniqueAndEqualsTo(root, "BuildDir", Settings.BuildPath);
         }
 
@@ -162,7 +163,6 @@ namespace VSProjectNormalizer.Test
                 , @"playground\test.csproj.xml"
                 , @"playground\acceptance.csproj.xml")] string projectFile)
         {
-            Settings.BuildPath = null;
             XElement root = Normalize(projectFile);
             Assert.IsFalse(TestHelpers.FindNodes(root, "BuildDir").Any(), "buildDir element should not have been set");
         }
@@ -174,6 +174,7 @@ namespace VSProjectNormalizer.Test
                 , @"playground\acceptance.csproj.xml")] string projectFile)
         {
             XElement root = Normalize(projectFile);
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
             IEnumerable<XElement> matchingNodes = TestHelpers.FindNodes(root, "OutputPath");
             Assert.IsFalse(matchingNodes.Any(n => n.Value.EndsWith("$Platform")), "no output path should end with $Platform tag");
         }
@@ -185,6 +186,7 @@ namespace VSProjectNormalizer.Test
                 , @"playground\acceptance.csproj.xml")] string projectFile)
         {
             XElement root = Normalize(projectFile);
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
             IEnumerable<XElement> matchingNodes = TestHelpers.FindNodes(root, "IntermediateOutputPath");
             Assert.IsFalse(matchingNodes.Any(n => n.Value.EndsWith("$Platform")), "no intermediate output path should end with $Platform tag");
         }
@@ -193,7 +195,8 @@ namespace VSProjectNormalizer.Test
 		public void xml_declaration_is_returned()
 		{
 			const string projectFile = @"playground\regular.csproj.xml";
-			var normalizer = new VSProjectNormalizer(Settings);
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
+            var normalizer = new VSProjectNormalizer(Settings);
 			string normalized = normalizer.Normalize(new FileInfo(projectFile));
 			Assert.That(normalized, Is.StringStarting("<?xml version=\"1.0\" encoding=\"utf-8\"?>"), "xml declaration are omitted");
 		}
@@ -202,7 +205,8 @@ namespace VSProjectNormalizer.Test
 		public void website_project_output_path_is_not_modified()
 		{
 			const string projectFile = @"playground\website.csproj.xml";
-		    XElement normalized = TestHelpers.Normalize(new FileInfo(projectFile), Settings);
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
+            XElement normalized = TestHelpers.Normalize(new FileInfo(projectFile), Settings);
 		    IEnumerable<XElement> outputPathNodes = TestHelpers.FindNodes(normalized, "OutputPath");
             Assert.IsTrue(outputPathNodes.All(node => node.Value == @"bin\"));
 		}
@@ -211,6 +215,7 @@ namespace VSProjectNormalizer.Test
         public void website_project_intermediate_path_is_modified_when_builddir_is_set()
         {
             const string projectFile = @"playground\website.csproj.xml";
+            Settings.BuildPath = TestContext.CurrentContext.Test.Name + ".BuildPath";
             XElement normalized = TestHelpers.Normalize(new FileInfo(projectFile), Settings);
             IEnumerable<XElement> outputPathNodes = TestHelpers.FindNodes(normalized, "IntermediateOutputPath");
             foreach (XElement node in outputPathNodes)
@@ -223,11 +228,30 @@ namespace VSProjectNormalizer.Test
         public void website_project_intermediate_path_is_modified_when_builddir_is_not_set()
         {
             const string projectFile = @"playground\website.csproj.xml";
-            Settings.BuildPath = null;
             XElement normalized = TestHelpers.Normalize(new FileInfo(projectFile), Settings);
             IEnumerable<XElement> outputPathNodes = TestHelpers.FindNodes(normalized, "IntermediateOutputPath");
             Assert.IsTrue(outputPathNodes.Any(node => @"$(SolutionDir)$(Configuration)\" + Settings.IntermediateOutputPath == node.Value), @"'$(SolutionDir)$(Configuration)\" + Settings.IntermediateOutputPath + "' intermediate output path value not found");
             Assert.IsTrue(outputPathNodes.Any(node => @"$(BuildDir)$(SolutionName)\$(Configuration)\" + Settings.IntermediateOutputPath == node.Value), @"$(BuildDir)$(SolutionName)\$(Configuration)\" + Settings.IntermediateOutputPath + "' intermediate output path value not found");
+        }
+
+	    [Test]
+	    public void solutionDir_is_defined()
+	    {
+            const string projectFile = @"playground\regular.csproj.xml";
+            XElement normalized = TestHelpers.Normalize(new FileInfo(projectFile), Settings);
+            IEnumerable<XElement> solutionDirNodes = TestHelpers.FindNodes(normalized, "SolutionDir");
+            Assert.IsTrue(solutionDirNodes.Any(), "solution dir has not been defined");
+            Assert.IsTrue(solutionDirNodes.Any(node => node.Attribute("Condition") != null), "conditional attribute is not set on solution dir node");
+        }
+
+        [Test]
+        public void solutionName_is_defined()
+        {
+            const string projectFile = @"playground\regular.csproj.xml";
+            XElement normalized = TestHelpers.Normalize(new FileInfo(projectFile), Settings);
+            IEnumerable<XElement> solutionNameNodes = TestHelpers.FindNodes(normalized, "SolutionName");
+            Assert.IsTrue(solutionNameNodes.Any(), "solution name has not been defined");
+            Assert.IsTrue(solutionNameNodes.Any(node => node.Attribute("Condition") != null), "conditional attribute is not set on solution name node");
         }
 
         protected XElement Normalize(string projectFile)
