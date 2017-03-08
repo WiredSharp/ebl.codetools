@@ -2,23 +2,29 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VSProjectNormalizer" GeneratedClassName="Resource">
   <Profiles />
   <Settings>
-    <Setting Name="BUILD_DIR" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="TEST_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Tests\$(AssemblyName)</Value>
     </Setting>
     <Setting Name="BIN_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Bin\$(AssemblyName)</Value>
     </Setting>
     <Setting Name="INTERMEDIATE_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">obj\$(AssemblyName)</Value>
     </Setting>
     <Setting Name="ACCEPTANCE_TEST_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Acceptance\$(AssemblyName)</Value>
     </Setting>
     <Setting Name="USE_PLATFORM" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SPECIFIC_BUILD_FOLDER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">$(BuildDir)$(SolutionName)\$(Configuration)</Value>
+    </Setting>
+    <Setting Name="DEFAULT_BUILD_FOLDER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">$(SolutionDir)$(Configuration)</Value>
+    </Setting>
+    <Setting Name="PLATFORM_OUTPUT_PATH" Type="System.String" Scope="User">
+      <Value Profile="(Default)">$(Platform)</Value>
     </Setting>
   </Settings>
 </SettingsFile>

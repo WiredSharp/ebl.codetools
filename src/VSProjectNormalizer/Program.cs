@@ -81,8 +81,6 @@ namespace VSProjectNormalizer
 				,AcceptanceTestOutputPath = Resource.Default.ACCEPTANCE_TEST_OUTPUT_PATH
 				,BinOutputPath = Resource.Default.BIN_OUTPUT_PATH
 				,IntermediateOutputPath = Resource.Default.INTERMEDIATE_OUTPUT_PATH
-				,BuildPath = Resource.Default.BUILD_DIR
-                ,UsePlatform = Resource.Default.USE_PLATFORM
 			});
 			return normalizer;
 		}

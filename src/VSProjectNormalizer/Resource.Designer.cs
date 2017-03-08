@@ -25,19 +25,7 @@ namespace VSProjectNormalizer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string BUILD_DIR {
-            get {
-                return ((string)(this["BUILD_DIR"]));
-            }
-            set {
-                this["BUILD_DIR"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Tests\\$(AssemblyName)")]
         public string TEST_OUTPUT_PATH {
             get {
                 return ((string)(this["TEST_OUTPUT_PATH"]));
@@ -49,7 +37,7 @@ namespace VSProjectNormalizer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Bin\\$(AssemblyName)")]
         public string BIN_OUTPUT_PATH {
             get {
                 return ((string)(this["BIN_OUTPUT_PATH"]));
@@ -61,7 +49,7 @@ namespace VSProjectNormalizer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("obj\\$(AssemblyName)")]
         public string INTERMEDIATE_OUTPUT_PATH {
             get {
                 return ((string)(this["INTERMEDIATE_OUTPUT_PATH"]));
@@ -73,7 +61,7 @@ namespace VSProjectNormalizer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Acceptance\\$(AssemblyName)")]
         public string ACCEPTANCE_TEST_OUTPUT_PATH {
             get {
                 return ((string)(this["ACCEPTANCE_TEST_OUTPUT_PATH"]));
@@ -92,6 +80,42 @@ namespace VSProjectNormalizer {
             }
             set {
                 this["USE_PLATFORM"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("$(BuildDir)$(SolutionName)\\$(Configuration)")]
+        public string SPECIFIC_BUILD_FOLDER {
+            get {
+                return ((string)(this["SPECIFIC_BUILD_FOLDER"]));
+            }
+            set {
+                this["SPECIFIC_BUILD_FOLDER"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("$(SolutionDir)$(Configuration)")]
+        public string DEFAULT_BUILD_FOLDER {
+            get {
+                return ((string)(this["DEFAULT_BUILD_FOLDER"]));
+            }
+            set {
+                this["DEFAULT_BUILD_FOLDER"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("$(Platform)")]
+        public string PLATFORM_OUTPUT_PATH {
+            get {
+                return ((string)(this["PLATFORM_OUTPUT_PATH"]));
+            }
+            set {
+                this["PLATFORM_OUTPUT_PATH"] = value;
             }
         }
     }
