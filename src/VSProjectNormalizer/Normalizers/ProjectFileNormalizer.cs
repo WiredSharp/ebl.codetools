@@ -74,19 +74,15 @@ namespace VSProjectNormalizer.Normalizers
 					FirstOrDefault(node => !node.HasAttributes && node.Name.ToString().EndsWith("PropertyGroup"));
 		}
 
-		protected static XAttribute ExistCondition(string tag)
-		{
-			return new XAttribute("Condition", " '$(" + tag + ")' != '' ");
-		}
-
-		protected static XAttribute NotExistCondition(string tag)
-		{
-			return new XAttribute("Condition", " '$(" + tag + ")' == '' ");
-		}
-
-	    protected XAttribute EqualCondition(string lhs, string rhs)
+	    protected static void RemoveNodesWithAttribute(XElement root, XAttribute label)
 	    {
-            return new XAttribute("Condition", $"'{lhs}'=='{rhs}'");
-        }
+	        var toRemove = root.DescendantNodes()
+	                           .OfType<XElement>()
+	                           .Where(n => n.Attributes().Any(a => a.Name == label.Name && a.Value == label.Value)).ToArray();
+	        foreach (XElement element in toRemove)
+	        {
+	            element.Remove();
+	        }
+	    }
 	}
 }

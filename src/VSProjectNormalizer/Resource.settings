@@ -26,5 +26,11 @@
     <Setting Name="PLATFORM_OUTPUT_PATH" Type="System.String" Scope="User">
       <Value Profile="(Default)">$(Platform)</Value>
     </Setting>
+    <Setting Name="DEFAULT_SOLUTION_DIR" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\..\</Value>
+    </Setting>
+    <Setting Name="DEFAULT_SOLUTION_NAME" Type="System.String" Scope="User">
+      <Value Profile="(Default)">$(AssemblyName)</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

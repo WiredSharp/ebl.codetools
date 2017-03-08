@@ -118,5 +118,29 @@ namespace VSProjectNormalizer {
                 this["PLATFORM_OUTPUT_PATH"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\")]
+        public string DEFAULT_SOLUTION_DIR {
+            get {
+                return ((string)(this["DEFAULT_SOLUTION_DIR"]));
+            }
+            set {
+                this["DEFAULT_SOLUTION_DIR"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("$(AssemblyName)")]
+        public string DEFAULT_SOLUTION_NAME {
+            get {
+                return ((string)(this["DEFAULT_SOLUTION_NAME"]));
+            }
+            set {
+                this["DEFAULT_SOLUTION_NAME"] = value;
+            }
+        }
     }
 }
