@@ -86,18 +86,18 @@ namespace VSProjectNormalizer {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("$(BuildDir)$(SolutionName)\\$(Configuration)")]
-        public string SPECIFIC_BUILD_FOLDER {
+        public string EXTERNAL_BUILD_FOLDER {
             get {
-                return ((string)(this["SPECIFIC_BUILD_FOLDER"]));
+                return ((string)(this["EXTERNAL_BUILD_FOLDER"]));
             }
             set {
-                this["SPECIFIC_BUILD_FOLDER"] = value;
+                this["EXTERNAL_BUILD_FOLDER"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("$(SolutionDir)$(Configuration)")]
+        [global::System.Configuration.DefaultSettingValueAttribute("$(SolutionDir)Artifacts\\$(Configuration)")]
         public string DEFAULT_BUILD_FOLDER {
             get {
                 return ((string)(this["DEFAULT_BUILD_FOLDER"]));

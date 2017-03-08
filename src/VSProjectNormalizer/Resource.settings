@@ -17,11 +17,11 @@
     <Setting Name="USE_PLATFORM" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="SPECIFIC_BUILD_FOLDER" Type="System.String" Scope="User">
+    <Setting Name="EXTERNAL_BUILD_FOLDER" Type="System.String" Scope="User">
       <Value Profile="(Default)">$(BuildDir)$(SolutionName)\$(Configuration)</Value>
     </Setting>
     <Setting Name="DEFAULT_BUILD_FOLDER" Type="System.String" Scope="User">
-      <Value Profile="(Default)">$(SolutionDir)$(Configuration)</Value>
+      <Value Profile="(Default)">$(SolutionDir)Artifacts\$(Configuration)</Value>
     </Setting>
     <Setting Name="PLATFORM_OUTPUT_PATH" Type="System.String" Scope="User">
       <Value Profile="(Default)">$(Platform)</Value>

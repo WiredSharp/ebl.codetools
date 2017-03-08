@@ -38,7 +38,7 @@ namespace VSProjectNormalizer.Normalizers
             }
             else
             {
-                choose = Elements.Choose(Elements.When(buildTagDefined, BuildIntermediateOutputNodes(Path.Combine(CurrentSettings.BuildPrefix, CurrentSettings.IntermediateOutputPath)))
+                choose = Elements.Choose(Elements.When(buildTagDefined, BuildIntermediateOutputNodes(Path.Combine(CurrentSettings.ExternalBuildPrefix, CurrentSettings.IntermediateOutputPath)))
                                         , Elements.Otherwise(BuildIntermediateOutputNodes(Path.Combine(CurrentSettings.DefaultBuildPrefix, CurrentSettings.IntermediateOutputPath))));
             }
             choose.Add(label);

@@ -9,9 +9,9 @@ namespace VSProjectNormalizer
 
 		public static Settings Default => DEFAULT.Value;
 
-		public string BuildPrefix => Resource.Default.SPECIFIC_BUILD_FOLDER + @"\";
+        public string ExternalBuildPrefix => Resource.Default.EXTERNAL_BUILD_FOLDER + @"\";
 
-	    public string DefaultBuildPrefix => Resource.Default.DEFAULT_BUILD_FOLDER + @"\";
+        public string DefaultBuildPrefix => Resource.Default.DEFAULT_BUILD_FOLDER + @"\";
 
 	    public string AcceptanceTestOutputPath { get; set; }
 

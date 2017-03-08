@@ -14,7 +14,7 @@ namespace VSProjectNormalizer.Test
         internal const string INTERMEDIATE_OUTPUT_PATH = "IntermediateOutputPath";
 
         private const string BUILD_PREFIX_WITHOUT_PLATFORM = @"$(BuildDir)$(SolutionName)\$(Configuration)\";
-        private const string DEFAULT_BUILD_PREFIX_WITHOUT_PLATFORM = @"$(SolutionDir)$(Configuration)\";
+        private const string DEFAULT_BUILD_PREFIX_WITHOUT_PLATFORM = @"$(SolutionDir)Artifacts\$(Configuration)\";
 
         protected string BuildPrefix => BUILD_PREFIX_WITHOUT_PLATFORM;
 
@@ -144,27 +144,20 @@ namespace VSProjectNormalizer.Test
         }
 
         [Test]
-        public void outputpath_does_not_end_with_platform_tag(
-            [Values(@"playground\regular.csproj.xml"
-                , @"playground\test.csproj.xml"
-                , @"playground\acceptance.csproj.xml")] string projectFile)
-        {
-            XElement root = Normalize(projectFile);
-            Settings.BuildPath = "BuildPath";
-            IEnumerable<XElement> matchingNodes = root.FindNodes("OutputPath");
-            Assert.IsFalse(matchingNodes.Any(n => n.Value.EndsWith("$Platform")), "no output path should end with $Platform tag");
-        }
-
-        [Test]
         public void intermediate_outputpath_ends_with_platform_tag(
             [Values(@"playground\regular.csproj.xml"
                 , @"playground\test.csproj.xml"
-                , @"playground\acceptance.csproj.xml")] string projectFile)
+                , @"playground\acceptance.csproj.xml"
+                , @"playground\website.csproj.xml")] string projectFile)
         {
-            XElement root = Normalize(projectFile);
+            XElement normalized = Normalize(projectFile);
             Settings.BuildPath = "BuildPath";
-            IEnumerable<XElement> matchingNodes = root.FindNodes("IntermediateOutputPath");
-            Assert.IsFalse(matchingNodes.Any(n => n.Value.EndsWith("$Platform")), "no intermediate output path should end with $Platform tag");
+            normalized.AssertExactMatch(INTERMEDIATE_OUTPUT_PATH
+                                  , Path.Combine(Settings.ExternalBuildPrefix, Settings.IntermediateOutputPath)
+                                  , Settings.WithPlatform(Path.Combine(Settings.ExternalBuildPrefix, Settings.IntermediateOutputPath))
+                                  , Path.Combine(Settings.DefaultBuildPrefix, Settings.IntermediateOutputPath)
+                                  , Settings.WithPlatform(Path.Combine(Settings.DefaultBuildPrefix, Settings.IntermediateOutputPath))
+                                  );
         }
 
         [Test]
@@ -192,9 +185,12 @@ namespace VSProjectNormalizer.Test
         {
             const string projectFile = @"playground\website.csproj.xml";
             XElement normalized = new FileInfo(projectFile).Normalize(Settings);
-            IEnumerable<XElement> outputPathNodes = normalized.FindNodes("IntermediateOutputPath");
-            Assert.IsTrue(outputPathNodes.Any(node => @"$(SolutionDir)$(Configuration)\" + Settings.IntermediateOutputPath == node.Value), @"'$(SolutionDir)$(Configuration)\" + Settings.IntermediateOutputPath + "' intermediate output path value not found");
-            Assert.IsTrue(outputPathNodes.Any(node => @"$(BuildDir)$(SolutionName)\$(Configuration)\" + Settings.IntermediateOutputPath == node.Value), @"$(BuildDir)$(SolutionName)\$(Configuration)\" + Settings.IntermediateOutputPath + "' intermediate output path value not found");
+            normalized.AssertExactMatch(INTERMEDIATE_OUTPUT_PATH
+                                  , Path.Combine(Settings.ExternalBuildPrefix, Settings.IntermediateOutputPath)
+                                  , Settings.WithPlatform(Path.Combine(Settings.ExternalBuildPrefix, Settings.IntermediateOutputPath))
+                                  , Path.Combine(Settings.DefaultBuildPrefix, Settings.IntermediateOutputPath)
+                                  , Settings.WithPlatform(Path.Combine(Settings.DefaultBuildPrefix, Settings.IntermediateOutputPath))
+                                  );
         }
 
 	    [Test]
