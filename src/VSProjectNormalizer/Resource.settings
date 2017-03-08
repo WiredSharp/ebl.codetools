@@ -14,9 +14,6 @@
     <Setting Name="ACCEPTANCE_TEST_OUTPUT_PATH" Type="System.String" Scope="User">
       <Value Profile="(Default)">Acceptance\$(AssemblyName)</Value>
     </Setting>
-    <Setting Name="USE_PLATFORM" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="EXTERNAL_BUILD_FOLDER" Type="System.String" Scope="User">
       <Value Profile="(Default)">$(BuildDir)$(SolutionName)\$(Configuration)</Value>
     </Setting>

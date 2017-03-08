@@ -17,11 +17,6 @@ namespace VSProjectNormalizer
 
 		protected Settings CurrentSettings { get; set; }
 
-		public VSProjectNormalizer()
-			: this(Settings.Default)
-		{
-		}
-
 		public VSProjectNormalizer(Settings settings)
 		{
 			if (settings == null) throw new ArgumentNullException(nameof(settings));

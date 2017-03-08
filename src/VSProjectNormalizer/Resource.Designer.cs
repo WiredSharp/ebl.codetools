@@ -73,18 +73,6 @@ namespace VSProjectNormalizer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool USE_PLATFORM {
-            get {
-                return ((bool)(this["USE_PLATFORM"]));
-            }
-            set {
-                this["USE_PLATFORM"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("$(BuildDir)$(SolutionName)\\$(Configuration)")]
         public string EXTERNAL_BUILD_FOLDER {
             get {

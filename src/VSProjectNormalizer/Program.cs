@@ -68,20 +68,30 @@ namespace VSProjectNormalizer
 		private static void ShowHelp()
 		{
 			var name = Assembly.GetEntryAssembly().GetName().Name;
-			Console.WriteLine("Visual Studio project file converter v{0} (c) 2016 OFI AM", Assembly.GetExecutingAssembly().GetName().Version);
+			Console.WriteLine("Visual Studio project file converter v{0} (c) 2016 OFI AM", GetAttribute<AssemblyInformationalVersionAttribute>(Assembly.GetExecutingAssembly()).InformationalVersion);
 			Console.WriteLine(name + " <projectfile.csproj> : convert specified project file");
 			Console.WriteLine(name + " <solutionfile.sln> : convert all project files in solution");
 		}
 
-		private static VSProjectNormalizer NewNormalizer()
+	    private static T GetAttribute<T>(Assembly assembly) where T:Attribute
+	    {
+	        return (T)Attribute.GetCustomAttribute(assembly, typeof(T));
+	    }
+
+	    private static VSProjectNormalizer NewNormalizer()
 		{
 			var normalizer = new VSProjectNormalizer(new Settings()
 			{
-				TestOutputPath = Resource.Default.TEST_OUTPUT_PATH
-				,AcceptanceTestOutputPath = Resource.Default.ACCEPTANCE_TEST_OUTPUT_PATH
-				,BinOutputPath = Resource.Default.BIN_OUTPUT_PATH
-				,IntermediateOutputPath = Resource.Default.INTERMEDIATE_OUTPUT_PATH
-			});
+                IntermediateOutputPath = Resource.Default.INTERMEDIATE_OUTPUT_PATH,
+                BinOutputPath = Resource.Default.BIN_OUTPUT_PATH,
+                TestOutputPath = Resource.Default.TEST_OUTPUT_PATH,
+                AcceptanceTestOutputPath = Resource.Default.ACCEPTANCE_TEST_OUTPUT_PATH,
+                DefaultSolutionDir = Resource.Default.DEFAULT_SOLUTION_DIR,
+                DefaultSolutionName = Resource.Default.DEFAULT_SOLUTION_NAME,
+                PlatformOutputPath = Resource.Default.PLATFORM_OUTPUT_PATH,
+                ExternalBuildPrefix = Resource.Default.EXTERNAL_BUILD_FOLDER,
+                DefaultBuildPrefix = Resource.Default.DEFAULT_BUILD_FOLDER
+        });
 			return normalizer;
 		}
 	}
