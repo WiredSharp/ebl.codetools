@@ -12,11 +12,43 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-    <OutputPath Condition=" '$(BuildDir)' != '' ">$(BuildDir)$(SolutionName)\$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
-    <OutputPath Condition=" '$(BuildDir)' == '' ">$(SolutionDir)$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
-    <IntermediateOutputPath Condition=" '$(BuildDir)' != '' ">$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
-    <IntermediateOutputPath Condition=" '$(BuildDir)' == '' ">$(SolutionDir)$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+    <SolutionDir Condition="'$(SolutionDir)'==''">..\..\</SolutionDir>
+    <SolutionName Condition="'$(SolutionName)'==''">$(AssemblyName)</SolutionName>
   </PropertyGroup>
+  <Choose>
+    <When Condition="'$(BuildDir)'!=''">
+      <Choose>
+        <When Condition="('$(Platform)'!='') AND ('$(Platform)'!='AnyCPU')">
+          <PropertyGroup>
+            <OutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
+            <IntermediateOutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+          </PropertyGroup>
+        </When>
+        <Otherwise>
+          <PropertyGroup>
+            <OutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\Bin\$(AssemblyName)</OutputPath>
+            <IntermediateOutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+          </PropertyGroup>
+        </Otherwise>
+      </Choose>
+    </When>
+    <Otherwise>
+      <Choose>
+        <When Condition="('$(Platform)'!='') AND ('$(Platform)'!='AnyCPU')">
+          <PropertyGroup>
+            <OutputPath>$(SolutionDir)Artifacts\$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
+            <IntermediateOutputPath>$(SolutionDir)Artifacts\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+          </PropertyGroup>
+        </When>
+        <Otherwise>
+          <PropertyGroup>
+            <OutputPath>$(SolutionDir)Artifacts\$(Configuration)\Bin\$(AssemblyName)</OutputPath>
+            <IntermediateOutputPath>$(SolutionDir)Artifacts\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+          </PropertyGroup>
+        </Otherwise>
+      </Choose>
+    </Otherwise>
+  </Choose>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>

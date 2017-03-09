@@ -13,11 +13,42 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <TargetFrameworkProfile />
-    <OutputPath Condition=" '$(BuildDir)' != '' ">$(BuildDir)$(SolutionName)\$(Configuration)\Tests\$(AssemblyName)\$(Platform)</OutputPath>
-    <OutputPath Condition=" '$(BuildDir)' == '' ">$(SolutionDir)$(Configuration)\Tests\$(AssemblyName)\$(Platform)</OutputPath>
-    <IntermediateOutputPath Condition=" '$(BuildDir)' != '' ">$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
-    <IntermediateOutputPath Condition=" '$(BuildDir)' == '' ">$(SolutionDir)$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+    <SolutionName Condition="'$(SolutionName)'==''">$(AssemblyName)</SolutionName>
   </PropertyGroup>
+  <Choose>
+    <When Condition="'$(BuildDir)'!=''">
+      <Choose>
+        <When Condition="('$(Platform)'!='') AND ('$(Platform)'!='AnyCPU')">
+          <PropertyGroup>
+            <OutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\Tests\$(AssemblyName)\$(Platform)</OutputPath>
+            <IntermediateOutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+          </PropertyGroup>
+        </When>
+        <Otherwise>
+          <PropertyGroup>
+            <OutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\Tests\$(AssemblyName)</OutputPath>
+            <IntermediateOutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+          </PropertyGroup>
+        </Otherwise>
+      </Choose>
+    </When>
+    <Otherwise>
+      <Choose>
+        <When Condition="('$(Platform)'!='') AND ('$(Platform)'!='AnyCPU')">
+          <PropertyGroup>
+            <OutputPath>$(SolutionDir)Artifacts\$(Configuration)\Tests\$(AssemblyName)\$(Platform)</OutputPath>
+            <IntermediateOutputPath>$(SolutionDir)Artifacts\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+          </PropertyGroup>
+        </When>
+        <Otherwise>
+          <PropertyGroup>
+            <OutputPath>$(SolutionDir)Artifacts\$(Configuration)\Tests\$(AssemblyName)</OutputPath>
+            <IntermediateOutputPath>$(SolutionDir)Artifacts\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+          </PropertyGroup>
+        </Otherwise>
+      </Choose>
+    </Otherwise>
+  </Choose>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -42,8 +73,8 @@
       <HintPath>..\..\packages\NetBike.XmlUnit.NUnitAdapter.0.1.0\lib\net45\NetBike.XmlUnit.NUnitAdapter.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

@@ -22,6 +22,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTools.Core.Tests", "tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynchronizeVSProject", "src\SynchronizeVSProject\SynchronizeVSProject.csproj", "{B4351DDC-3CA1-44D1-807E-31A9BF09D280}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTools.MSBuild.Helpers", "src\CodeTools.MSBuild.Helpers\CodeTools.MSBuild.Helpers.csproj", "{3DF5F4D8-949E-4F76-B2D4-06A522B64CAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynchronizeVSProject.Test", "Tests\SynchronizeVSProject.Test\SynchronizeVSProject.Test.csproj", "{577B31B4-AA7E-4EDC-AED6-8AE5E3680EC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,18 @@ Global
 		{B4351DDC-3CA1-44D1-807E-31A9BF09D280}.Publish|Any CPU.Build.0 = Release|Any CPU
 		{B4351DDC-3CA1-44D1-807E-31A9BF09D280}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4351DDC-3CA1-44D1-807E-31A9BF09D280}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DF5F4D8-949E-4F76-B2D4-06A522B64CAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DF5F4D8-949E-4F76-B2D4-06A522B64CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DF5F4D8-949E-4F76-B2D4-06A522B64CAE}.Publish|Any CPU.ActiveCfg = Release|Any CPU
+		{3DF5F4D8-949E-4F76-B2D4-06A522B64CAE}.Publish|Any CPU.Build.0 = Release|Any CPU
+		{3DF5F4D8-949E-4F76-B2D4-06A522B64CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DF5F4D8-949E-4F76-B2D4-06A522B64CAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{577B31B4-AA7E-4EDC-AED6-8AE5E3680EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{577B31B4-AA7E-4EDC-AED6-8AE5E3680EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{577B31B4-AA7E-4EDC-AED6-8AE5E3680EC4}.Publish|Any CPU.ActiveCfg = Release|Any CPU
+		{577B31B4-AA7E-4EDC-AED6-8AE5E3680EC4}.Publish|Any CPU.Build.0 = Release|Any CPU
+		{577B31B4-AA7E-4EDC-AED6-8AE5E3680EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{577B31B4-AA7E-4EDC-AED6-8AE5E3680EC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,5 +88,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{0CFD3785-BC0D-4EAE-8930-391EAFA37A83} = {1EFCEF12-7DD7-48D8-9934-AFD0D860E821}
 		{A1A69676-1376-4172-B03C-B73C576AE423} = {1EFCEF12-7DD7-48D8-9934-AFD0D860E821}
+		{577B31B4-AA7E-4EDC-AED6-8AE5E3680EC4} = {1EFCEF12-7DD7-48D8-9934-AFD0D860E821}
 	EndGlobalSection
 EndGlobal

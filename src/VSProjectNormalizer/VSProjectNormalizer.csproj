@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -31,11 +31,43 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <OutputPath Condition=" '$(BuildDir)' != '' ">$(BuildDir)$(SolutionName)\$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
-    <OutputPath Condition=" '$(BuildDir)' == '' ">$(SolutionDir)$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
-    <IntermediateOutputPath Condition=" '$(BuildDir)' != '' ">$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
-    <IntermediateOutputPath Condition=" '$(BuildDir)' == '' ">$(SolutionDir)$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+    <SolutionDir Condition="'$(SolutionDir)'==''">..\..\</SolutionDir>
+    <SolutionName Condition="'$(SolutionName)'==''">$(AssemblyName)</SolutionName>
   </PropertyGroup>
+  <Choose>
+    <When Condition="'$(BuildDir)'!=''">
+      <Choose>
+        <When Condition="('$(Platform)'!='') AND ('$(Platform)'!='AnyCPU')">
+          <PropertyGroup>
+            <OutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
+            <IntermediateOutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+          </PropertyGroup>
+        </When>
+        <Otherwise>
+          <PropertyGroup>
+            <OutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\Bin\$(AssemblyName)</OutputPath>
+            <IntermediateOutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+          </PropertyGroup>
+        </Otherwise>
+      </Choose>
+    </When>
+    <Otherwise>
+      <Choose>
+        <When Condition="('$(Platform)'!='') AND ('$(Platform)'!='AnyCPU')">
+          <PropertyGroup>
+            <OutputPath>$(SolutionDir)Artifacts\$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
+            <IntermediateOutputPath>$(SolutionDir)Artifacts\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+          </PropertyGroup>
+        </When>
+        <Otherwise>
+          <PropertyGroup>
+            <OutputPath>$(SolutionDir)Artifacts\$(Configuration)\Bin\$(AssemblyName)</OutputPath>
+            <IntermediateOutputPath>$(SolutionDir)Artifacts\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+          </PropertyGroup>
+        </Otherwise>
+      </Choose>
+    </Otherwise>
+  </Choose>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
@@ -79,9 +111,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -89,8 +118,6 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="ConsoleHelpers.cs" />
-    <Compile Include="MsBuild\Condition.cs" />
-    <Compile Include="MsBuild\Elements.cs" />
     <Compile Include="Normalizers\CsharpProjectFileNormalizer.cs" />
     <Compile Include="Normalizers\ProjectFileNormalizer.cs" />
     <Compile Include="Normalizers\WebApplicationProjectFileNormalizer.cs" />
@@ -118,6 +145,10 @@
     <ProjectReference Include="..\CodeTools.Core\CodeTools.Core.csproj">
       <Project>{d993a555-bdc9-4514-b121-3699b7569397}</Project>
       <Name>CodeTools.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeTools.MSBuild.Helpers\CodeTools.MSBuild.Helpers.csproj">
+      <Project>{3df5f4d8-949e-4f76-b2d4-06a522b64cae}</Project>
+      <Name>CodeTools.MSBuild.Helpers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

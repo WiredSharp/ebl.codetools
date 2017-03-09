@@ -10,9 +10,9 @@
 using System;
 using System.Xml.Linq;
 
-namespace VSProjectNormalizer.MsBuild
+namespace CodeTools.MSBuild.Helpers.VisualStudio
 {
-    internal static class Condition
+    public static class Condition
     {
         public static XAttribute Equal(string lhs, string rhs)
         {

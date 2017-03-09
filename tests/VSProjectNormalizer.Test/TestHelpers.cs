@@ -1,14 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using NUnit.Framework;
 
-namespace VSProjectNormalizer.Test
+// ReSharper disable once CheckNamespace
+namespace CodeTools.Test.Common
 {
     internal static class TestHelpers
     {
+        public static FileInfo GetTestFileInfo(this string projectFile)
+        {
+            return new FileInfo(Path.Combine(TestContext.CurrentContext.TestDirectory, projectFile));
+        }
+
         public static void AssertIsUniqueAndEqualsTo(this XElement root, string localName, string expectedValue)
         {
             XElement[] matchingNodes = FindNodes(root, localName);
@@ -55,22 +60,16 @@ namespace VSProjectNormalizer.Test
             return matchingNodes;
         }
 
+        /// <summary>
+        /// Finds the nodes by local name, considering node is in default namespace.
+        /// </summary>
+        /// <param name="root">The root.</param>
+        /// <param name="localName">Name of the local.</param>
+        /// <returns></returns>
         public static XElement[] FindNodes(this XElement root, string localName)
         {
             XNamespace defaultNamespace = root.GetDefaultNamespace();
             return root.Descendants(defaultNamespace.GetName(localName)).ToArray();
-        }
-
-        public static XElement Normalize(this FileInfo projectFile, Settings settings)
-        {
-            var normalizer = new VSProjectNormalizer(settings);
-            string normalized = normalizer.Normalize(projectFile);
-            File.WriteAllText(
-                              Path.Combine(Path.GetDirectoryName(projectFile.FullName), Path.GetFileNameWithoutExtension(projectFile.Name)) +
-                              ".normalized.xml",
-                              normalized);
-            XElement root = XElement.Parse(normalized);
-            return root;
         }
     }
 }

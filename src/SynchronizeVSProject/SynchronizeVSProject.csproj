@@ -15,25 +15,9 @@
     <SolutionDir Condition="'$(SolutionDir)'==''">..\..\</SolutionDir>
   </PropertyGroup>
   <Choose>
-    <When Condition=" '$(BuildDir)' == '' ">
+    <When Condition="'$(BuildDir)'!=''">
       <Choose>
-        <When Condition="'$(Platform)' != 'AnyCPU' AND '$(Platform)' != ''">
-          <PropertyGroup>
-            <OutputPath>$(SolutionDir)$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
-            <IntermediateOutputPath>$(SolutionDir)$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
-          </PropertyGroup>
-        </When>
-        <Otherwise>
-          <PropertyGroup>
-            <OutputPath>$(SolutionDir)$(Configuration)\Bin\$(AssemblyName)</OutputPath>
-            <IntermediateOutputPath>$(SolutionDir)$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
-          </PropertyGroup>
-        </Otherwise>
-      </Choose>
-    </When>
-    <When Condition=" '$(BuildDir)' != '' ">
-      <Choose>
-        <When Condition="'$(Platform)' != 'AnyCPU' AND '$(Platform)' != ''">
+        <When Condition="('$(Platform)'!='') AND ('$(Platform)'!='AnyCPU')">
           <PropertyGroup>
             <OutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
             <IntermediateOutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
@@ -44,6 +28,44 @@
             <OutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\Bin\$(AssemblyName)</OutputPath>
             <IntermediateOutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
           </PropertyGroup>
+        </Otherwise>
+      </Choose>
+    </When>
+    <Otherwise>
+      <Choose>
+        <When Condition="('$(Platform)'!='') AND ('$(Platform)'!='AnyCPU')">
+          <PropertyGroup>
+            <OutputPath>$(SolutionDir)Artifacts\$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
+            <IntermediateOutputPath>$(SolutionDir)Artifacts\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+          </PropertyGroup>
+        </When>
+        <Otherwise>
+          <PropertyGroup>
+            <OutputPath>$(SolutionDir)Artifacts\$(Configuration)\Bin\$(AssemblyName)</OutputPath>
+            <IntermediateOutputPath>$(SolutionDir)Artifacts\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+          </PropertyGroup>
+        </Otherwise>
+      </Choose>
+    </Otherwise>
+  </Choose>
+  <Choose>
+    <When Condition=" '$(BuildDir)' == '' ">
+      <Choose>
+        <When Condition="'$(Platform)' != 'AnyCPU' AND '$(Platform)' != ''">
+          <PropertyGroup />
+        </When>
+        <Otherwise>
+          <PropertyGroup />
+        </Otherwise>
+      </Choose>
+    </When>
+    <When Condition=" '$(BuildDir)' != '' ">
+      <Choose>
+        <When Condition="'$(Platform)' != 'AnyCPU' AND '$(Platform)' != ''">
+          <PropertyGroup />
+        </When>
+        <Otherwise>
+          <PropertyGroup />
         </Otherwise>
       </Choose>
     </When>
@@ -69,19 +91,24 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Shared\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProjectSynchronizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeTools.MSBuild.Helpers\CodeTools.MSBuild.Helpers.csproj">
+      <Project>{3DF5F4D8-949E-4F76-B2D4-06A522B64CAE}</Project>
+      <Name>CodeTools.MSBuild.Helpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

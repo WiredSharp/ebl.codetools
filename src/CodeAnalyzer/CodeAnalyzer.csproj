@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -13,11 +13,42 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <TargetFrameworkProfile />
-    <OutputPath Condition=" '$(BuildDir)' != '' ">$(BuildDir)$(SolutionName)\$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
-    <OutputPath Condition=" '$(BuildDir)' == '' ">$(SolutionDir)$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
-    <IntermediateOutputPath Condition=" '$(BuildDir)' != '' ">$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
-    <IntermediateOutputPath Condition=" '$(BuildDir)' == '' ">$(SolutionDir)$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+    <SolutionName Condition="'$(SolutionName)'==''">$(AssemblyName)</SolutionName>
   </PropertyGroup>
+  <Choose>
+    <When Condition="'$(BuildDir)'!=''">
+      <Choose>
+        <When Condition="('$(Platform)'!='') AND ('$(Platform)'!='AnyCPU')">
+          <PropertyGroup>
+            <OutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
+            <IntermediateOutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+          </PropertyGroup>
+        </When>
+        <Otherwise>
+          <PropertyGroup>
+            <OutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\Bin\$(AssemblyName)</OutputPath>
+            <IntermediateOutputPath>$(BuildDir)$(SolutionName)\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+          </PropertyGroup>
+        </Otherwise>
+      </Choose>
+    </When>
+    <Otherwise>
+      <Choose>
+        <When Condition="('$(Platform)'!='') AND ('$(Platform)'!='AnyCPU')">
+          <PropertyGroup>
+            <OutputPath>$(SolutionDir)Artifacts\$(Configuration)\Bin\$(AssemblyName)\$(Platform)</OutputPath>
+            <IntermediateOutputPath>$(SolutionDir)Artifacts\$(Configuration)\obj\$(AssemblyName)\$(Platform)</IntermediateOutputPath>
+          </PropertyGroup>
+        </When>
+        <Otherwise>
+          <PropertyGroup>
+            <OutputPath>$(SolutionDir)Artifacts\$(Configuration)\Bin\$(AssemblyName)</OutputPath>
+            <IntermediateOutputPath>$(SolutionDir)Artifacts\$(Configuration)\obj\$(AssemblyName)</IntermediateOutputPath>
+          </PropertyGroup>
+        </Otherwise>
+      </Choose>
+    </Otherwise>
+  </Choose>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
@@ -36,6 +67,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

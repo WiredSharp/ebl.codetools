@@ -10,9 +10,9 @@
 using System;
 using System.Xml.Linq;
 
-namespace VSProjectNormalizer.MsBuild
+namespace CodeTools.MSBuild.Helpers.VisualStudio
 {
-    internal static class Elements
+    public static class Elements
     {
         internal static XNamespace MSBUILD_NS = XNamespace.Get("http://schemas.microsoft.com/developer/msbuild/2003");
 

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using VSProjectNormalizer.MsBuild;
+using CodeTools.MSBuild.Helpers.VisualStudio;
 
 namespace VSProjectNormalizer.Normalizers
 {
