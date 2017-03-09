@@ -144,7 +144,7 @@ namespace VSProjectNormalizer.Test
         }
 
         [Test]
-        public void intermediate_outputpath_ends_with_platform_tag(
+        public void intermediate_outputpath_is_correctly_set_when_builddir_is_set(
             [Values(@"playground\regular.csproj.xml"
                 , @"playground\test.csproj.xml"
                 , @"playground\acceptance.csproj.xml"

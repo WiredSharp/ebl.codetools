@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1EFCEF12
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTools.Core.Tests", "tests\CodeTools.Core.Tests\CodeTools.Core.Tests.csproj", "{A1A69676-1376-4172-B03C-B73C576AE423}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynchronizeVSProject", "src\SynchronizeVSProject\SynchronizeVSProject.csproj", "{B4351DDC-3CA1-44D1-807E-31A9BF09D280}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,12 @@ Global
 		{A1A69676-1376-4172-B03C-B73C576AE423}.Publish|Any CPU.Build.0 = Release|Any CPU
 		{A1A69676-1376-4172-B03C-B73C576AE423}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1A69676-1376-4172-B03C-B73C576AE423}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4351DDC-3CA1-44D1-807E-31A9BF09D280}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4351DDC-3CA1-44D1-807E-31A9BF09D280}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4351DDC-3CA1-44D1-807E-31A9BF09D280}.Publish|Any CPU.ActiveCfg = Release|Any CPU
+		{B4351DDC-3CA1-44D1-807E-31A9BF09D280}.Publish|Any CPU.Build.0 = Release|Any CPU
+		{B4351DDC-3CA1-44D1-807E-31A9BF09D280}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4351DDC-3CA1-44D1-807E-31A9BF09D280}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
