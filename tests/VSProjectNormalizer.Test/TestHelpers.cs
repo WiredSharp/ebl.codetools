@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 using NUnit.Framework;
 
@@ -9,9 +10,25 @@ namespace CodeTools.Test.Common
 {
     internal static class TestHelpers
     {
-        public static FileInfo GetTestFileInfo(this string projectFile)
+        public static string GetInformationalVersion(this Assembly generatedAssembly)
         {
-            return new FileInfo(Path.Combine(TestContext.CurrentContext.TestDirectory, projectFile));
+            return GetAttribute<AssemblyInformationalVersionAttribute>(generatedAssembly).InformationalVersion;
+        }
+
+        public static T GetAttribute<T>(this Assembly assembly) where T : Attribute
+        {
+            return (T)Attribute.GetCustomAttribute(assembly, typeof(T));
+        }
+
+
+        public static FileInfo GetTestFileInfo(this string filePath)
+        {
+            return new FileInfo(Path.Combine(TestContext.CurrentContext.TestDirectory, "playground", filePath));
+        }
+
+        public static DirectoryInfo GetTestDirectoryInfo(this string folderPath)
+        {
+            return new DirectoryInfo(Path.Combine(TestContext.CurrentContext.TestDirectory, "playground", folderPath));
         }
 
         public static void AssertIsUniqueAndEqualsTo(this XElement root, string localName, string expectedValue)

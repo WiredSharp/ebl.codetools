@@ -8,15 +8,14 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml;
 using System.Xml.Linq;
+using CodeTools.Helpers.Core;
 
 namespace CodeTools.MSBuild.Helpers.VisualStudio
 {
-    public class ProjectFile
+    public class ProjectFile : XmlFileWrapper
     {
         protected const string PROJECT_GUID_TAG = "ProjectGuid";
         protected const string PROPERTY_GROUP_TAG = "PropertyGroup";
@@ -33,9 +32,6 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
 
         protected const string INCLUDE_ATTRIBUTE_TAG = "Include";
 
-        protected readonly XElement _root;
-        protected readonly XNamespace _ns;
-
         public static ProjectFile Parse(string projectFileContent)
         {
             return new ProjectFile(projectFileContent);
@@ -43,14 +39,16 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
 
         public static ProjectFile Load(FileInfo projectFile)
         {
-            if (projectFile == null) throw new ArgumentNullException(nameof(projectFile));
-            return Parse(File.ReadAllText(projectFile.FullName));
+            return new ProjectFile(projectFile);
         }
 
-        protected ProjectFile(string projectFileContent)
+        protected ProjectFile(FileInfo projectFile)
+            :base(projectFile)
+        { }
+
+        protected ProjectFile(string fileContent) 
+            : base(fileContent)
         {
-            _root = XElement.Parse(projectFileContent);
-            _ns = _root.GetDefaultNamespace();
         }
 
         public XElement[] Platform()
@@ -116,31 +114,6 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
         public XElement NewLink(string linkPath)
         {
             return new XElement(Name(LINK_TAG), linkPath);
-        }
-
-        public void WriteTo(XmlWriter writer)
-        {
-            _root.WriteTo(writer);
-        }
-
-        protected IEnumerable<XElement> GetElements(string localName)
-        {
-            return _root.Descendants(Name(localName));
-        }
-
-        protected XName Name(string localName)
-        {
-            return _ns.GetName(localName);
-        }
-
-        public string ToString(SaveOptions saveOptions)
-        {
-            return _root.ToString(saveOptions);
-        }
-
-        public override string ToString()
-        {
-            return _root.ToString();
         }
     }
 }

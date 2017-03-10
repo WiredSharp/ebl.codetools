@@ -26,6 +26,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTools.MSBuild.Helpers",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynchronizeVSProject.Test", "Tests\SynchronizeVSProject.Test\SynchronizeVSProject.Test.csproj", "{577B31B4-AA7E-4EDC-AED6-8AE5E3680EC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTools.Nuget.Helpers", "src\CodeTools.Nuget.Helpers\CodeTools.Nuget.Helpers.csproj", "{EBF4FBB8-787E-4A1A-B79B-0F12A2B6E071}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTools.Helpers.Core", "src\CodeTools.Helpers.Core\CodeTools.Helpers.Core.csproj", "{D5AC27A9-F3CB-41E0-BD24-4932FE07C765}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +85,18 @@ Global
 		{577B31B4-AA7E-4EDC-AED6-8AE5E3680EC4}.Publish|Any CPU.Build.0 = Release|Any CPU
 		{577B31B4-AA7E-4EDC-AED6-8AE5E3680EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{577B31B4-AA7E-4EDC-AED6-8AE5E3680EC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBF4FBB8-787E-4A1A-B79B-0F12A2B6E071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBF4FBB8-787E-4A1A-B79B-0F12A2B6E071}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBF4FBB8-787E-4A1A-B79B-0F12A2B6E071}.Publish|Any CPU.ActiveCfg = Release|Any CPU
+		{EBF4FBB8-787E-4A1A-B79B-0F12A2B6E071}.Publish|Any CPU.Build.0 = Release|Any CPU
+		{EBF4FBB8-787E-4A1A-B79B-0F12A2B6E071}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBF4FBB8-787E-4A1A-B79B-0F12A2B6E071}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5AC27A9-F3CB-41E0-BD24-4932FE07C765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5AC27A9-F3CB-41E0-BD24-4932FE07C765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5AC27A9-F3CB-41E0-BD24-4932FE07C765}.Publish|Any CPU.ActiveCfg = Release|Any CPU
+		{D5AC27A9-F3CB-41E0-BD24-4932FE07C765}.Publish|Any CPU.Build.0 = Release|Any CPU
+		{D5AC27A9-F3CB-41E0-BD24-4932FE07C765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5AC27A9-F3CB-41E0-BD24-4932FE07C765}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

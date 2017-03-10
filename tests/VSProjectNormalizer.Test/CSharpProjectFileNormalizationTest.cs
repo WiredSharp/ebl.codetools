@@ -38,7 +38,7 @@ namespace VSProjectNormalizer.Test
         [Test]
         public void execution_is_idempotent()
         {
-            const string projectFile = @"playground\test.csproj.xml";
+            const string projectFile = @"test.csproj.xml";
             Settings.BuildPath = "BuildPath";
             var normalizer = new VSProjectNormalizer(Settings);
             var first = normalizer.Normalize(CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile));
@@ -48,22 +48,22 @@ namespace VSProjectNormalizer.Test
         [Test]
         public void regular_project_outputpath_node_if_builddir_set()
         {
-            CheckOutputPathWhenBuildDirSet(@"playground\regular.csproj.xml", Settings.BinOutputPath);
+            CheckOutputPathWhenBuildDirSet(@"regular.csproj.xml", Settings.BinOutputPath);
         }
 
         [Test]
         public void regular_project_outputpath_node_is_replaced_if_builddir_not_set()
         {
-            const string projectFile = @"playground\regular.csproj.xml";
+            const string projectFile = @"regular.csproj.xml";
             XElement root = Normalize(projectFile);
             root.AssertEqualsTo(OUTPUT_PATH_TAG, DefaultBuildPrefix + Settings.BinOutputPath);
         }
 
         [Test]
-        public void intermediatepath_node_if_builddir_set([Values(@"playground\regular.csproj.xml"
-                                                                    ,@"playground\acceptance.csproj.xml"
-                                                                    ,@"playground\test.csproj.xml"
-                                                                    ,@"playground\website.csproj.xml")] string projectFile)
+        public void intermediatepath_node_if_builddir_set([Values(@"regular.csproj.xml"
+                                                                    ,@"acceptance.csproj.xml"
+                                                                    ,@"test.csproj.xml"
+                                                                    ,@"website.csproj.xml")] string projectFile)
         {
             Settings.BuildPath = "BuildPath";
             XElement root = Normalize(projectFile);
@@ -75,7 +75,7 @@ namespace VSProjectNormalizer.Test
         [Test]
         public void regular_project_intermediatepath_node_is_replaced_if_builddir_not_set()
         {
-            const string projectFile = @"playground\regular.csproj.xml";
+            const string projectFile = @"regular.csproj.xml";
             XElement root = Normalize(projectFile);
             root.AssertEqualsTo(INTERMEDIATE_OUTPUT_PATH, DefaultBuildPrefix + Settings.IntermediateOutputPath);
         }
@@ -83,13 +83,13 @@ namespace VSProjectNormalizer.Test
         [Test]
         public void test_project_outputpath_node_if_builddir_set()
         {
-            CheckOutputPathWhenBuildDirSet(@"playground\test.csproj.xml", Settings.TestOutputPath);
+            CheckOutputPathWhenBuildDirSet(@"test.csproj.xml", Settings.TestOutputPath);
         }
 
 	    [Test]
         public void test_project_outputpath_node_is_replaced_if_builddir_not_set()
         {
-            const string projectFile = @"playground\test.csproj.xml";
+            const string projectFile = @"test.csproj.xml";
             XElement root = Normalize(projectFile);
             root.AssertEqualsTo(OUTPUT_PATH_TAG, DefaultBuildPrefix + Settings.TestOutputPath);
         }
@@ -97,7 +97,7 @@ namespace VSProjectNormalizer.Test
         [Test]
         public void test_project_intermediatepath_node_is_replaced_if_builddir_not_set()
         {
-            const string projectFile = @"playground\test.csproj.xml";
+            const string projectFile = @"test.csproj.xml";
             XElement root = Normalize(projectFile);
             root.AssertEqualsTo(INTERMEDIATE_OUTPUT_PATH, DefaultBuildPrefix + Settings.IntermediateOutputPath);
         }
@@ -105,12 +105,12 @@ namespace VSProjectNormalizer.Test
         [Test]
         public void acceptance_project_outputpath_node_if_builddir_set()
         {
-            CheckOutputPathWhenBuildDirSet(@"playground\acceptance.csproj.xml", Settings.AcceptanceTestOutputPath);
+            CheckOutputPathWhenBuildDirSet(@"acceptance.csproj.xml", Settings.AcceptanceTestOutputPath);
         }
         [Test]
         public void acceptance_project_outputpath_node_is_replaced_if_builddir_not_set()
         {
-            const string projectFile = @"playground\acceptance.csproj.xml";
+            const string projectFile = @"acceptance.csproj.xml";
             XElement root = Normalize(projectFile);
             root.AssertEqualsTo(OUTPUT_PATH_TAG, DefaultBuildPrefix + Settings.AcceptanceTestOutputPath);
         }
@@ -118,16 +118,16 @@ namespace VSProjectNormalizer.Test
         [Test]
         public void acceptance_project_intermediatepath_node_is_replaced_if_builddir_not_set()
         {
-            const string projectFile = @"playground\acceptance.csproj.xml";
+            const string projectFile = @"acceptance.csproj.xml";
             XElement root = Normalize(projectFile);
             root.AssertEqualsTo(INTERMEDIATE_OUTPUT_PATH, DefaultBuildPrefix + Settings.IntermediateOutputPath);
         }
 
         [Test]
         public void build_dir_property_is_added_and_unique_if_builddir_set(
-            [Values(@"playground\regular.csproj.xml"
-                , @"playground\test.csproj.xml"
-                , @"playground\acceptance.csproj.xml")] string projectFile)
+            [Values(@"regular.csproj.xml"
+                , @"test.csproj.xml"
+                , @"acceptance.csproj.xml")] string projectFile)
         {
             Settings.BuildPath = "BuildPath";
             XElement root = Normalize(projectFile);
@@ -136,9 +136,9 @@ namespace VSProjectNormalizer.Test
 
         [Test]
         public void build_dir_property_is_not_set_if_builddir_config_not_set(
-            [Values(@"playground\regular.csproj.xml"
-                , @"playground\test.csproj.xml"
-                , @"playground\acceptance.csproj.xml")] string projectFile)
+            [Values(@"regular.csproj.xml"
+                , @"test.csproj.xml"
+                , @"acceptance.csproj.xml")] string projectFile)
         {
             XElement root = Normalize(projectFile);
             Assert.IsFalse(root.FindNodes("BuildDir").Any(), "buildDir element should not have been set");
@@ -146,10 +146,10 @@ namespace VSProjectNormalizer.Test
 
         [Test]
         public void intermediate_outputpath_is_correctly_set_when_builddir_is_set(
-            [Values(@"playground\regular.csproj.xml"
-                , @"playground\test.csproj.xml"
-                , @"playground\acceptance.csproj.xml"
-                , @"playground\website.csproj.xml")] string projectFile)
+            [Values(@"regular.csproj.xml"
+                , @"test.csproj.xml"
+                , @"acceptance.csproj.xml"
+                , @"website.csproj.xml")] string projectFile)
         {
             XElement normalized = Normalize(projectFile);
             Settings.BuildPath = "BuildPath";
@@ -164,7 +164,7 @@ namespace VSProjectNormalizer.Test
         [Test]
 		public void xml_declaration_is_returned()
 		{
-			const string projectFile = @"playground\regular.csproj.xml";
+			const string projectFile = @"regular.csproj.xml";
             Settings.BuildPath = "BuildPath";
             var normalizer = new VSProjectNormalizer(Settings);
 			string normalized = normalizer.Normalize(CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile));
@@ -174,7 +174,7 @@ namespace VSProjectNormalizer.Test
 		[Test]
 		public void website_project_output_path_is_not_modified()
 		{
-			const string projectFile = @"playground\website.csproj.xml";
+			const string projectFile = @"website.csproj.xml";
             Settings.BuildPath = "BuildPath";
             XElement normalized = CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile).Normalize(Settings);
 		    IEnumerable<XElement> outputPathNodes = normalized.FindNodes("OutputPath");
@@ -184,7 +184,7 @@ namespace VSProjectNormalizer.Test
         [Test]
         public void website_project_intermediate_path_is_modified_when_builddir_is_not_set()
         {
-            const string projectFile = @"playground\website.csproj.xml";
+            const string projectFile = @"website.csproj.xml";
             XElement normalized = CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile).Normalize(Settings);
             normalized.AssertExactMatch(INTERMEDIATE_OUTPUT_PATH
                                   , Path.Combine(Settings.ExternalBuildPrefix, Settings.IntermediateOutputPath)
@@ -197,7 +197,7 @@ namespace VSProjectNormalizer.Test
 	    [Test]
 	    public void solutionDir_is_defined()
 	    {
-            const string projectFile = @"playground\regular.csproj.xml";
+            const string projectFile = @"regular.csproj.xml";
             XElement normalized = CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile).Normalize(Settings);
             IEnumerable<XElement> solutionDirNodes = normalized.FindNodes("SolutionDir");
             Assert.IsTrue(solutionDirNodes.Any(), "solution dir has not been defined");
@@ -207,7 +207,7 @@ namespace VSProjectNormalizer.Test
         [Test]
         public void solutionName_is_defined()
         {
-            const string projectFile = @"playground\regular.csproj.xml";
+            const string projectFile = @"regular.csproj.xml";
             XElement normalized = CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile).Normalize(Settings);
             IEnumerable<XElement> solutionNameNodes = normalized.FindNodes("SolutionName");
             Assert.IsTrue(solutionNameNodes.Any(), "solution name has not been defined");
