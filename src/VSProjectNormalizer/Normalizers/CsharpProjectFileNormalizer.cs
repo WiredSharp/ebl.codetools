@@ -56,7 +56,7 @@ namespace VSProjectNormalizer.Normalizers
 	    {
 	        string sharedProperties = CurrentSettings.CommonPropsFile;
 	        XElement imports = _projectFile.NewImport(sharedProperties,
-	                                                    Condition.And(Condition.TagNotDefined(SOLUTION_DIR_TAG),
+	                                                    Condition.And(Condition.TagDefined(SOLUTION_DIR_TAG),
 	                                                                  Condition.Exists(sharedProperties)));
 	        start.AddAfterSelf(imports);
             return imports;

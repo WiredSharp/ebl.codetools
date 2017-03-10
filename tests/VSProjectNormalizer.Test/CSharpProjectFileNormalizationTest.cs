@@ -88,6 +88,9 @@ namespace VSProjectNormalizer.Test
             XElement normalized = Normalize(projectFile);
             XElement import = normalized.FindNodes("Import").FirstOrDefault(i => i.Attribute("Project")?.Value == Settings.CommonPropsFile);
             Assert.IsNotNull(import, "shared import has not been inserted");
+            XAttribute condition = import.Attribute("Condition");
+            Assert.IsNotNull(condition, "no condition has been set on shared import");
+            Assert.That(condition.Value, Does.Contain("'$(SolutionDir)' != ''"), "unexpected condition on shared import");
         }
 
         [Test]
