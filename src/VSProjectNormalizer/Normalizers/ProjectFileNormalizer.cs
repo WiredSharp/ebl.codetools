@@ -22,27 +22,6 @@ namespace VSProjectNormalizer.Normalizers
 
 		protected Settings CurrentSettings { get; set; }
 
-		protected string BuildOutputPath(string assemblyName)
-		{
-			string outputPath;
-			if (assemblyName.EndsWith("Acceptance.Test", StringComparison.CurrentCultureIgnoreCase)
-			    || assemblyName.EndsWith("Acceptance.Tests", StringComparison.CurrentCultureIgnoreCase)
-			    || assemblyName.EndsWith("Acceptance", StringComparison.CurrentCultureIgnoreCase))
-			{
-				outputPath = CurrentSettings.AcceptanceTestOutputPath;
-			}
-			else if (assemblyName.EndsWith(".Test", StringComparison.CurrentCultureIgnoreCase)
-			         || assemblyName.EndsWith(".Tests", StringComparison.CurrentCultureIgnoreCase))
-			{
-				outputPath = CurrentSettings.TestOutputPath;
-			}
-			else
-			{
-				outputPath = CurrentSettings.BinOutputPath;
-			}
-			return outputPath;
-		}
-
 		protected void RemoveNodes(XContainer root, params string[] localNames)
 		{
 			if (localNames == null) throw new ArgumentNullException(nameof(localNames));
@@ -83,5 +62,26 @@ namespace VSProjectNormalizer.Normalizers
 	            element.Remove();
 	        }
 	    }
-	}
+
+        protected string BuildOutputPath(string assemblyName)
+        {
+            string outputPath;
+            if (assemblyName.EndsWith("Acceptance.Test", StringComparison.CurrentCultureIgnoreCase)
+                || assemblyName.EndsWith("Acceptance.Tests", StringComparison.CurrentCultureIgnoreCase)
+                || assemblyName.EndsWith("Acceptance", StringComparison.CurrentCultureIgnoreCase))
+            {
+                outputPath = "Acceptance";
+            }
+            else if (assemblyName.EndsWith(".Test", StringComparison.CurrentCultureIgnoreCase)
+                     || assemblyName.EndsWith(".Tests", StringComparison.CurrentCultureIgnoreCase))
+            {
+                outputPath = "Test";
+            }
+            else
+            {
+                outputPath = "Bin";
+            }
+            return outputPath;
+        }
+    }
 }

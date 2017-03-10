@@ -25,109 +25,62 @@ namespace VSProjectNormalizer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Tests\\$(AssemblyName)")]
-        public string TEST_OUTPUT_PATH {
+        [global::System.Configuration.DefaultSettingValueAttribute("$(SolutionDir)artifacts\\$(Configuration)\\{ProjectType}\\$(AssemblyName)$(PlatformP" +
+            "ath)")]
+        public string SOLUTION_BUILD_FOLDER {
             get {
-                return ((string)(this["TEST_OUTPUT_PATH"]));
+                return ((string)(this["SOLUTION_BUILD_FOLDER"]));
             }
             set {
-                this["TEST_OUTPUT_PATH"] = value;
+                this["SOLUTION_BUILD_FOLDER"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Bin\\$(AssemblyName)")]
-        public string BIN_OUTPUT_PATH {
+        [global::System.Configuration.DefaultSettingValueAttribute("$(SolutionDir)obj\\$(Configuration)\\$(AssemblyName)$(PlatformPath)")]
+        public string SOLUTION_INTERMEDIATE_FOLDER {
             get {
-                return ((string)(this["BIN_OUTPUT_PATH"]));
+                return ((string)(this["SOLUTION_INTERMEDIATE_FOLDER"]));
             }
             set {
-                this["BIN_OUTPUT_PATH"] = value;
+                this["SOLUTION_INTERMEDIATE_FOLDER"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("obj\\$(AssemblyName)")]
-        public string INTERMEDIATE_OUTPUT_PATH {
+        [global::System.Configuration.DefaultSettingValueAttribute("!artifacts\\$(Configuration)$(PlatformPath)")]
+        public string PROJECT_BUILD_FOLDER {
             get {
-                return ((string)(this["INTERMEDIATE_OUTPUT_PATH"]));
+                return ((string)(this["PROJECT_BUILD_FOLDER"]));
             }
             set {
-                this["INTERMEDIATE_OUTPUT_PATH"] = value;
+                this["PROJECT_BUILD_FOLDER"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Acceptance\\$(AssemblyName)")]
-        public string ACCEPTANCE_TEST_OUTPUT_PATH {
+        [global::System.Configuration.DefaultSettingValueAttribute("!obj\\$(Configuration)$(PlatformPath)")]
+        public string PROJECT_INTERMEDIATE_FOLDER {
             get {
-                return ((string)(this["ACCEPTANCE_TEST_OUTPUT_PATH"]));
+                return ((string)(this["PROJECT_INTERMEDIATE_FOLDER"]));
             }
             set {
-                this["ACCEPTANCE_TEST_OUTPUT_PATH"] = value;
+                this["PROJECT_INTERMEDIATE_FOLDER"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("$(BuildDir)$(SolutionName)\\$(Configuration)")]
-        public string EXTERNAL_BUILD_FOLDER {
+        [global::System.Configuration.DefaultSettingValueAttribute("$(SolutionDir)Build\\\\common.props")]
+        public string SOLUTIONDIR_BUILD_COMMON_PROPS {
             get {
-                return ((string)(this["EXTERNAL_BUILD_FOLDER"]));
+                return ((string)(this["SOLUTIONDIR_BUILD_COMMON_PROPS"]));
             }
             set {
-                this["EXTERNAL_BUILD_FOLDER"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("$(SolutionDir)Artifacts\\$(Configuration)")]
-        public string DEFAULT_BUILD_FOLDER {
-            get {
-                return ((string)(this["DEFAULT_BUILD_FOLDER"]));
-            }
-            set {
-                this["DEFAULT_BUILD_FOLDER"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("$(Platform)")]
-        public string PLATFORM_OUTPUT_PATH {
-            get {
-                return ((string)(this["PLATFORM_OUTPUT_PATH"]));
-            }
-            set {
-                this["PLATFORM_OUTPUT_PATH"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\")]
-        public string DEFAULT_SOLUTION_DIR {
-            get {
-                return ((string)(this["DEFAULT_SOLUTION_DIR"]));
-            }
-            set {
-                this["DEFAULT_SOLUTION_DIR"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("$(AssemblyName)")]
-        public string DEFAULT_SOLUTION_NAME {
-            get {
-                return ((string)(this["DEFAULT_SOLUTION_NAME"]));
-            }
-            set {
-                this["DEFAULT_SOLUTION_NAME"] = value;
+                this["SOLUTIONDIR_BUILD_COMMON_PROPS"] = value;
             }
         }
     }

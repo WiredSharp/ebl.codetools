@@ -2,32 +2,20 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VSProjectNormalizer" GeneratedClassName="Resource">
   <Profiles />
   <Settings>
-    <Setting Name="TEST_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Tests\$(AssemblyName)</Value>
+    <Setting Name="SOLUTION_BUILD_FOLDER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">$(SolutionDir)artifacts\$(Configuration)\{ProjectType}\$(AssemblyName)$(PlatformPath)</Value>
     </Setting>
-    <Setting Name="BIN_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Bin\$(AssemblyName)</Value>
+    <Setting Name="SOLUTION_INTERMEDIATE_FOLDER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">$(SolutionDir)obj\$(Configuration)\$(AssemblyName)$(PlatformPath)</Value>
     </Setting>
-    <Setting Name="INTERMEDIATE_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)">obj\$(AssemblyName)</Value>
+    <Setting Name="PROJECT_BUILD_FOLDER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">!artifacts\$(Configuration)$(PlatformPath)</Value>
     </Setting>
-    <Setting Name="ACCEPTANCE_TEST_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Acceptance\$(AssemblyName)</Value>
+    <Setting Name="PROJECT_INTERMEDIATE_FOLDER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">!obj\$(Configuration)$(PlatformPath)</Value>
     </Setting>
-    <Setting Name="EXTERNAL_BUILD_FOLDER" Type="System.String" Scope="User">
-      <Value Profile="(Default)">$(BuildDir)$(SolutionName)\$(Configuration)</Value>
-    </Setting>
-    <Setting Name="DEFAULT_BUILD_FOLDER" Type="System.String" Scope="User">
-      <Value Profile="(Default)">$(SolutionDir)Artifacts\$(Configuration)</Value>
-    </Setting>
-    <Setting Name="PLATFORM_OUTPUT_PATH" Type="System.String" Scope="User">
-      <Value Profile="(Default)">$(Platform)</Value>
-    </Setting>
-    <Setting Name="DEFAULT_SOLUTION_DIR" Type="System.String" Scope="User">
-      <Value Profile="(Default)">..\..\</Value>
-    </Setting>
-    <Setting Name="DEFAULT_SOLUTION_NAME" Type="System.String" Scope="User">
-      <Value Profile="(Default)">$(AssemblyName)</Value>
+    <Setting Name="SOLUTIONDIR_BUILD_COMMON_PROPS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">$(SolutionDir)Build\\common.props</Value>
     </Setting>
   </Settings>
 </SettingsFile>

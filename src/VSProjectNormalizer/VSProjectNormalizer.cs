@@ -31,13 +31,13 @@ namespace VSProjectNormalizer
 	    {
 	        if (projectFile.IsCSharpProject() || projectFile.IsWpfProject())
 	        {
-	            var normalizer = new CsharpProjectFileNormalizer(CurrentSettings);
-	            normalizer.Normalize(projectFile);
+	            var normalizer = new CsharpProjectFileNormalizer(projectFile, CurrentSettings);
+	            normalizer.Normalize();
 	        }
 	        else if (projectFile.IsWebProject())
 	        {
-	            var normalizer = new WebApplicationProjectFileNormalizer(CurrentSettings);
-	            normalizer.Normalize(projectFile);
+	            var normalizer = new WebApplicationProjectFileNormalizer(projectFile, CurrentSettings);
+	            normalizer.Normalize();
 	        }
 	        return projectFile.ToXml();
 	    }

@@ -7,92 +7,88 @@ using CodeTools.Core.Projects;
 
 namespace VSProjectNormalizer
 {
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			if (args.Length == 0)
-			{
-				ShowHelp();
-			}
-			else
-			{
-				try
-				{
-					string fileName;
-					if (String.IsNullOrWhiteSpace(args[0]))
-					{
-						ShowHelp();
-						return;
-					}
-					else if (Path.IsPathRooted(args[0]))
-					{
-						fileName = args[0];
-					}
-					else
-					{
-						fileName = Path.Combine(Environment.CurrentDirectory, args[0]);
-					}
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            if (args.Length == 0)
+            {
+                ShowHelp();
+            }
+            else
+            {
+                try
+                {
+                    string fileName;
+                    if (String.IsNullOrWhiteSpace(args[0]))
+                    {
+                        ShowHelp();
+                        return;
+                    }
+                    else if (Path.IsPathRooted(args[0]))
+                    {
+                        fileName = args[0];
+                    }
+                    else
+                    {
+                        fileName = Path.Combine(Environment.CurrentDirectory, args[0]);
+                    }
 
-					if (fileName.EndsWith(".csproj"))
-					{
-						File.WriteAllText(fileName, NewNormalizer().Normalize(new FileInfo(fileName)));
-					}
-					else if (fileName.EndsWith(".sln"))
-					{
-						VSProjectNormalizer normalizer = NewNormalizer();
-						var solution = Solution.Parse(fileName);
-						foreach (KeyValuePair<string, CSharpProject> reference in solution.CSharpProjects)
-						{
-							Console.WriteLine("converting project file '" + reference + "'");
-							string path = reference.Value.Path;
-							File.WriteAllText(path, normalizer.Normalize(new FileInfo(path)));
-						}
-					}
-					Console.WriteLine("Work complete !");
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine(ex);
-					Console.WriteLine("Press any key to continue...");
-					try
-					{
-						Console.ReadKey();
-					}
-					catch (InvalidOperationException)
-					{ }
-				}
-			}
-		}
+                    if (fileName.EndsWith(".csproj"))
+                    {
+                        File.WriteAllText(fileName, NewNormalizer().Normalize(new FileInfo(fileName)));
+                    }
+                    else if (fileName.EndsWith(".sln"))
+                    {
+                        VSProjectNormalizer normalizer = NewNormalizer();
+                        var solution = Solution.Parse(fileName);
+                        foreach (KeyValuePair<string, CSharpProject> reference in solution.CSharpProjects)
+                        {
+                            Console.WriteLine("converting project file '" + reference + "'");
+                            string path = reference.Value.Path;
+                            File.WriteAllText(path, normalizer.Normalize(new FileInfo(path)));
+                        }
+                    }
+                    Console.WriteLine("Work complete !");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    Console.WriteLine("Press any key to continue...");
+                    try
+                    {
+                        Console.ReadKey();
+                    }
+                    catch (InvalidOperationException)
+                    { }
+                }
+            }
+        }
 
-		private static void ShowHelp()
-		{
-			var name = Assembly.GetEntryAssembly().GetName().Name;
-			Console.WriteLine("Visual Studio project file converter v{0} (c) 2016 OFI AM", GetAttribute<AssemblyInformationalVersionAttribute>(Assembly.GetExecutingAssembly()).InformationalVersion);
-			Console.WriteLine(name + " <projectfile.csproj> : convert specified project file");
-			Console.WriteLine(name + " <solutionfile.sln> : convert all project files in solution");
-		}
+        private static void ShowHelp()
+        {
+            var name = Assembly.GetEntryAssembly().GetName().Name;
+            Console.WriteLine("Visual Studio project file converter v{0} (c) 2016 OFI AM", GetAttribute<AssemblyInformationalVersionAttribute>(Assembly.GetExecutingAssembly()).InformationalVersion);
+            Console.WriteLine(name + " <projectfile.csproj> : convert specified project file");
+            Console.WriteLine(name + " <solutionfile.sln> : convert all project files in solution");
+        }
 
-	    private static T GetAttribute<T>(Assembly assembly) where T:Attribute
-	    {
-	        return (T)Attribute.GetCustomAttribute(assembly, typeof(T));
-	    }
+        private static T GetAttribute<T>(Assembly assembly) where T : Attribute
+        {
+            return (T)Attribute.GetCustomAttribute(assembly, typeof(T));
+        }
 
-	    private static VSProjectNormalizer NewNormalizer()
-		{
-			var normalizer = new VSProjectNormalizer(new Settings()
-			{
-                IntermediateOutputPath = Resource.Default.INTERMEDIATE_OUTPUT_PATH,
-                BinOutputPath = Resource.Default.BIN_OUTPUT_PATH,
-                TestOutputPath = Resource.Default.TEST_OUTPUT_PATH,
-                AcceptanceTestOutputPath = Resource.Default.ACCEPTANCE_TEST_OUTPUT_PATH,
-                DefaultSolutionDir = Resource.Default.DEFAULT_SOLUTION_DIR,
-                DefaultSolutionName = Resource.Default.DEFAULT_SOLUTION_NAME,
-                PlatformOutputPath = Resource.Default.PLATFORM_OUTPUT_PATH,
-                ExternalBuildPrefix = Resource.Default.EXTERNAL_BUILD_FOLDER,
-                DefaultBuildPrefix = Resource.Default.DEFAULT_BUILD_FOLDER
-        });
-			return normalizer;
-		}
-	}
+        private static VSProjectNormalizer NewNormalizer()
+        {
+            var normalizer = new VSProjectNormalizer(new Settings()
+            {
+                SolutionBuildFolder = Resource.Default.SOLUTION_BUILD_FOLDER,
+                SolutionIntermediateFolder = Resource.Default.SOLUTION_INTERMEDIATE_FOLDER,
+                ProjectBuildFolder = Resource.Default.PROJECT_BUILD_FOLDER,
+                ProjectIntermediateFolder = Resource.Default.PROJECT_INTERMEDIATE_FOLDER,
+                CommonPropsFile = Resource.Default.SOLUTIONDIR_BUILD_COMMON_PROPS
+            });
+            return normalizer;
+        }
+    }
 }

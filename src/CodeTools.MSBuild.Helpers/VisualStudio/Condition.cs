@@ -49,6 +49,16 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
             return new XAttribute("Condition", $"({lhs}) AND ({rhs})");
         }
 
+        public static XAttribute Exists(string filePath)
+        {
+            return new XAttribute("Condition", $"Exists('{filePath}')");
+        }
+
+        public static XAttribute NotExists(string filePath)
+        {
+            return NewCondition($"!Exists('{filePath}')");
+        }
+
         public static XAttribute And(XAttribute lhs, XAttribute rhs)
         {
             if (lhs == null) throw new ArgumentNullException(nameof(lhs));
@@ -58,7 +68,12 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
 
         private static XAttribute NewCondition(string lhs, string op, string rhs)
         {
-            return new XAttribute("Condition", $"'{lhs}'{op}'{rhs}'");
+            return NewCondition($" '{lhs}' {op} '{rhs}' ");
+        }
+
+        private static XAttribute NewCondition(string condition)
+        {
+            return new XAttribute("Condition", condition);
         }
     }
 }

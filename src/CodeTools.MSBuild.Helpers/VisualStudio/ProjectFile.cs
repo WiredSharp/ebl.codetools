@@ -34,13 +34,10 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
         protected const string CONFIGURATION_TAG = "Configuration";
         protected const string PLATFORM_TAG = "Platform";
         protected const string INTERMEDIATE_OUTPUT_PATH_TAG = "IntermediateOutputPath";
-        protected const string COMPILE_TAG = "Compile";
-        protected const string LINK_TAG = "Link";
 
         protected const string INCLUDE_ATTRIBUTE_TAG = "Include";
 
         protected XElement Root => _document.Root;
-        protected readonly XNamespace _ns;
         private readonly XDocument _document;
 
         public static ProjectFile Parse(string projectFileContent)
@@ -58,7 +55,6 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
         {
             _document = XDocument.Parse(projectFileContent);
             if (_document.Root == null) throw new ArgumentException("invalid xml document", nameof(projectFileContent));
-            _ns = Root.GetDefaultNamespace();
         }
 
         public XElement[] Platform()
@@ -128,12 +124,37 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
 
         public XElement NewLink(string linkPath)
         {
-            return new XElement(Name(LINK_TAG), linkPath);
+            return Elements.Link(linkPath);
+        }
+
+        public XElement NewProperty(string propertyTag, string value, XAttribute condition)
+        {
+            return Elements.Property(propertyTag, value, condition);
         }
 
         public XElement NewProperty(string propertyTag, string value, bool checkDefined)
         {
             return Elements.Property(propertyTag, value, checkDefined);
+        }
+
+        public XElement NewPropertyGroup(params XElement[] properties)
+        {
+            return Elements.PropertyGroup(properties);
+        }
+
+        public XElement NewPropertyGroup(XAttribute condition, params XElement[] properties)
+        {
+            return Elements.PropertyGroup(condition, properties);
+        }
+
+        public XElement NewImport(string importPath, XAttribute condition)
+        {
+            return Elements.Import(importPath, condition);
+        }
+
+        public XElement NewImport(string importPath)
+        {
+            return Elements.Import(importPath);
         }
 
         public bool IsWpfProject()
@@ -167,7 +188,7 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
 
         protected XName Name(string localName)
         {
-            return _ns.GetName(localName);
+            return Elements.MSBUILD_NS.GetName(localName);
         }
 
         public string ToString(SaveOptions saveOptions)
