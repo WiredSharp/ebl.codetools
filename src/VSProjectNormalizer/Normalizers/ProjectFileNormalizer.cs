@@ -43,17 +43,17 @@ namespace VSProjectNormalizer.Normalizers
 			return outputPath;
 		}
 
-		protected void RemoveNodes(XContainer root, params string[] nodeNames)
+		protected void RemoveNodes(XContainer root, params string[] localNames)
 		{
-			if (nodeNames == null) throw new ArgumentNullException(nameof(nodeNames));
-			if (nodeNames.Length == 0) return;
+			if (localNames == null) throw new ArgumentNullException(nameof(localNames));
+			if (localNames.Length == 0) return;
 			var toRemove = new List<XElement>();
 			foreach (
 				XElement node in
-					root.DescendantNodes().OfType<XElement>().Where(
-						node => nodeNames.Contains(node.Name.LocalName)))
+					root.Descendants().Where(
+						node => localNames.Contains(node.Name.LocalName)))
 			{
-				Debug.WriteLine(node.Name + "='" + node.Value);
+				Debug.WriteLine($"{node.Name}='{node.Value}'");
 				toRemove.Add(node);
 			}
 			foreach (XElement node in toRemove)
@@ -62,22 +62,21 @@ namespace VSProjectNormalizer.Normalizers
 			}
 		}
 
-	    protected XElement[] FindNodeByName(XContainer root, string nodeName)
+	    protected XElement[] FindNodeByName(XContainer root, string localName)
 	    {
-	        return root.DescendantNodes().OfType<XElement>().Where(node => node.Name.LocalName == nodeName).ToArray();
+	        return root.Descendants().Where(node => node.Name.LocalName == localName).ToArray();
 	    }
 
 		protected XElement GetFirstCommonPropertyGroup(XContainer root)
 		{
 			return
 				root.Elements().
-					FirstOrDefault(node => !node.HasAttributes && node.Name.ToString().EndsWith("PropertyGroup"));
+					FirstOrDefault(node => !node.HasAttributes && node.Name.LocalName.ToString().EndsWith("PropertyGroup"));
 		}
 
 	    protected static void RemoveNodesWithAttribute(XElement root, XAttribute label)
 	    {
-	        var toRemove = root.DescendantNodes()
-	                           .OfType<XElement>()
+	        var toRemove = root.Descendants()
 	                           .Where(n => n.Attributes().Any(a => a.Name == label.Name && a.Value == label.Value)).ToArray();
 	        foreach (XElement element in toRemove)
 	        {

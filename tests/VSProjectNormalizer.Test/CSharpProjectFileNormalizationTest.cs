@@ -41,7 +41,7 @@ namespace VSProjectNormalizer.Test
             const string projectFile = @"playground\test.csproj.xml";
             Settings.BuildPath = "BuildPath";
             var normalizer = new VSProjectNormalizer(Settings);
-            var first = normalizer.Normalize(CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile));
+            var first = normalizer.Normalize(projectFile.GetTestFileInfo());
             Assert.AreEqual(first, normalizer.Normalize(first), "second execution is not idempotent");
         }
 
@@ -167,7 +167,7 @@ namespace VSProjectNormalizer.Test
 			const string projectFile = @"playground\regular.csproj.xml";
             Settings.BuildPath = "BuildPath";
             var normalizer = new VSProjectNormalizer(Settings);
-			string normalized = normalizer.Normalize(CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile));
+			string normalized = normalizer.Normalize(projectFile.GetTestFileInfo());
 			Assert.That(normalized, Does.StartWith("<?xml version=\"1.0\" encoding=\"utf-8\"?>"), "xml declaration are omitted");
 		}
 
@@ -176,7 +176,7 @@ namespace VSProjectNormalizer.Test
 		{
 			const string projectFile = @"playground\website.csproj.xml";
             Settings.BuildPath = "BuildPath";
-            XElement normalized = CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile).Normalize(Settings);
+            XElement normalized = projectFile.GetTestFileInfo().Normalize(Settings);
 		    IEnumerable<XElement> outputPathNodes = normalized.FindNodes("OutputPath");
             Assert.IsTrue(outputPathNodes.All(node => node.Value == @"bin\"));
 		}
@@ -185,7 +185,7 @@ namespace VSProjectNormalizer.Test
         public void website_project_intermediate_path_is_modified_when_builddir_is_not_set()
         {
             const string projectFile = @"playground\website.csproj.xml";
-            XElement normalized = CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile).Normalize(Settings);
+            XElement normalized = projectFile.GetTestFileInfo().Normalize(Settings);
             normalized.AssertExactMatch(INTERMEDIATE_OUTPUT_PATH
                                   , Path.Combine(Settings.ExternalBuildPrefix, Settings.IntermediateOutputPath)
                                   , Settings.WithPlatform(Path.Combine(Settings.ExternalBuildPrefix, Settings.IntermediateOutputPath))
@@ -198,7 +198,7 @@ namespace VSProjectNormalizer.Test
 	    public void solutionDir_is_defined()
 	    {
             const string projectFile = @"playground\regular.csproj.xml";
-            XElement normalized = CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile).Normalize(Settings);
+            XElement normalized = projectFile.GetTestFileInfo().Normalize(Settings);
             IEnumerable<XElement> solutionDirNodes = normalized.FindNodes("SolutionDir");
             Assert.IsTrue(solutionDirNodes.Any(), "solution dir has not been defined");
             Assert.IsTrue(solutionDirNodes.Any(node => node.Attribute("Condition") != null), "conditional attribute is not set on solution dir node");
@@ -208,7 +208,7 @@ namespace VSProjectNormalizer.Test
         public void solutionName_is_defined()
         {
             const string projectFile = @"playground\regular.csproj.xml";
-            XElement normalized = CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile).Normalize(Settings);
+            XElement normalized = projectFile.GetTestFileInfo().Normalize(Settings);
             IEnumerable<XElement> solutionNameNodes = normalized.FindNodes("SolutionName");
             Assert.IsTrue(solutionNameNodes.Any(), "solution name has not been defined");
             Assert.IsTrue(solutionNameNodes.Any(node => node.Attribute("Condition") != null), "conditional attribute is not set on solution name node");
@@ -225,7 +225,7 @@ namespace VSProjectNormalizer.Test
 
         protected XElement Normalize(string projectFile)
         {
-            return CodeTools.Test.Common.TestHelpers.GetTestFileInfo(projectFile).Normalize(Settings);
+            return projectFile.GetTestFileInfo().Normalize(Settings);
         }
 	}
 

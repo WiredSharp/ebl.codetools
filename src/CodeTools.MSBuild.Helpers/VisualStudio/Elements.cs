@@ -35,14 +35,24 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
             return NewXElement("Otherwise", firstChild, childs);
         }
 
-        public static XElement PropertyGroup(params object[] childs)
+        public static XElement PropertyGroup(params XElement[] childs)
         {
             return NewXElement("PropertyGroup", childs);
         }
 
-        public static XElement Property(string name, params object[] childs)
+        public static XElement Property(string name, string value, bool checkDefined = false)
         {
-            return NewXElement(name, childs);
+            XElement property = NewXElement(name, value);
+            if (checkDefined)
+            {
+                property.Add(Condition.TagDefined(name));
+            }
+            return property;
+        }
+
+        public static XElement Property(string name, string value, XAttribute condition)
+        {
+            return NewXElement(name, condition, value);
         }
 
         private static XElement NewXElement(string localName, params object[] childs)

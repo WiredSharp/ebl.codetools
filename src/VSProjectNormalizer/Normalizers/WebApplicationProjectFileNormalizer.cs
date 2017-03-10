@@ -12,28 +12,29 @@ namespace VSProjectNormalizer.Normalizers
 		{
 		}
 
-		public override void Normalize(XElement root)
+		internal override void Normalize(ProjectFile projectFile)
 		{
-            RemoveNodes(root, INTERMEDIATE_OUTPUT_TAG);
+            projectFile.RemoveNodes(INTERMEDIATE_OUTPUT_TAG);
             if (!String.IsNullOrEmpty(CurrentSettings.BuildPath))
             {
-                RemoveNodes(root, BUILD_DIRECTORY_TAG);
+                projectFile.RemoveNodes(BUILD_DIRECTORY_TAG);
             }
-            UpdateSolutionProperties(root);
-            HandleOutputPath(root);
+            UpdateSolutionProperties(projectFile);
+            HandleOutputPath(projectFile);
         }
 
-	    protected override void HandleOutputPath(XElement root)
+	    protected override void HandleOutputPath(ProjectFile projectFile)
 	    {
-            XElement commonPropertyGroup = GetFirstCommonPropertyGroup(root);
-            var label = new XAttribute("Label", VSPROJECTNORMALIZER_LABEL);
-            RemoveNodesWithAttribute(root, label);
+            XElement commonPropertyGroup = projectFile.PropertyGroups().First();
+            RemoveGeneratedNodes(projectFile);
             XAttribute buildTagDefined = Condition.TagDefined(BUILD_DIRECTORY_TAG);
             XAttribute buildTagNotDefined = Condition.TagNotDefined(BUILD_DIRECTORY_TAG);
+            string assemblyName = projectFile.AssemblyName().First().Value;
+            string outputPath = BuildOutputPath(assemblyName);
             XElement choose;
             if (!String.IsNullOrEmpty(CurrentSettings.BuildPath))
             {
-                commonPropertyGroup.Add(Elements.Property(BUILD_DIRECTORY_TAG, buildTagNotDefined, CurrentSettings.BuildPath));
+                commonPropertyGroup.Add(Elements.Property(BUILD_DIRECTORY_TAG, CurrentSettings.BuildPath, buildTagNotDefined));
                 choose = BuildIntermediateOutputNodes(Path.Combine(CurrentSettings.BuildPath, CurrentSettings.IntermediateOutputPath));
             }
             else
@@ -41,11 +42,13 @@ namespace VSProjectNormalizer.Normalizers
                 choose = Elements.Choose(Elements.When(buildTagDefined, BuildIntermediateOutputNodes(Path.Combine(CurrentSettings.ExternalBuildPrefix, CurrentSettings.IntermediateOutputPath)))
                                         , Elements.Otherwise(BuildIntermediateOutputNodes(Path.Combine(CurrentSettings.DefaultBuildPrefix, CurrentSettings.IntermediateOutputPath))));
             }
-            choose.Add(label);
             commonPropertyGroup.AddAfterSelf(choose);
+            XNode generatedRegionMark = BuildGeneratedRegionMark();
+            choose.AddBeforeSelf(generatedRegionMark);
+            choose.AddAfterSelf(generatedRegionMark);
         }
 
-	    private XElement BuildIntermediateOutputNodes(string intermediatePath)
+        private XElement BuildIntermediateOutputNodes(string intermediatePath)
 	    {
             return Elements.Choose(
                     Elements.When(Condition.And(Condition.TagDefined("Platform"), Condition.TagNotEqual("Platform", "AnyCPU"))
