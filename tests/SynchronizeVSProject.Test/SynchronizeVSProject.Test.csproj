@@ -86,16 +86,38 @@
     <Compile Include="..\VSProjectNormalizer.Test\TestHelpers.cs">
       <Link>TestHelpers.cs</Link>
     </Compile>
+    <Compile Include="NugetFileSynchronizerTest.cs" />
     <Compile Include="ProjectSynchronizerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="playground\regular\output\net40\EDO.Diagnostics.Core.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="playground\regular\output\net40\EDO.Diagnostics.Core.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="playground\regular\output\net45\EDO.Diagnostics.Core.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="playground\regular\output\net45\EDO.Diagnostics.Core.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="playground\regular\packages.config" />
+    <Content Include="playground\regular\regular.nuspec">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\CodeTools.MSBuild.Helpers\CodeTools.MSBuild.Helpers.csproj">
       <Project>{3df5f4d8-949e-4f76-b2d4-06a522b64cae}</Project>
       <Name>CodeTools.MSBuild.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\CodeTools.Nuget.Helpers\CodeTools.Nuget.Helpers.csproj">
+      <Project>{ebf4fbb8-787e-4a1a-b79b-0f12a2b6e071}</Project>
+      <Name>CodeTools.Nuget.Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\SynchronizeVSProject\SynchronizeVSProject.csproj">
       <Project>{b4351ddc-3ca1-44d1-807e-31a9bf09d280}</Project>

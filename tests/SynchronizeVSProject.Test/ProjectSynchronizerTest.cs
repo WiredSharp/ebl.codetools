@@ -29,9 +29,9 @@ namespace SynchronizeVSProject.Test
         [Test]
         public void guid_is_modified()
         {
-            XElement cloned = CloneTo(@"playground\regular.csproj.xml", NetFramework.v35);
+            XElement cloned = CloneTo(@"regular.csproj.xml", NetFramework.v35);
 
-            string projectFileContent = File.ReadAllText(@"playground\regular.csproj.xml".GetTestFileInfo().FullName);
+            string projectFileContent = File.ReadAllText(@"regular.csproj.xml".GetTestFileInfo().FullName);
             XElement origin = XElement.Parse(projectFileContent);
             Assert.AreNotEqual(origin.FindNodes("ProjectGuid").Single().Value, cloned.FindNodes("ProjectGuid").Single().Value, "project GUID should have been changed");
         }
@@ -39,7 +39,7 @@ namespace SynchronizeVSProject.Test
         [Test]
         public void target_framework_version_is_updated()
         {
-            XElement cloned = CloneTo(@"playground\regular.csproj.xml", NetFramework.v35);
+            XElement cloned = CloneTo(@"regular.csproj.xml", NetFramework.v35);
 
             Assert.AreEqual(NetFramework.v35.MsbuildTag, cloned.FindNodes("TargetFrameworkVersion").Single().Value, "project GUID should have been changed");
         }
@@ -47,19 +47,19 @@ namespace SynchronizeVSProject.Test
         [Test]
         public void cloned_project_file_is_created_in_expected_folder()
         {
-            FileInfo targetFile = @"playground\regular.net40\regular.csproj".GetTestFileInfo();
+            FileInfo targetFile = @"regular.net40\regular.csproj".GetTestFileInfo();
             if (targetFile.Directory.Exists)
             {
                 targetFile.Directory.Delete(true);
             }
-            CloneTo(@"playground\regular\regular.csproj", NetFramework.v40);
+            CloneTo(@"regular\regular.csproj", NetFramework.v40);
             FileAssert.Exists(targetFile, "generated file has not been created in expected location");
         }
 
         [Test]
         public void local_compile_element_are_converted_to_link()
         {
-            XElement cloned = CloneTo(@"playground\regular\regular.csproj", NetFramework.v40);
+            XElement cloned = CloneTo(@"regular\regular.csproj", NetFramework.v40);
             XElement[] compileNodes = cloned.FindNodes("Compile");
             foreach (XElement compileNode in compileNodes)
             {

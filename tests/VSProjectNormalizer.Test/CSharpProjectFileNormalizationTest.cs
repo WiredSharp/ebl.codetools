@@ -35,7 +35,7 @@ namespace VSProjectNormalizer.Test
         [Test]
         public void execution_is_idempotent()
         {
-            const string projectFile = @"playground\test.csproj.xml";
+            const string projectFile = @"test.csproj.xml";
             var normalizer = new VSProjectNormalizer(Settings);
             var first = normalizer.Normalize(projectFile.GetTestFileInfo());
             Assert.AreEqual(first, normalizer.Normalize(first), "second execution is not idempotent");
@@ -43,9 +43,9 @@ namespace VSProjectNormalizer.Test
 
         [Test]
         [Sequential]
-        public void outputpath_is_correctly_set_with_projecttype_tag([Values(@"playground\regular.csproj.xml"
-                                                                                ,@"playground\acceptance.csproj.xml"
-                                                                                ,@"playground\test.csproj.xml")] string projectFile
+        public void outputpath_is_correctly_set_with_projecttype_tag([Values(@"regular.csproj.xml"
+                                                                                ,@"acceptance.csproj.xml"
+                                                                                ,@"test.csproj.xml")] string projectFile
                                                                     , [Values(BIN_OUTPUT_PATH, ACCEPTANCE_OUTPUT_PATH, TEST_OUTPUT_PATH)] string expectedOutputPath)
         {
             Settings = Settings.Default;
@@ -56,9 +56,9 @@ namespace VSProjectNormalizer.Test
         }
 
         [Test]
-        public void outputpath_is_correctly_set([Values(@"playground\regular.csproj.xml"
-                                                                    ,@"playground\acceptance.csproj.xml"
-                                                                    ,@"playground\test.csproj.xml")] string projectFile)
+        public void outputpath_is_correctly_set([Values(@"regular.csproj.xml"
+                                                                    ,@"acceptance.csproj.xml"
+                                                                    ,@"test.csproj.xml")] string projectFile)
         {
             XElement root = Normalize(projectFile);
             root.AssertExactMatch(OUTPUT_PATH_TAG
@@ -67,10 +67,10 @@ namespace VSProjectNormalizer.Test
         }
 
         [Test]
-        public void intermediate_outputpath_is_correctly_set([Values(@"playground\regular.csproj.xml"
-                                                                    ,@"playground\acceptance.csproj.xml"
-                                                                    ,@"playground\test.csproj.xml"
-                                                                    ,@"playground\website.csproj.xml")] string projectFile)
+        public void intermediate_outputpath_is_correctly_set([Values(@"regular.csproj.xml"
+                                                                    ,@"acceptance.csproj.xml"
+                                                                    ,@"test.csproj.xml"
+                                                                    ,@"website.csproj.xml")] string projectFile)
         {
             XElement root = Normalize(projectFile);
             root.AssertExactMatch(INTERMEDIATE_OUTPUT_PATH
@@ -80,10 +80,10 @@ namespace VSProjectNormalizer.Test
 
         [Test]
         public void shared_props_are_imported_with_condition(
-            [Values(@"playground\regular.csproj.xml"
-                , @"playground\test.csproj.xml"
-                , @"playground\acceptance.csproj.xml"
-                , @"playground\website.csproj.xml")] string projectFile)
+            [Values(@"regular.csproj.xml"
+                , @"test.csproj.xml"
+                , @"acceptance.csproj.xml"
+                , @"website.csproj.xml")] string projectFile)
         {
             XElement normalized = Normalize(projectFile);
             XElement import = normalized.FindNodes("Import").FirstOrDefault(i => i.Attribute("Project")?.Value == Settings.CommonPropsFile);
@@ -96,7 +96,7 @@ namespace VSProjectNormalizer.Test
         [Test]
 		public void xml_declaration_is_returned()
 		{
-			const string projectFile = @"playground\regular.csproj.xml";
+			const string projectFile = @"regular.csproj.xml";
             var normalizer = new VSProjectNormalizer(Settings);
 			string normalized = normalizer.Normalize(projectFile.GetTestFileInfo());
 			Assert.That(normalized, Does.StartWith("<?xml version=\"1.0\" encoding=\"utf-8\"?>"), "xml declaration are omitted");
@@ -105,7 +105,7 @@ namespace VSProjectNormalizer.Test
 		[Test]
 		public void website_project_output_path_is_not_modified()
 		{
-			const string projectFile = @"playground\website.csproj.xml";
+			const string projectFile = @"website.csproj.xml";
             XElement normalized = projectFile.GetTestFileInfo().Normalize(Settings);
 		    IEnumerable<XElement> outputPathNodes = normalized.FindNodes("OutputPath");
             Assert.IsTrue(outputPathNodes.All(node => node.Value == @"bin\"));
