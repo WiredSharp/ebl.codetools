@@ -53,7 +53,7 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
             XElement property = NewXElement(name, value);
             if (checkDefined)
             {
-                property.Add(Condition.TagDefined(name));
+                property.Add(Condition.TagNotDefined(name));
             }
             return property;
         }
@@ -88,7 +88,7 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
             }
             else
             {
-                return Import(importPath);
+                return Import(importPath, null);
             }
         }
 
