@@ -1,5 +1,6 @@
 ﻿using System.Xml.Linq;
 using CodeTools.MSBuild.Helpers.VisualStudio;
+using CodeTools.VisualStudio.Tools;
 
 namespace VSProjectNormalizer.Normalizers
 {

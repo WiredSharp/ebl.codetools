@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Xml.Linq;
 using CodeTools.MSBuild.Helpers.VisualStudio;
+using CodeTools.VisualStudio.Tools;
 using VSProjectNormalizer.Normalizers;
 
 namespace VSProjectNormalizer

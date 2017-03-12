@@ -7,7 +7,7 @@
     <ProjectGuid>{55EB2595-20AB-4731-9A81-65A0427E4068}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VSProjectNormalizer</RootNamespace>
+    <RootNamespace>CodeTools.VisualStudio.Tools</RootNamespace>
     <AssemblyName>VSProjectNormalizer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

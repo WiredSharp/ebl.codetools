@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VSProjectNormalizer {
+namespace CodeTools.VisualStudio.Tools {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

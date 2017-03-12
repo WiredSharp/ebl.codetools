@@ -15,10 +15,10 @@ using CodeTools.MSBuild.Helpers.VisualStudio;
 using CodeTools.Test.Common;
 using NUnit.Framework;
 
-namespace SynchronizeVSProject.Test
+namespace CodeTools.VisualStudio.Tools.Test
 {
     [TestFixture]
-    public class ProjectSynchronizerTest
+    public class VSProjectClonerTest
     {
         [OneTimeSetUp]
         public void FixtureSetup()
@@ -76,7 +76,7 @@ namespace SynchronizeVSProject.Test
         private static XElement CloneTo(string testFile, NetFramework targetFrameworkVersion)
         {
             FileInfo testFileInfo = testFile.GetTestFileInfo();
-            var synchronizer = new ProjectSynchronizer(testFileInfo);
+            var synchronizer = new VSProjectCloner(testFileInfo);
             return XElement.Parse(File.ReadAllText(synchronizer.CloneTo(targetFrameworkVersion).FullName));
         }
     }

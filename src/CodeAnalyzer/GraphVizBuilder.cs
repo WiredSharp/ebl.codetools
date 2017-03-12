@@ -5,7 +5,7 @@ using System.Text;
 using CodeTools.Core;
 using CodeTools.Core.Projects;
 
-namespace CodeAnalyzer
+namespace CodeTools.VisualStudio.Tools
 {
     internal class GraphVizBuilder : GraphBuilder
     {

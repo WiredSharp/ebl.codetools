@@ -4,12 +4,11 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Reflection.Emit;
 using System.Text;
 using CodeTools.Core;
 using CodeTools.Core.Projects;
 
-namespace CodeAnalyzer
+namespace CodeTools.VisualStudio.Tools
 {
 	internal class YumlBuilder : GraphBuilder
 	{

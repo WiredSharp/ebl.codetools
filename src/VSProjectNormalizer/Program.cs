@@ -5,7 +5,7 @@ using System.Reflection;
 using CodeTools.Core;
 using CodeTools.Core.Projects;
 
-namespace VSProjectNormalizer
+namespace CodeTools.VisualStudio.Tools
 {
     class Program
     {
@@ -40,7 +40,7 @@ namespace VSProjectNormalizer
                     }
                     else if (fileName.EndsWith(".sln"))
                     {
-                        VSProjectNormalizer normalizer = NewNormalizer();
+                        VSProjectNormalizer.VSProjectNormalizer normalizer = NewNormalizer();
                         var solution = Solution.Parse(fileName);
                         foreach (KeyValuePair<string, CSharpProject> reference in solution.CSharpProjects)
                         {
@@ -78,9 +78,9 @@ namespace VSProjectNormalizer
             return (T)Attribute.GetCustomAttribute(assembly, typeof(T));
         }
 
-        private static VSProjectNormalizer NewNormalizer()
+        private static VSProjectNormalizer.VSProjectNormalizer NewNormalizer()
         {
-            var normalizer = new VSProjectNormalizer(new Settings()
+            var normalizer = new VSProjectNormalizer.VSProjectNormalizer(new Settings()
             {
                 SolutionBuildFolder = Resource.Default.SOLUTION_BUILD_FOLDER,
                 SolutionIntermediateFolder = Resource.Default.SOLUTION_INTERMEDIATE_FOLDER,

@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
@@ -9,8 +10,6 @@
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyFileVersion("2.0.0")]
-
 #if(DEBUG)
     [assembly: AssemblyConfiguration("debug")]
     [assembly: AssemblyInformationalVersion("2.0.0-pre")]
@@ -18,3 +17,5 @@
     [assembly: AssemblyConfiguration("release")]
     [assembly: AssemblyInformationalVersion("2.0.0")]
 #endif
+
+	 [assembly: InternalsVisibleTo("CodeTools.VisualStudio.Tools.Test")]
