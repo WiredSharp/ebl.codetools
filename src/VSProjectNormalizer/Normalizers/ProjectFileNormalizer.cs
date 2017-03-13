@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
-using CodeTools.VisualStudio.Tools;
 
-namespace VSProjectNormalizer.Normalizers
+namespace CodeTools.VisualStudio.Tools.Normalizers
 {
 	/// <summary>
 	/// visual studio project file normalizer base type

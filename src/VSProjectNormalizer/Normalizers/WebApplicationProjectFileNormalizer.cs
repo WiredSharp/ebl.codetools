@@ -1,8 +1,7 @@
 ﻿using System.Xml.Linq;
 using CodeTools.MSBuild.Helpers.VisualStudio;
-using CodeTools.VisualStudio.Tools;
 
-namespace VSProjectNormalizer.Normalizers
+namespace CodeTools.VisualStudio.Tools.Normalizers
 {
 	internal class WebApplicationProjectFileNormalizer : CsharpProjectFileNormalizer
 	{

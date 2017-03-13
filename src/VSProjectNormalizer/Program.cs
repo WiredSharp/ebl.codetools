@@ -40,7 +40,7 @@ namespace CodeTools.VisualStudio.Tools
                     }
                     else if (fileName.EndsWith(".sln"))
                     {
-                        VSProjectNormalizer.VSProjectNormalizer normalizer = NewNormalizer();
+                        VSProjectNormalizer normalizer = NewNormalizer();
                         var solution = Solution.Parse(fileName);
                         foreach (KeyValuePair<string, CSharpProject> reference in solution.CSharpProjects)
                         {
@@ -78,9 +78,9 @@ namespace CodeTools.VisualStudio.Tools
             return (T)Attribute.GetCustomAttribute(assembly, typeof(T));
         }
 
-        private static VSProjectNormalizer.VSProjectNormalizer NewNormalizer()
+        private static VSProjectNormalizer NewNormalizer()
         {
-            var normalizer = new VSProjectNormalizer.VSProjectNormalizer(new Settings()
+            var normalizer = new VSProjectNormalizer(new Settings()
             {
                 SolutionBuildFolder = Resource.Default.SOLUTION_BUILD_FOLDER,
                 SolutionIntermediateFolder = Resource.Default.SOLUTION_INTERMEDIATE_FOLDER,

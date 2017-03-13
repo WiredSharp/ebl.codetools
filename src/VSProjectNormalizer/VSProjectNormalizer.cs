@@ -1,12 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Text;
-using System.Xml.Linq;
 using CodeTools.MSBuild.Helpers.VisualStudio;
-using CodeTools.VisualStudio.Tools;
-using VSProjectNormalizer.Normalizers;
+using CodeTools.VisualStudio.Tools.Normalizers;
 
-namespace VSProjectNormalizer
+namespace CodeTools.VisualStudio.Tools
 {
 	public class VSProjectNormalizer
 	{

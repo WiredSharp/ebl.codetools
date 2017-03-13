@@ -40,7 +40,7 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void execution_is_idempotent()
 		{
 			const string projectFile = @"test.csproj.xml";
-			var normalizer = new VSProjectNormalizer.VSProjectNormalizer(Settings);
+			var normalizer = new VSProjectNormalizer(Settings);
 			var first = normalizer.Normalize(projectFile.GetTestFileInfo());
 			Assert.AreEqual(first, normalizer.Normalize(first), "second execution is not idempotent");
 		}
@@ -101,7 +101,7 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void xml_declaration_is_returned()
 		{
 			const string projectFile = @"regular.csproj.xml";
-			var normalizer = new VSProjectNormalizer.VSProjectNormalizer(Settings);
+			var normalizer = new VSProjectNormalizer(Settings);
 			string normalized = normalizer.Normalize(projectFile.GetTestFileInfo());
 			Assert.That(normalized, Does.StartWith("<?xml version=\"1.0\" encoding=\"utf-8\"?>"), "xml declaration are omitted");
 		}
@@ -125,7 +125,7 @@ namespace CodeTools.VisualStudio.Tools.Test
 	{
 		public static XElement Normalize(this FileInfo projectFile, Settings settings)
 		{
-			var normalizer = new VSProjectNormalizer.VSProjectNormalizer(settings);
+			var normalizer = new VSProjectNormalizer(settings);
 			string normalized = normalizer.Normalize(projectFile);
 			File.WriteAllText(
 									Path.Combine(Path.GetDirectoryName(projectFile.FullName), Path.GetFileNameWithoutExtension(projectFile.Name)) +

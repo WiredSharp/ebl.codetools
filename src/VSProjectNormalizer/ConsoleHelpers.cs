@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VSProjectNormalizer
+namespace CodeTools.VisualStudio.Tools
 {
 	public static class ConsoleHelpers
 	{
