@@ -27,7 +27,7 @@ namespace CodeTools.VisualStudio.Tools.Test
 	[TestFixture]
 	public class NugetPackerTest
 	{
-		private NugetPacker.Settings DefaultSettings { get; set; }
+		private NugetPacker.Specification DefaultSpecification { get; set; }
 
 		[OneTimeSetUp]
 		public void FixtureSetup()
@@ -41,10 +41,10 @@ namespace CodeTools.VisualStudio.Tools.Test
 		[SetUp]
 		public void Setup()
 		{
-			DefaultSettings = new NugetPacker.Settings()
+			DefaultSpecification = new NugetPacker.Specification()
 			{
 				Id = "CodeTools.Test"
-				, Version = new NugetPacker.Settings.NugetVersion(1,2,3,"test", "meta")
+				, Version = new NugetPacker.Specification.NugetVersion(1,2,3,"test", "meta")
 				, Copyright = "copyright 2017 EBL Consulting"
 				, Description = "this is a description"
 				, Authors = new[] {"author 1", "author 2"}
@@ -58,11 +58,11 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void i_can_build_package_with_package_dependencies([Values("net35","net40","net403", "net45", "net451", "net452", "net461", "net462")] string targetFramework)
 		{
 			var packer = NewNugetPacker();
-			DefaultSettings.Dependencies = new[]
+			DefaultSpecification.Dependencies = new NugetPacker.Specification.DependencyGroupCollection()
 			{
-				new NugetPacker.Settings.DependencyGroup(targetFramework)
+				new NugetPacker.Specification.DependencyGroup(targetFramework)
 				{
-					new NugetPacker.Settings.Dependency()
+					new NugetPacker.Specification.Dependency()
 						{ Id = "another_package", VersionRange = "1.2.0" }
 				}
 			};
@@ -73,9 +73,9 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void i_can_build_package_with_library_content()
 		{
 			var packer = NewNugetPacker();
-			DefaultSettings.Libraries = new[]
+			DefaultSpecification.Libraries = new[]
 			{
-				new NugetPacker.Settings.LibraryFiles()
+				new LibraryFiles()
 				{
 					Source = Path.Combine(@"regular\output\net40".GetTestPath(), "*.*")
 					,TargetFramework = "net40"
@@ -88,9 +88,9 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void i_can_build_package_with_tools_content()
 		{
 			var packer = NewNugetPacker();
-			DefaultSettings.Tools = new[]
+			DefaultSpecification.Tools = new[]
 			{
-				new NugetPacker.Settings.ToolFiles()
+				new ToolFiles()
 				{
 					Source = "*.xml".GetTestPath()
 				}
@@ -102,9 +102,9 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void i_can_build_package_with_build_content()
 		{
 			var packer = NewNugetPacker();
-			DefaultSettings.Build = new[]
+			DefaultSpecification.Build = new[]
 			{
-				new NugetPacker.Settings.BuildFiles()
+				new BuildFiles()
 				{
 					Source = "*.xml".GetTestPath()
 				}
@@ -116,14 +116,14 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void i_can_build_package_with_two_framework_targets()
 		{
 			var packer = NewNugetPacker();
-			DefaultSettings.Libraries = new[]
+			DefaultSpecification.Libraries = new[]
 			{
-				new NugetPacker.Settings.LibraryFiles()
+				new LibraryFiles()
 				{
 					Source = Path.Combine(@"regular\output\net40".GetTestPath(), "*.*")
 					,TargetFramework = "net40"
 				},
-				new NugetPacker.Settings.LibraryFiles()
+				new LibraryFiles()
 				{
 					Source = Path.Combine(@"regular\output\net45".GetTestPath(), "*.*")
 					,TargetFramework = "net45"
@@ -136,9 +136,9 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void i_can_add_framework_assembly()
 		{
 			var packer = NewNugetPacker();
-			DefaultSettings.FrameworkAssemblies = new[]
+			DefaultSpecification.FrameworkAssemblies = new[]
 			{
-				new NugetPacker.Settings.FrameworkAssembly()
+				new NugetPacker.Specification.FrameworkAssembly()
 				{
 					Name = "System.Xml"
 					,TargetFrameworks = new []{ "net40", "net45" }
@@ -147,9 +147,9 @@ namespace CodeTools.VisualStudio.Tools.Test
 			packer.Pack("test_pack".GetTestFileInfo());
 		}
 
-		private NugetPacker NewNugetPacker(NugetPacker.Settings settings = null)
+		private NugetPacker NewNugetPacker(NugetPacker.Specification specification = null)
 		{
-			return new NugetPacker(settings ?? DefaultSettings);
+			return new NugetPacker(specification ?? DefaultSpecification);
 		}
 	}
 }

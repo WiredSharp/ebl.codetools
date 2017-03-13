@@ -12,8 +12,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using CodeTools.Nuget.Helpers;
 using NuGet.Frameworks;
 using NuGet.Packaging;
 using NuGet.Packaging.Core;
@@ -21,15 +19,18 @@ using NuGet.Versioning;
 
 namespace CodeTools.VisualStudio.Tools
 {
-	internal class NugetPacker
+    /// <summary>
+    /// wrapper for <see cref="NuGet.Packaging.PackageBuilder"/>
+    /// </summary>
+    internal class NugetPacker
 	{
-		protected Settings Current { get; }
+		protected Specification Current { get; }
 
-		public NugetPacker(Settings settings)
+		public NugetPacker(Specification specification)
 		{
-			if (settings == null)
-				throw new ArgumentNullException(nameof(settings));
-			Current = settings;
+			if (specification == null)
+				throw new ArgumentNullException(nameof(specification));
+			Current = specification;
 		}
 
 		/// <summary>
@@ -93,7 +94,7 @@ namespace CodeTools.VisualStudio.Tools
 		{
 			if (Current.Content != null)
 			{
-				foreach (Settings.ContentFiles content in Current.Content)
+				foreach (ContentFiles content in Current.Content)
 				{
 					builder.ContentFiles.Add(new ManifestContentFiles()
 					{
@@ -111,7 +112,7 @@ namespace CodeTools.VisualStudio.Tools
 		{
 			if (Current.Libraries != null)
 			{
-				foreach (Settings.LibraryFiles library in Current.Libraries)
+				foreach (LibraryFiles library in Current.Libraries)
 				{
 					var framework = NuGetFramework.Parse(library.TargetFramework);
 					builder.AddFiles(Current.BasePath, library.Source, Path.Combine(PackagingConstants.Folders.Lib, framework.GetShortFolderName()));
@@ -120,14 +121,14 @@ namespace CodeTools.VisualStudio.Tools
 			}
 			if (Current.Tools != null)
 			{
-				foreach (Settings.ToolFiles tool in Current.Tools)
+				foreach (ToolFiles tool in Current.Tools)
 				{
 					builder.AddFiles(Current.BasePath, tool.Source, PackagingConstants.Folders.Tools);
 				}
 			}
 			if (Current.Build != null)
 			{
-				foreach (Settings.BuildFiles build in Current.Build)
+				foreach (BuildFiles build in Current.Build)
 				{
 					builder.AddFiles(Current.BasePath, build.Source, PackagingConstants.Folders.Build);
 				}
@@ -138,7 +139,7 @@ namespace CodeTools.VisualStudio.Tools
 		{
 			if (Current.FrameworkAssemblies != null)
 			{
-				foreach (Settings.FrameworkAssembly assembly in Current.FrameworkAssemblies)
+				foreach (Specification.FrameworkAssembly assembly in Current.FrameworkAssemblies)
 				{
 					builder.FrameworkReferences.Add(new FrameworkAssemblyReference(assembly.Name,
 						assembly.TargetFrameworks.Select(NuGetFramework.Parse)));
@@ -150,7 +151,7 @@ namespace CodeTools.VisualStudio.Tools
 		{
 			if (Current.Dependencies != null)
 			{
-				foreach (Settings.DependencyGroup dependencyGroup in Current.Dependencies)
+				foreach (Specification.DependencyGroup dependencyGroup in Current.Dependencies)
 				{
 					var packageDependencyGroup = new PackageDependencyGroup(NuGetFramework.Parse(dependencyGroup.TargetFramework),
 						dependencyGroup.Select(d => new PackageDependency(d.Id, VersionRange.Parse(d.VersionRange), d.Include, d.Exclude)));
@@ -159,7 +160,7 @@ namespace CodeTools.VisualStudio.Tools
 			}
 		}
 
-		public class Settings
+		public class Specification
 		{
 			public string Id { get; set; }
 
@@ -181,7 +182,7 @@ namespace CodeTools.VisualStudio.Tools
 
 			public string[] Tags { get; set; }
 
-			public DependencyGroup[] Dependencies { get; set; }
+			public DependencyGroupCollection Dependencies { get; set; }
 
 			public FrameworkAssembly[] FrameworkAssemblies { get; set; }
 
@@ -195,7 +196,7 @@ namespace CodeTools.VisualStudio.Tools
 
 			public string BasePath { get; set; }
 
-			public Settings()
+			public Specification()
 			{
 				BasePath = String.Empty;
 			}
@@ -259,34 +260,22 @@ namespace CodeTools.VisualStudio.Tools
 				public string TargetFramework { get; set; }
 			}
 
-			public class Files
-			{
-				public string Source { get; set; }
+		    public class DependencyGroupCollection : KeyedCollection<string, DependencyGroup>
+		    {
+		        protected override string GetKeyForItem(DependencyGroup item)
+		        {
+		            return item.TargetFramework;
+		        }
 
-				public string Exclude { get; set; }
-			}
-
-			public class LibraryFiles: Files
-			{
-				public string TargetFramework { get; set; }
-			}
-
-			public class ToolFiles: Files
-			{
-			}
-
-			public class BuildFiles: Files
-			{
-			}
-
-			public class ContentFiles : Files
-			{
-				public string BuildAction { get; set; }
-
-				public bool CopyToOutput { get; set; }
-
-				public bool Flatten { get; set; }
-			}
-		}
+		        public void AddRange(IEnumerable<DependencyGroup> dependencyGroups)
+		        {
+		            if (dependencyGroups == null) throw new ArgumentNullException(nameof(dependencyGroups));
+		            foreach (DependencyGroup dependencyGroup in dependencyGroups)
+		            {
+		                Add(dependencyGroup);
+		            }
+		        }
+		    }
+        }
 	}
 }

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using CodeTools.VisualStudio.Tools;
 using NUnit.Framework;
 
 // ReSharper disable once CheckNamespace
@@ -10,7 +11,27 @@ namespace CodeTools.Test.Common
 {
 	internal static class TestHelpers
 	{
-		public static string GetInformationalVersion(this Assembly generatedAssembly)
+        public static XElement Normalize(this FileInfo projectFile, Settings settings)
+        {
+            var normalizer = new VSProjectNormalizer(settings);
+            string normalized = normalizer.Normalize(projectFile);
+            File.WriteAllText(
+                                    Path.Combine(Path.GetDirectoryName(projectFile.FullName), Path.GetFileNameWithoutExtension(projectFile.Name)) +
+                                    ".normalized.xml",
+                                    normalized);
+            XElement root = XElement.Parse(normalized);
+            return root;
+        }
+
+	    public static XElement LoadXml(this FileInfo xmlFile)
+	    {
+	        using (var reader = File.OpenRead(xmlFile.FullName))
+	        {
+	            return XElement.Load(reader);
+	        }
+	    }
+
+        public static string GetInformationalVersion(this Assembly generatedAssembly)
 		{
 			return GetAttribute<AssemblyInformationalVersionAttribute>(generatedAssembly).InformationalVersion;
 		}

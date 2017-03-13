@@ -120,19 +120,4 @@ namespace CodeTools.VisualStudio.Tools.Test
 			return projectFile.GetTestFileInfo().Normalize(Settings);
 		}
 	}
-
-	internal static class TestHelpers
-	{
-		public static XElement Normalize(this FileInfo projectFile, Settings settings)
-		{
-			var normalizer = new VSProjectNormalizer(settings);
-			string normalized = normalizer.Normalize(projectFile);
-			File.WriteAllText(
-									Path.Combine(Path.GetDirectoryName(projectFile.FullName), Path.GetFileNameWithoutExtension(projectFile.Name)) +
-									".normalized.xml",
-									normalized);
-			XElement root = XElement.Parse(normalized);
-			return root;
-		}
-	}
 }
