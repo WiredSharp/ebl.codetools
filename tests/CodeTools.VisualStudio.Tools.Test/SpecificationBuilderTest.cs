@@ -32,7 +32,8 @@ namespace CodeTools.VisualStudio.Tools.Test
             FileInfo nuspecFile = @"regular\regular.nuspec".GetTestFileInfo();
             builder.WithNuSpec(nuspecFile);
             XElement xmlNuspec = nuspecFile.LoadXml();
-            Assert.AreEqual(xmlNuspec.FindNodes("id").Single().Value, builder.Id, "unexpected id retrieved");
+            Assert.AreEqual(xmlNuspec.FindNodes("id").Single().Value, builder.Specification.Id,
+                            "unexpected id retrieved");
         }
 
         [Test]
@@ -43,7 +44,7 @@ namespace CodeTools.VisualStudio.Tools.Test
             builder.WithNuSpec(nuspecFile);
             XElement xmlNuspec = nuspecFile.LoadXml();
             string[] expected = xmlNuspec.FindNodes("authors").Single().Value.Split(',');
-            CollectionAssert.AreEqual(expected, builder.Authors, "unexpected authors retrieved");
+            CollectionAssert.AreEqual(expected, builder.Specification.Authors, "unexpected authors retrieved");
         }
 
         [Test]
@@ -54,7 +55,7 @@ namespace CodeTools.VisualStudio.Tools.Test
             builder.WithNuSpec(nuspecFile);
             XElement xmlNuspec = nuspecFile.LoadXml();
             string[] expected = xmlNuspec.FindNodes("owners").Single().Value.Split(',');
-            CollectionAssert.AreEqual(expected, builder.Owners, "unexpected owners retrieved");
+            CollectionAssert.AreEqual(expected, builder.Specification.Owners, "unexpected owners retrieved");
         }
 
         [Test]
@@ -65,7 +66,7 @@ namespace CodeTools.VisualStudio.Tools.Test
             builder.WithNuSpec(nuspecFile);
             XElement xmlNuspec = nuspecFile.LoadXml();
             string[] expected = xmlNuspec.FindNodes("tags").Single().Value.Split(' ');
-            CollectionAssert.AreEqual(expected, builder.Tags, "unexpected tags retrieved");
+            CollectionAssert.AreEqual(expected, builder.Specification.Tags, "unexpected tags retrieved");
         }
 
         [Test]
@@ -75,7 +76,8 @@ namespace CodeTools.VisualStudio.Tools.Test
             FileInfo nuspecFile = @"regular\regular.nuspec".GetTestFileInfo();
             builder.WithNuSpec(nuspecFile);
             XElement xmlNuspec = nuspecFile.LoadXml();
-            Assert.AreEqual(xmlNuspec.FindNodes("projectUrl").Single().Value, builder.ProjectUrl.OriginalString, "unexpected project url retrieved");
+            Assert.AreEqual(xmlNuspec.FindNodes("projectUrl").Single().Value,
+                            builder.Specification.ProjectUrl.OriginalString, "unexpected project url retrieved");
         }
 
         [Test]
@@ -85,7 +87,8 @@ namespace CodeTools.VisualStudio.Tools.Test
             FileInfo nuspecFile = @"regular\regular.nuspec".GetTestFileInfo();
             builder.WithNuSpec(nuspecFile);
             XElement xmlNuspec = nuspecFile.LoadXml();
-            Assert.AreEqual(xmlNuspec.FindNodes("licenseUrl").Single().Value, builder.LicenseUrl.OriginalString, "unexpected license url retrieved");
+            Assert.AreEqual(xmlNuspec.FindNodes("licenseUrl").Single().Value,
+                            builder.Specification.LicenseUrl.OriginalString, "unexpected license url retrieved");
         }
 
         [Test]
@@ -95,7 +98,8 @@ namespace CodeTools.VisualStudio.Tools.Test
             FileInfo nuspecFile = @"regular\regular.nuspec".GetTestFileInfo();
             builder.WithNuSpec(nuspecFile);
             XElement xmlNuspec = nuspecFile.LoadXml();
-            Assert.AreEqual(xmlNuspec.FindNodes("iconUrl").Single().Value, builder.IconUrl.OriginalString, "unexpected icon url retrieved");
+            Assert.AreEqual(xmlNuspec.FindNodes("iconUrl").Single().Value, builder.Specification.IconUrl.OriginalString,
+                            "unexpected icon url retrieved");
         }
 
         [Test]
@@ -105,7 +109,8 @@ namespace CodeTools.VisualStudio.Tools.Test
             FileInfo nuspecFile = @"regular\regular.nuspec".GetTestFileInfo();
             builder.WithNuSpec(nuspecFile);
             XElement xmlNuspec = nuspecFile.LoadXml();
-            Assert.AreEqual(xmlNuspec.FindNodes("description").Single().Value, builder.Description, "unexpected description retrieved");
+            Assert.AreEqual(xmlNuspec.FindNodes("description").Single().Value, builder.Specification.Description,
+                            "unexpected description retrieved");
         }
 
         [Test]
@@ -115,7 +120,8 @@ namespace CodeTools.VisualStudio.Tools.Test
             FileInfo nuspecFile = @"regular\regular.nuspec".GetTestFileInfo();
             builder.WithNuSpec(nuspecFile);
             XElement xmlNuspec = nuspecFile.LoadXml();
-            Assert.AreEqual(xmlNuspec.FindNodes("releaseNotes").Single().Value, builder.ReleaseNotes, "unexpected release notes retrieved");
+            Assert.AreEqual(xmlNuspec.FindNodes("releaseNotes").Single().Value, builder.Specification.ReleaseNotes,
+                            "unexpected release notes retrieved");
         }
 
         [Test]
@@ -125,7 +131,8 @@ namespace CodeTools.VisualStudio.Tools.Test
             FileInfo nuspecFile = @"regular\regular.nuspec".GetTestFileInfo();
             builder.WithNuSpec(nuspecFile);
             XElement xmlNuspec = nuspecFile.LoadXml();
-            Assert.AreEqual(xmlNuspec.FindNodes("copyright").Single().Value, builder.Copyright, "unexpected copyright retrieved");
+            Assert.AreEqual(xmlNuspec.FindNodes("copyright").Single().Value, builder.Specification.Copyright,
+                            "unexpected copyright retrieved");
         }
 
         [Test]
@@ -135,15 +142,9 @@ namespace CodeTools.VisualStudio.Tools.Test
             FileInfo packagesFile = @"regular\packages.config".GetTestFileInfo();
             builder.WithPackages(packagesFile);
             XElement packages = packagesFile.LoadXml();
-            CollectionAssert.AreEqual(packages.FindNodes("package").Select(ToPackageReference), builder.PackageReferences, PackageReferenceComparer.Default, "unexpected package references retrieved");
-        }
-
-        private PackageReference ToPackageReference(XElement packageNode)
-        {
-            return new PackageReference(
-                                 new PackageIdentity(packageNode.Attribute("id").Value,
-                                                     NuGetVersion.Parse(packageNode.Attribute("version").Value)),
-                                 NuGetFramework.Parse(packageNode.Attribute("targetFramework").Value));
+            PackageDependencyGroup[] dependencyGroups = ToPackageDependencyGroups(packages.FindNodes("package"));
+            CollectionAssert.AreEqual(dependencyGroups, builder.Specification.Dependencies,
+                                      PackageReferenceComparer.Default, "unexpected package references retrieved");
         }
 
         [Test]
@@ -151,7 +152,8 @@ namespace CodeTools.VisualStudio.Tools.Test
         {
             var builder = new SpecificationBuilder();
             builder.WithAssembly(@"regular\output\net40\EDO.Diagnostics.Core.dll".GetTestFileInfo());
-            Assert.AreEqual(new NuGetVersion(1,0,0,new [] { "PreRelease" }, null), builder.Version, "unexpected version retrieved from assembly");
+            Assert.AreEqual(new NuGetVersion(1, 0, 0, new[] {"PreRelease"}, null), builder.Specification.Version,
+                            "unexpected version retrieved from assembly");
         }
 
         [Test]
@@ -159,7 +161,8 @@ namespace CodeTools.VisualStudio.Tools.Test
         {
             var builder = new SpecificationBuilder();
             builder.WithAssembly(@"regular\output\net40\EDO.Diagnostics.Core.dll".GetTestFileInfo());
-            Assert.AreEqual("Copyright © OFI-AM 2017", builder.Copyright, "unexpected version retrieved from assembly");
+            Assert.AreEqual("Copyright © OFI-AM 2017", builder.Specification.Copyright,
+                            "unexpected version retrieved from assembly");
         }
 
         [Test]
@@ -167,13 +170,24 @@ namespace CodeTools.VisualStudio.Tools.Test
         {
             var builder = new SpecificationBuilder();
             builder.WithAssembly(@"regular\output\net40\EDO.Diagnostics.Core.dll".GetTestFileInfo());
-            var nuGetFrameworks = new List<NuGetFramework>() { NuGetFramework.ParseFrameworkName(".Net Framework 4", DefaultFrameworkNameProvider.Instance) };
+            var nuGetFrameworks = new List<NuGetFramework>()
+                                  {
+                                      NuGetFramework.ParseFrameworkName(".Net Framework 4",
+                                                                        DefaultFrameworkNameProvider.Instance)
+                                  };
             var expectedAssemblies = new List<FrameworkAssemblyReference>()
                                      {
-                                         new FrameworkAssemblyReference("mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", nuGetFrameworks)
-                                         ,new FrameworkAssemblyReference("System.Xml.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", nuGetFrameworks)
+                                         new FrameworkAssemblyReference(
+                                                                        "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                                                                        nuGetFrameworks)
+                                         ,
+                                         new FrameworkAssemblyReference(
+                                                                        "System.Xml.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                                                                        nuGetFrameworks)
                                      };
-            CollectionAssert.AreEqual(expectedAssemblies, builder.FrameworkAssemblies, FrameworkAssemblyReferenceComparer.Default, "unexpected version retrieved from assembly");
+            CollectionAssert.AreEqual(expectedAssemblies, builder.Specification.FrameworkAssemblies,
+                                      FrameworkAssemblyReferenceComparer.Default,
+                                      "unexpected version retrieved from assembly");
         }
 
         [Test]
@@ -184,87 +198,108 @@ namespace CodeTools.VisualStudio.Tools.Test
             builder.WithAssembly(@"regular\output\net45\EDO.Diagnostics.Core.dll".GetTestFileInfo());
             var nuGetFrameworks = new List<NuGetFramework>()
                                   {
-                                      NuGetFramework.ParseFrameworkName(".Net Framework 4", DefaultFrameworkNameProvider.Instance)
-                                      ,NuGetFramework.ParseFrameworkName(".Net Framework 4.5.2", DefaultFrameworkNameProvider.Instance)
+                                      NuGetFramework.ParseFrameworkName(".Net Framework 4",
+                                                                        DefaultFrameworkNameProvider.Instance)
+                                      ,
+                                      NuGetFramework.ParseFrameworkName(".Net Framework 4.5.2",
+                                                                        DefaultFrameworkNameProvider.Instance)
                                   };
             var expectedAssemblies = new List<FrameworkAssemblyReference>()
                                      {
-                                         new FrameworkAssemblyReference("mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", nuGetFrameworks)
-                                         ,new FrameworkAssemblyReference("System.Xml.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", nuGetFrameworks)
+                                         new FrameworkAssemblyReference(
+                                                                        "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                                                                        nuGetFrameworks)
+                                         ,
+                                         new FrameworkAssemblyReference(
+                                                                        "System.Xml.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                                                                        nuGetFrameworks)
                                      };
-            CollectionAssert.AreEqual(expectedAssemblies, builder.FrameworkAssemblies, FrameworkAssemblyReferenceComparer.Default, "unexpected version retrieved from assembly");
+            CollectionAssert.AreEqual(expectedAssemblies, builder.Specification.FrameworkAssemblies,
+                                      FrameworkAssemblyReferenceComparer.Default,
+                                      "unexpected version retrieved from assembly");
         }
-    }
 
-    internal class FrameworkAssemblyReferenceComparer : IComparer<FrameworkAssemblyReference>, IComparer
-    {
-        public static IComparer Default => new FrameworkAssemblyReferenceComparer();
-
-        public int Compare(FrameworkAssemblyReference x, FrameworkAssemblyReference y)
+        private PackageDependencyGroup[] ToPackageDependencyGroups(IEnumerable<XElement> packageNodes)
         {
-            if (ReferenceEquals(x, y))
+            return
+                packageNodes.GroupBy(node => node.Attribute("targetFramework").Value)
+                            .Select(
+                                    nodeByFramework =>
+                                        new PackageDependencyGroup(NuGetFramework.Parse(nodeByFramework.Key),
+                                                                   nodeByFramework.Select(n =>new PackageDependency(n.Attribute("id").Value,VersionRange.Parse(n.Attribute("version").Value)))))
+                            .ToArray();
+        }
+
+        internal class FrameworkAssemblyReferenceComparer : IComparer<FrameworkAssemblyReference>, IComparer
+        {
+            public static IComparer Default => new FrameworkAssemblyReferenceComparer();
+
+            public int Compare(FrameworkAssemblyReference x, FrameworkAssemblyReference y)
             {
-                return 0;
-            }
-            if (x == null)
-            {
-                return -1;
-            }
-            if (y == null)
-            {
-                return 1;
-            }
-            if (String.Compare(x.AssemblyName, y.AssemblyName, StringComparison.InvariantCultureIgnoreCase) == 0)
-            {
-                if (x.SupportedFrameworks.Count() == y.SupportedFrameworks.Count())
+                if (ReferenceEquals(x, y))
                 {
-                    foreach (NuGetFramework framework in x.SupportedFrameworks)
-                    {
-                        if (!y.SupportedFrameworks.Any(fmk => fmk.Equals(framework)))
-                        {
-                            return -1;
-                        }
-                    }
                     return 0;
                 }
-            }
-            return -1;
-        }
-
-        public int Compare(object x, object y)
-        {
-            return Compare(x as FrameworkAssemblyReference, y as FrameworkAssemblyReference);
-        }
-    }
-
-    internal class PackageReferenceComparer: IComparer<PackageReference>, IComparer
-    {
-        public static IComparer Default => new PackageReferenceComparer();
-
-        public int Compare(PackageReference x, PackageReference y)
-        {
-            if (ReferenceEquals(x, y))
-            {
-                return 0;
-            }
-            if (x == null)
-            {
+                if (x == null)
+                {
+                    return -1;
+                }
+                if (y == null)
+                {
+                    return 1;
+                }
+                if (String.Compare(x.AssemblyName, y.AssemblyName, StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    if (x.SupportedFrameworks.Count() == y.SupportedFrameworks.Count())
+                    {
+                        foreach (NuGetFramework framework in x.SupportedFrameworks)
+                        {
+                            if (!y.SupportedFrameworks.Any(fmk => fmk.Equals(framework)))
+                            {
+                                return -1;
+                            }
+                        }
+                        return 0;
+                    }
+                }
                 return -1;
             }
-            if (y == null)
+
+            public int Compare(object x, object y)
             {
-                return 1;
+                return Compare(x as FrameworkAssemblyReference, y as FrameworkAssemblyReference);
             }
-            if (x.PackageIdentity.Equals(y.PackageIdentity) && x.TargetFramework.Equals(y.TargetFramework))
-            {
-                return 0;
-            }
-            return 1;
         }
 
-        public int Compare(object x, object y)
+        internal class PackageReferenceComparer : IComparer<PackageReference>, IComparer
         {
-            return Compare(x as PackageReference, y as PackageReference);
+            public static IComparer Default => new PackageReferenceComparer();
+
+            public int Compare(PackageReference x, PackageReference y)
+            {
+                if (ReferenceEquals(x, y))
+                {
+                    return 0;
+                }
+                if (x == null)
+                {
+                    return -1;
+                }
+                if (y == null)
+                {
+                    return 1;
+                }
+                if (x.PackageIdentity.Equals(y.PackageIdentity) && x.TargetFramework.Equals(y.TargetFramework))
+                {
+                    return 0;
+                }
+                return 1;
+            }
+
+            public int Compare(object x, object y)
+            {
+                return Compare(x as PackageReference, y as PackageReference);
+            }
         }
     }
 }

@@ -8,11 +8,8 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using NuGet.Frameworks;
 using NuGet.Packaging;
 using NuGet.Packaging.Core;
 using NuGet.Versioning;
@@ -92,45 +89,22 @@ namespace CodeTools.VisualStudio.Tools
 
 		private void UpdateContent(PackageBuilder builder)
 		{
-			if (Current.Content != null)
+			if (Current.ContentFiles != null)
 			{
-				foreach (ContentFiles content in Current.Content)
+				foreach (ManifestContentFiles content in Current.ContentFiles)
 				{
-					builder.ContentFiles.Add(new ManifestContentFiles()
-					{
-						BuildAction = content.BuildAction
-						,CopyToOutput = content.CopyToOutput.ToString()
-						,Exclude = content.Exclude
-						,Flatten = content.Flatten.ToString()
-						,Include = content.Source
-					});
+					builder.ContentFiles.Add(content);
 				}
 			}
 		}
 
 		private void UpdateFiles(PackageBuilder builder)
 		{
-			if (Current.Libraries != null)
+			if (Current.Files != null)
 			{
-				foreach (LibraryFiles library in Current.Libraries)
+				foreach (var file in Current.Files)
 				{
-					var framework = NuGetFramework.Parse(library.TargetFramework);
-					builder.AddFiles(Current.BasePath, library.Source, Path.Combine(PackagingConstants.Folders.Lib, framework.GetShortFolderName()));
-					builder.TargetFrameworks.Add(framework);
-				}
-			}
-			if (Current.Tools != null)
-			{
-				foreach (ToolFiles tool in Current.Tools)
-				{
-					builder.AddFiles(Current.BasePath, tool.Source, PackagingConstants.Folders.Tools);
-				}
-			}
-			if (Current.Build != null)
-			{
-				foreach (BuildFiles build in Current.Build)
-				{
-					builder.AddFiles(Current.BasePath, build.Source, PackagingConstants.Folders.Build);
+					builder.AddFiles(Current.BasePath, file.Source, file.Target);
 				}
 			}
 		}
@@ -139,10 +113,9 @@ namespace CodeTools.VisualStudio.Tools
 		{
 			if (Current.FrameworkAssemblies != null)
 			{
-				foreach (Specification.FrameworkAssembly assembly in Current.FrameworkAssemblies)
+				foreach (FrameworkAssemblyReference assembly in Current.FrameworkAssemblies)
 				{
-					builder.FrameworkReferences.Add(new FrameworkAssemblyReference(assembly.Name,
-						assembly.TargetFrameworks.Select(NuGetFramework.Parse)));
+					builder.FrameworkReferences.Add(assembly);
 				}
 			}
 		}
@@ -151,131 +124,11 @@ namespace CodeTools.VisualStudio.Tools
 		{
 			if (Current.Dependencies != null)
 			{
-				foreach (Specification.DependencyGroup dependencyGroup in Current.Dependencies)
+				foreach (PackageDependencyGroup dependencyGroup in Current.Dependencies)
 				{
-					var packageDependencyGroup = new PackageDependencyGroup(NuGetFramework.Parse(dependencyGroup.TargetFramework),
-						dependencyGroup.Select(d => new PackageDependency(d.Id, VersionRange.Parse(d.VersionRange), d.Include, d.Exclude)));
-					builder.DependencyGroups.Add(packageDependencyGroup);
+					builder.DependencyGroups.Add(dependencyGroup);
 				}
 			}
 		}
-
-		public class Specification
-		{
-			public string Id { get; set; }
-
-			public string[] Authors { get; set; }
-
-			public NugetVersion Version { get; set; }
-
-			public string Description { get; set; }
-
-			public string Title { get; set; }
-
-			public string[] Owners { get; set; }
-
-			public Uri ProjectUrl { get; set; }
-
-			public string Copyright { get; set; }
-
-			public string ReleaseNotes { get; set; }
-
-			public string[] Tags { get; set; }
-
-			public DependencyGroupCollection Dependencies { get; set; }
-
-			public FrameworkAssembly[] FrameworkAssemblies { get; set; }
-
-			public LibraryFiles[] Libraries { get; set; }
-
-			public ToolFiles[] Tools { get; set; }
-
-			public BuildFiles[] Build { get; set; }
-
-			public ContentFiles[] Content { get; set; }
-
-			public string BasePath { get; set; }
-
-			public Specification()
-			{
-				BasePath = String.Empty;
-			}
-
-			public class FrameworkAssembly
-			{
-				public string Name { get; set; }
-
-				public string[] TargetFrameworks { get; set; }
-			}
-
-			public class NugetVersion
-			{
-				public int Major { get; set; }
-
-				public int Minor { get; set; }
-
-				public int Patch { get; set; }
-
-				public string ReleaseLabels { get; set; }
-
-				public string Metadata { get; set; }
-
-				public NugetVersion(int major, int minor, int patch)
-				{
-					Major = major;
-					Minor = minor;
-					Patch = patch;
-				}
-
-				public NugetVersion(int major, int minor, int patch, string releaseLabels)
-					:this(major,minor,patch)
-				{
-					ReleaseLabels = releaseLabels;
-				}
-
-				public NugetVersion(int major, int minor, int patch, string releaseLabels, string metadata)
-					: this(major, minor, patch, releaseLabels)
-				{
-					Metadata = metadata;
-				}
-			}
-
-			public class Dependency
-			{
-				public string Id { get; set; }
-				public string VersionRange { get; set; }
-				public string[] Include { get; set; }
-				public string[] Exclude { get; set; }
-			}
-
-			public class DependencyGroup: Collection<Dependency>
-			{
-				public DependencyGroup(string targetFramework)
-				{
-					if (targetFramework == null)
-						throw new ArgumentNullException(nameof(targetFramework));
-					TargetFramework = targetFramework;
-				}
-
-				public string TargetFramework { get; set; }
-			}
-
-		    public class DependencyGroupCollection : KeyedCollection<string, DependencyGroup>
-		    {
-		        protected override string GetKeyForItem(DependencyGroup item)
-		        {
-		            return item.TargetFramework;
-		        }
-
-		        public void AddRange(IEnumerable<DependencyGroup> dependencyGroups)
-		        {
-		            if (dependencyGroups == null) throw new ArgumentNullException(nameof(dependencyGroups));
-		            foreach (DependencyGroup dependencyGroup in dependencyGroups)
-		            {
-		                Add(dependencyGroup);
-		            }
-		        }
-		    }
-        }
 	}
 }

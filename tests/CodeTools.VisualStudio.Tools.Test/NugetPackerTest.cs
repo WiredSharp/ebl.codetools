@@ -10,6 +10,10 @@
 using System;
 using System.IO;
 using CodeTools.Test.Common;
+using NuGet.Frameworks;
+using NuGet.Packaging;
+using NuGet.Packaging.Core;
+using NuGet.Versioning;
 using NUnit.Framework;
 
 namespace CodeTools.VisualStudio.Tools.Test
@@ -27,7 +31,7 @@ namespace CodeTools.VisualStudio.Tools.Test
 	[TestFixture]
 	public class NugetPackerTest
 	{
-		private NugetPacker.Specification DefaultSpecification { get; set; }
+		private Specification DefaultSpecification { get; set; }
 
 		[OneTimeSetUp]
 		public void FixtureSetup()
@@ -41,10 +45,10 @@ namespace CodeTools.VisualStudio.Tools.Test
 		[SetUp]
 		public void Setup()
 		{
-			DefaultSpecification = new NugetPacker.Specification()
+			DefaultSpecification = new Specification()
 			{
 				Id = "CodeTools.Test"
-				, Version = new NugetPacker.Specification.NugetVersion(1,2,3,"test", "meta")
+				, Version = new NuGetVersion(1,2,3,"test", "meta")
 				, Copyright = "copyright 2017 EBL Consulting"
 				, Description = "this is a description"
 				, Authors = new[] {"author 1", "author 2"}
@@ -58,13 +62,12 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void i_can_build_package_with_package_dependencies([Values("net35","net40","net403", "net45", "net451", "net452", "net461", "net462")] string targetFramework)
 		{
 			var packer = NewNugetPacker();
-			DefaultSpecification.Dependencies = new NugetPacker.Specification.DependencyGroupCollection()
+			DefaultSpecification.Dependencies = new Specification.PackageDependencyGroupCollection()
 			{
-				new NugetPacker.Specification.DependencyGroup(targetFramework)
+				new PackageDependencyGroup(NuGetFramework.ParseFolder(targetFramework), new[]
 				{
-					new NugetPacker.Specification.Dependency()
-						{ Id = "another_package", VersionRange = "1.2.0" }
-				}
+					new PackageDependency("another_package", VersionRange.Parse("1.2.0"))
+				})
 			};
 			packer.Pack($"test_pack.{targetFramework}".GetTestFileInfo());
 		}
@@ -73,14 +76,11 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void i_can_build_package_with_library_content()
 		{
 			var packer = NewNugetPacker();
-			DefaultSpecification.Libraries = new[]
-			{
-				new LibraryFiles()
+			DefaultSpecification.Files.Add(
+				new LibraryFiles(NuGetFramework.ParseFolder("net40"))
 				{
 					Source = Path.Combine(@"regular\output\net40".GetTestPath(), "*.*")
-					,TargetFramework = "net40"
-				}
-			};
+				});
 			packer.Pack("test_pack".GetTestFileInfo());
 		}
 
@@ -88,13 +88,12 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void i_can_build_package_with_tools_content()
 		{
 			var packer = NewNugetPacker();
-			DefaultSpecification.Tools = new[]
-			{
+			DefaultSpecification.Files.Add(
 				new ToolFiles()
 				{
 					Source = "*.xml".GetTestPath()
 				}
-			};
+			);
 			packer.Pack("test_pack".GetTestFileInfo());
 		}
 
@@ -102,13 +101,12 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void i_can_build_package_with_build_content()
 		{
 			var packer = NewNugetPacker();
-			DefaultSpecification.Build = new[]
-			{
-				new BuildFiles()
+			DefaultSpecification.Files.Add(
+                new BuildFiles()
 				{
 					Source = "*.xml".GetTestPath()
 				}
-			};
+			);
 			packer.Pack("test_pack".GetTestFileInfo());
 		}
 
@@ -116,19 +114,17 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void i_can_build_package_with_two_framework_targets()
 		{
 			var packer = NewNugetPacker();
-			DefaultSpecification.Libraries = new[]
-			{
-				new LibraryFiles()
-				{
-					Source = Path.Combine(@"regular\output\net40".GetTestPath(), "*.*")
-					,TargetFramework = "net40"
-				},
-				new LibraryFiles()
+		    DefaultSpecification.Files.Add(
+		        new LibraryFiles(NuGetFramework.ParseFolder("net40"))
+		        {
+		            Source = Path.Combine(@"regular\output\net40".GetTestPath(), "*.*")
+		        });
+            DefaultSpecification.Files.Add(
+                new LibraryFiles(NuGetFramework.ParseFolder("net45"))
 				{
 					Source = Path.Combine(@"regular\output\net45".GetTestPath(), "*.*")
-					,TargetFramework = "net45"
 				}
-			};
+			);
 			packer.Pack("test_pack".GetTestFileInfo());
 		}
 
@@ -136,18 +132,17 @@ namespace CodeTools.VisualStudio.Tools.Test
 		public void i_can_add_framework_assembly()
 		{
 			var packer = NewNugetPacker();
-			DefaultSpecification.FrameworkAssemblies = new[]
-			{
-				new NugetPacker.Specification.FrameworkAssembly()
-				{
-					Name = "System.Xml"
-					,TargetFrameworks = new []{ "net40", "net45" }
-				}
-			};
+		    DefaultSpecification.FrameworkAssemblies.Add(
+		            new FrameworkAssemblyReference("System.Xml",
+		                                        new[]
+		                                        {
+		                                            NuGetFramework.ParseFolder("net40"),
+		                                            NuGetFramework.ParseFolder("net45")
+		                                        }));
 			packer.Pack("test_pack".GetTestFileInfo());
 		}
 
-		private NugetPacker NewNugetPacker(NugetPacker.Specification specification = null)
+		private NugetPacker NewNugetPacker(Specification specification = null)
 		{
 			return new NugetPacker(specification ?? DefaultSpecification);
 		}

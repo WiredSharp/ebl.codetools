@@ -14,10 +14,12 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Hosting;
+using System.Runtime.Versioning;
 using System.Security.Policy;
 using System.Xml.Linq;
 using NuGet.Frameworks;
 using NuGet.Packaging;
+using NuGet.Packaging.Core;
 using NuGet.Versioning;
 
 namespace CodeTools.VisualStudio.Tools
@@ -30,66 +32,11 @@ namespace CodeTools.VisualStudio.Tools
         private const string DEFAULT_TAGS = "Tag1 Tag2";
         private const string DEFAULT_RELEASE_NOTES = "Summary of changes made in this release of the package.";
 
-        internal class FrameworkAssemblyCollection : KeyedCollection<string, FrameworkAssemblyReference>
-        {
-            protected override string GetKeyForItem(FrameworkAssemblyReference item)
-            {
-                return item.AssemblyName;
-            }
-
-            public void Add(string assemblyName, NuGetFramework targetFramework)
-            {
-                if (assemblyName == null) throw new ArgumentNullException(nameof(assemblyName));
-                if (targetFramework == null) throw new ArgumentNullException(nameof(targetFramework));
-                FrameworkAssemblyReference fmkRef;
-                if (Dictionary != null && Dictionary.TryGetValue(assemblyName, out fmkRef))
-                {
-                    var targetFmks = new HashSet<NuGetFramework> {targetFramework};
-                    foreach (NuGetFramework framework in fmkRef.SupportedFrameworks)
-                    {
-                        targetFmks.Add(framework);
-                    }
-                    SetItem(IndexOf(fmkRef), new FrameworkAssemblyReference(assemblyName, targetFmks));
-                }
-                else
-                {
-                    Add(new FrameworkAssemblyReference(assemblyName, new[] {targetFramework}));
-                }
-            }
-        }
-
-        internal List<PackageReference> PackageReferences { get; private set; }
-
-        internal FrameworkAssemblyCollection FrameworkAssemblies { get; private set; }
-
-        internal NuGetFramework TargetFramework { get; private set; }
-
-        internal string[] Owners { get; private set; }
-
-        internal string[] Authors { get; private set; }
-
-        internal string[] Tags { get; private set; }
-
-        internal Uri LicenseUrl { get; private set; }
-
-        internal string Id { get; private set; }
-
-        internal string Description { get; private set; }
-
-        internal Uri ProjectUrl { get; private set; }
-
-        internal NuGetVersion Version { get; private set; }
-
-        internal string Copyright { get; private set; }
-
-        internal string ReleaseNotes { get; private set; }
-
-        internal Uri IconUrl { get; private set; }
+        internal Specification Specification { get; private set; }
 
         public SpecificationBuilder()
         {
-            PackageReferences = new List<PackageReference>();
-            FrameworkAssemblies = new FrameworkAssemblyCollection();
+            Specification = new Specification();
         }
 
         public SpecificationBuilder WithNuSpec(Stream nuspecContent)
@@ -126,7 +73,22 @@ namespace CodeTools.VisualStudio.Tools
         {
             if (assemblyFile == null) throw new ArgumentNullException(nameof(assemblyFile));
             Assembly assembly = LoadFromFile(assemblyFile);
-            ProcessAssembly(assembly);
+            NuGetFramework targetFramework = ProcessAssembly(assembly);
+            Specification.Files.Add(new LibraryFiles(targetFramework) { Source = assemblyFile.DirectoryName });
+            return this;
+        }
+
+        public SpecificationBuilder WithFiles(ManifestFile files)
+        {
+            if (files == null) throw new ArgumentNullException(nameof(files));
+            Specification.Files.Add(files);
+            return this;
+        }
+
+        public SpecificationBuilder WithContentFiles(ManifestContentFiles files)
+        {
+            if (files == null) throw new ArgumentNullException(nameof(files));
+            Specification.ContentFiles.Add(files);
             return this;
         }
 
@@ -147,68 +109,79 @@ namespace CodeTools.VisualStudio.Tools
         private void ProcessPackagesContent(Stream packagesFileContent)
         {
             var parser = new PackagesConfigReader(XDocument.Load(packagesFileContent));
-            foreach (PackageReference packageReference in parser.GetPackages())
-            {
-                AddPackageReference(packageReference);
-            }
+            AddPackageReferences(parser.GetPackages());
         }
 
-        private void ProcessAssembly(Assembly assembly)
+        private NuGetFramework ProcessAssembly(Assembly assembly)
         {
             IList<CustomAttributeData> attributesData = assembly.GetCustomAttributesData();
-            Id = assembly.FullName;
+            Specification.Id = assembly.FullName;
+            NuGetFramework targetFramework = null;
             foreach (CustomAttributeData attributeData in attributesData)
             {
                 if (attributeData.Constructor.DeclaringType == typeof(AssemblyCopyrightAttribute))
                 {
-                    Copyright = attributeData.ConstructorArguments.First().ToString().Trim(new[] { '"' });
+                    Specification.Copyright = attributeData.ConstructorArguments.First().ToString().Trim(new[] { '"' });
                 }
                 else if (attributeData.Constructor.DeclaringType == typeof(AssemblyInformationalVersionAttribute))
                 {
                     string[] version = attributeData.ConstructorArguments.First().ToString().Trim(new []{'"'}).Split(new []{'-'}, StringSplitOptions.RemoveEmptyEntries);
                     if (version.Length == 1)
                     {
-                        Version = NuGetVersion.Parse(version[0]);
+                        Specification.Version = NuGetVersion.Parse(version[0]);
                     }
                     else
                     {
-                        Version = new NuGetVersion(System.Version.Parse(version[0]), version[1]);
+                        Specification.Version = new NuGetVersion(System.Version.Parse(version[0]), version[1]);
                     }
                 }
                 else if (attributeData.Constructor.DeclaringType ==
-                         typeof(System.Runtime.Versioning.TargetFrameworkAttribute))
+                         typeof(TargetFrameworkAttribute))
                 {
-                    TargetFramework = NuGetFramework.ParseFrameworkName(
+                    targetFramework = NuGetFramework.ParseFrameworkName(
                                                                          attributeData.NamedArguments.First().TypedValue.Value.ToString().Trim(new[] { '"' }),
                                                                          DefaultFrameworkNameProvider.Instance);
                 }
             }
+            if (targetFramework == null)
+            {
+                throw new ArgumentException("no target framework identified in assembly " + assembly);
+            }
             foreach (AssemblyName referencedAssembly in assembly.GetReferencedAssemblies())
             {
-                FrameworkAssemblies.Add(referencedAssembly.FullName, TargetFramework);
+                Specification.FrameworkAssemblies.Add(referencedAssembly.FullName, targetFramework);
+            }
+            return targetFramework;
+        }
+
+        private void AddPackageReferences(IEnumerable<PackageReference> packageReference)
+        {
+            foreach(var packageByFramework in packageReference.GroupBy(pr => pr.TargetFramework))
+            {
+                Specification.Dependencies.Add(new PackageDependencyGroup(packageByFramework.Key, packageByFramework.Select(ToPackageDependency)));
             }
         }
 
-        private void AddPackageReference(PackageReference packageReference)
+        private PackageDependency ToPackageDependency(PackageReference packageReference)
         {
-            PackageReferences.Add(packageReference);
+            return new PackageDependency(packageReference.PackageIdentity.Id, packageReference.AllowedVersions);
         }
 
         private void ProcessNuspecContent(NuspecReader reader)
         {
-            if (Id == null)
+            if (Specification.Id == null)
             {
-                Update(reader.GetId(), (id) => Id = id);
+                Update(reader.GetId(), (id) => Specification.Id = id);
             }
-            UpdateUrl(reader.GetLicenseUrl(), url => LicenseUrl = url, DEFAULT_LICENCE_URL);
-            UpdateUrl(reader.GetProjectUrl(), url => ProjectUrl = url, DEFAULT_PROJECT_URL);
-            UpdateUrl(reader.GetIconUrl(), url => IconUrl = url, DEFAULT_ICON_URL);
-            UpdateList(reader.GetAuthors(), list => Authors = list);
-            UpdateList(reader.GetOwners(), list => Owners = list);
-            Update(reader.GetReleaseNotes(), notes => ReleaseNotes = notes, DEFAULT_RELEASE_NOTES);
-            Update(reader.GetCopyright(), copyright => Copyright = copyright);
-            UpdateList(reader.GetTags(), list => Tags = list, ' ', DEFAULT_TAGS);
-            Update(reader.GetDescription(), desc => Description = desc);
+            UpdateUrl(reader.GetLicenseUrl(), url => Specification.LicenseUrl = url, DEFAULT_LICENCE_URL);
+            UpdateUrl(reader.GetProjectUrl(), url => Specification.ProjectUrl = url, DEFAULT_PROJECT_URL);
+            UpdateUrl(reader.GetIconUrl(), url => Specification.IconUrl = url, DEFAULT_ICON_URL);
+            UpdateList(reader.GetAuthors(), list => Specification.Authors = list);
+            UpdateList(reader.GetOwners(), list => Specification.Owners = list);
+            Update(reader.GetReleaseNotes(), notes => Specification.ReleaseNotes = notes, DEFAULT_RELEASE_NOTES);
+            Update(reader.GetCopyright(), copyright => Specification.Copyright = copyright);
+            UpdateList(reader.GetTags(), list => Specification.Tags = list, ' ', DEFAULT_TAGS);
+            Update(reader.GetDescription(), desc => Specification.Description = desc);
         }
 
         private static bool UpdateList(string list, Action<string[]> setter, char separator = ',', string defaultValue = null)

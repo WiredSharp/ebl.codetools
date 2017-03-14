@@ -1,7 +1,17 @@
-﻿namespace CodeTools.VisualStudio.Tools
+﻿using System.IO;
+using NuGet.Frameworks;
+using NuGet.Packaging;
+
+namespace CodeTools.VisualStudio.Tools
 {
-    public class LibraryFiles : Files
+    public class LibraryFiles : ManifestFile
     {
-        public string TargetFramework { get; set; }
+        public NuGetFramework TargetFramework { get; set; }
+
+        public LibraryFiles(NuGetFramework tarGetFramework)
+        {
+            TargetFramework = tarGetFramework;
+            Target = Path.Combine(PackagingConstants.Folders.Lib, TargetFramework.GetShortFolderName());
+        }
     }
 }

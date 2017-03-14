@@ -1,6 +1,12 @@
-﻿namespace CodeTools.VisualStudio.Tools
+﻿using NuGet.Packaging;
+
+namespace CodeTools.VisualStudio.Tools
 {
-    public class ToolFiles : Files
+    public class ToolFiles : ManifestFile
     {
+        public ToolFiles()
+        {
+            Target = PackagingConstants.Folders.Tools;
+        }
     }
 }

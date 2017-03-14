@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NugetPackerCliTest.cs" />
     <Compile Include="SpecificationBuilderTest.cs" />
     <Compile Include="VSProjectNormalizerTest.cs" />
     <Compile Include="NugetPackerTest.cs" />
