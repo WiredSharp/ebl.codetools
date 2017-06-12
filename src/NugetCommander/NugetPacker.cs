@@ -9,9 +9,7 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using NuGet.Packaging;
-using NuGet.Packaging.Core;
 using NuGet.Versioning;
 
 namespace CodeTools.VisualStudio.Tools

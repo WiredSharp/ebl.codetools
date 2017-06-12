@@ -81,7 +81,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NugetPackerCliTest.cs" />
+    <Compile Include="NugetCommanderTest.cs" />
+    <Compile Include="NugetSpecerTest.cs" />
     <Compile Include="SpecificationBuilderTest.cs" />
     <Compile Include="VSProjectNormalizerTest.cs" />
     <Compile Include="NugetPackerTest.cs" />
@@ -144,9 +145,9 @@
       <Project>{ebf4fbb8-787e-4a1a-b79b-0f12a2b6e071}</Project>
       <Name>CodeTools.Nuget.Helpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\NugetPacker\NugetPacker.csproj">
+    <ProjectReference Include="..\..\src\NugetCommander\NugetCommander.csproj">
       <Project>{f95b6dea-f895-412c-925e-d586967dde05}</Project>
-      <Name>NugetPacker</Name>
+      <Name>NugetCommander</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\VSProjectCloner\VSProjectCloner.csproj">
       <Project>{933de6fc-5752-457f-976a-1a0f0f1c0b07}</Project>

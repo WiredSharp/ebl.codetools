@@ -55,6 +55,23 @@ namespace CodeTools.Helpers.Core
 			_doc.WriteTo(writer);
 		}
 
+	    public void WriteTo(Stream output)
+	    {
+	        using (var writer = XmlWriter.Create(output))
+	        {
+	            _doc.WriteTo(writer);
+	        }
+	    }
+
+	    public void WriteTo(FileInfo file)
+	    {
+	        if (file == null) throw new ArgumentNullException(nameof(file));
+	        using (var writer = File.Create(file.FullName))
+	        {
+	            WriteTo(writer);
+	        }
+	    }
+
 		public string ToString(SaveOptions saveOptions)
 		{
 			return Root.ToString(saveOptions);
@@ -67,37 +84,7 @@ namespace CodeTools.Helpers.Core
 
 		public string ToXml()
 		{
-			return ToXml(_doc);
+			return XmlExtensions.ToXml(_doc);
 		}
-
-		protected static string ToXml(XDocument document)
-		{
-			Encoding encoding;
-			try
-			{
-				encoding = Encoding.GetEncoding(document.Declaration.Encoding);
-			}
-			catch
-			{
-				encoding = Encoding.UTF8;
-			}
-			using (var writer = new StringWriterWithEncoding(encoding))
-			{
-				document.Save(writer);
-				writer.Flush();
-				return writer.ToString();
-			}
-		}
-
-		private class StringWriterWithEncoding : StringWriter
-		{
-			public StringWriterWithEncoding(Encoding encoding)
-			{
-				Encoding = encoding;
-			}
-
-			public override Encoding Encoding { get; }
-		}
-
 	}
 }

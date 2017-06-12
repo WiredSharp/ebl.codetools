@@ -13,12 +13,12 @@ using NUnit.Framework;
 namespace CodeTools.VisualStudio.Tools.Test
 {
     [TestFixture]
-    public class NugetPackerCliTest
+    public class NugetCommanderTest
     {
         [Test]
         public void i_can_instantiate()
         {
-            //insert your test here
+            NugetCommander.Main(new[] { "" });
         }
     }
 }

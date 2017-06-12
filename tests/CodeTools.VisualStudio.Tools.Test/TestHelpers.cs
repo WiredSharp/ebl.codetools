@@ -59,8 +59,7 @@ namespace CodeTools.Test.Common
 		public static void AssertIsUniqueAndEqualsTo(this XElement root, string localName, string expectedValue)
 		{
 			XElement[] matchingNodes = FindNodes(root, localName);
-			Assert.IsNotNull(matchingNodes, "no " + localName + " inserted");
-			Assert.AreEqual(1, matchingNodes.Count(), "only one " + localName + " node should remain");
+			Assert.AreEqual(1, matchingNodes.Length, "only one " + localName + " node is expected");
 			Assert.AreEqual(expectedValue, matchingNodes.First().Value, "unexpected value for " + localName);
 		}
 

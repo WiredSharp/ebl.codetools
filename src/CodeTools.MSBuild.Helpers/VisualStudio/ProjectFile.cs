@@ -36,6 +36,12 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
 
         protected const string INCLUDE_ATTRIBUTE_TAG = "Include";
 
+        public static ProjectFile Create()
+        {
+            return new ProjectFile(@"<?xml version=""1.0"" encoding=""utf-8""?>
+<Project ToolsVersion=""4.0"" xmlns=""http://schemas.microsoft.com/developer/msbuild/2003""/>");
+        }
+
         public static ProjectFile Parse(string projectFileContent)
         {
             return new ProjectFile(projectFileContent);
@@ -44,7 +50,7 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
         public static ProjectFile Load(FileInfo projectFile)
         {
             if (projectFile == null) throw new ArgumentNullException(nameof(projectFile));
-            return Parse(File.ReadAllText(projectFile.FullName));
+            return new ProjectFile(File.ReadAllText(projectFile.FullName));
         }
 
         protected ProjectFile(string projectFileContent)
