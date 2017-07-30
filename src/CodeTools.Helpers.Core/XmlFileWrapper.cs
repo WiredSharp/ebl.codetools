@@ -45,7 +45,12 @@ namespace CodeTools.Helpers.Core
 			}
 		}
 
-		protected XName Name(string localName)
+        protected XElement NewXElement(string localName, params object[] childs)
+        {
+            return new XElement(Name(localName), childs);
+        }
+
+        protected XName Name(string localName)
 		{
 			return _ns.GetName(localName);
 		}

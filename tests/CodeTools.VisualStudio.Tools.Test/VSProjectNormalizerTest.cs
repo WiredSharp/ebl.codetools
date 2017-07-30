@@ -45,6 +45,24 @@ namespace CodeTools.VisualStudio.Tools.Test
 			Assert.AreEqual(first, normalizer.Normalize(first), "second execution is not idempotent");
 		}
 
+        [Test]
+        public void no_namespace_is_added_on_elements()
+        {
+            const string projectFile = "aspnetcore.csproj.xml";
+            var normalizer = new VSProjectNormalizer(Settings);
+            string normalized = normalizer.Normalize(projectFile.GetTestFileInfo());
+            XDocument result = XDocument.Parse(normalized);
+            TestContext.WriteLine(normalized);
+            foreach (XElement node in result.Descendants())
+            {
+                TestContext.WriteLine(node.Name);
+                foreach (XAttribute attr in node.Attributes())
+                {
+                    TestContext.WriteLine($">> {attr}");
+                }
+            }
+        }
+
 		[Test]
 		[Sequential]
 		public void outputpath_is_correctly_set_with_projecttype_tag([Values(@"regular.csproj.xml"

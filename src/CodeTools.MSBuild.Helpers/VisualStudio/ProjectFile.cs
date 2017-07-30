@@ -33,8 +33,15 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
         protected const string CONFIGURATION_TAG = "Configuration";
         protected const string PLATFORM_TAG = "Platform";
         protected const string INTERMEDIATE_OUTPUT_PATH_TAG = "IntermediateOutputPath";
+        protected const string LINK_TAG = "Link";
+        protected const string PROJECT_ATTRIBUTE_TAG = "Project";
+        protected const string OTHERWISE_TAG = "Otherwise";
+        protected const string WHEN_TAG = "When";
+        protected const string CHOOSE_TAG = "Choose";
 
         protected const string INCLUDE_ATTRIBUTE_TAG = "Include";
+
+        public static XNamespace MSBUILD_NS = XNamespace.Get("http://schemas.microsoft.com/developer/msbuild/2003");
 
         public static ProjectFile Create()
         {
@@ -125,37 +132,75 @@ namespace CodeTools.MSBuild.Helpers.VisualStudio
 
         public XElement NewLink(string linkPath)
         {
-            return Elements.Link(linkPath);
+            return NewXElement(LINK_TAG, linkPath);
         }
 
         public XElement NewProperty(string propertyTag, string value, XAttribute condition)
         {
-            return Elements.Property(propertyTag, value, condition);
+            return NewXElement(propertyTag, condition, value);
         }
 
         public XElement NewProperty(string propertyTag, string value, bool checkDefined)
         {
-            return Elements.Property(propertyTag, value, checkDefined);
+            XElement property = NewXElement(propertyTag, value);
+            if (checkDefined)
+            {
+                property.Add(Condition.TagNotDefined(propertyTag));
+            }
+            return property;
         }
 
         public XElement NewPropertyGroup(params XElement[] properties)
         {
-            return Elements.PropertyGroup(properties);
+            return NewXElement(PROPERTY_GROUP_TAG, properties);
         }
 
         public XElement NewPropertyGroup(XAttribute condition, params XElement[] properties)
         {
-            return Elements.PropertyGroup(condition, properties);
+            return NewXElement(PROPERTY_GROUP_TAG, condition, properties);
+        }
+
+        public XElement Choose(XElement firstChild, params XElement[] childs)
+        {
+            if (firstChild == null) throw new ArgumentNullException(nameof(firstChild));
+            return NewXElement(CHOOSE_TAG, firstChild, childs);
+        }
+
+        public XElement Otherwise(XElement firstChild, params XElement[] childs)
+        {
+            if (firstChild == null) throw new ArgumentNullException(nameof(firstChild));
+            return NewXElement(OTHERWISE_TAG, firstChild, childs);
+        }
+
+        public XElement When(XAttribute condition, XElement firstChild, params XElement[] childs)
+        {
+            if (condition == null) throw new ArgumentNullException(nameof(condition));
+            if (firstChild == null) throw new ArgumentNullException(nameof(firstChild));
+            return NewXElement(WHEN_TAG, condition, firstChild, childs);
         }
 
         public XElement NewImport(string importPath, XAttribute condition)
         {
-            return Elements.Import(importPath, condition);
+            if (condition != null)
+            {
+                return NewXElement(IMPORT_TAG, new XAttribute(PROJECT_ATTRIBUTE_TAG, importPath), condition);
+            }
+            else
+            {
+                return NewXElement(IMPORT_TAG);
+            }
         }
 
-        public XElement NewImport(string importPath)
+        public XElement NewImport(string importPath, bool checkExists = true)
         {
-            return Elements.Import(importPath);
+            if (checkExists)
+            {
+                return NewImport(importPath, Condition.Exists(importPath));
+            }
+            else
+            {
+                return NewImport(importPath, null);
+            }
         }
 
         public bool IsWpfProject()
