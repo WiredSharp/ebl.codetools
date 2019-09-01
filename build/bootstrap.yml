@@ -1,0 +1,30 @@
+---
+- MySolution.RootNamespace:
+    framework: net472
+    references:
+      - Newtonsoft.Json:
+          constraint: '>= 3.2'
+    - src:
+        - Project01:
+            references:
+              - Microsoft.AspNet.WebApi.Client
+              - Microsoft.AspNet.WebApi.Core
+              - Microsoft.AspNet.WebApi.Owin
+              - Microsoft.CodeDom.Providers.DotNetCompilerPlatform
+              - Microsoft.Owin
+              - Microsoft.Owin.Host.SystemWeb
+              - Newtonsoft.Json
+              - Serilog
+              - Serilog.Sinks.RollingFile
+        - Project02:
+    - test:
+        references:
+          - Bogus
+          - NSubstitute
+          - NUnit    
+        - Project01.Test:
+            references:
+              - Project01
+        - Project02.Test:
+            references:
+              - Project02

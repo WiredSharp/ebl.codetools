@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageType>Template</PackageType>
+    <PackageVersion>$(VersionSuffix)</PackageVersion>
+    <PackageId>Zericco.Templates</PackageId>
+    <Title>Zericco Templates</Title>
+    <Authors>Zericco</Authors>
+    <Description>Useful templates for dotnet applications.</Description>
+    <Tags>dotnet-new;templates</Tags>
+    <TargetFramework>netstandard2.0</TargetFramework>
+
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>content</ContentTargetFolders>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="dotnet\**\*" Exclude="dotnet\**\bin\**;dotnet\**\obj\**" />
+    <Compile Remove="**\*" />
+  </ItemGroup>
+
+</Project>

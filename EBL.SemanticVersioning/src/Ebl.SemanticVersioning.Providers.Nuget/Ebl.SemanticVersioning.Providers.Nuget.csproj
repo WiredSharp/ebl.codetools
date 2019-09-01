@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>SemanticVersioning.Providers.Nuget</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NuGet.Protocol.Core.v2" Version="3.5.0" />
+    <PackageReference Include="NuGet.Protocol.Core.v3" Version="4.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ebl.SemanticVersioning.Core\Ebl.SemanticVersioning.Core.csproj" />
+  </ItemGroup>
+
+</Project>

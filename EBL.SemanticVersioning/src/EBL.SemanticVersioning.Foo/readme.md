@@ -1,0 +1,1 @@
+# Here is your first class library by Zericco: EBL.SemanticVersioning.Foo

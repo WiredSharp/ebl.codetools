@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "zericco",
+    "classifications": ["Solution"],
+    "identity": "Zericco.SolutionPackTemplate.CSharp",
+    "name": "Zericco Solution pack",
+    "shortName": "zericcosol",
+    "sourceName": "z-project",
+    "preferNameDirectory": true,
+    "tags": {
+        "language": "C#",
+        "type": "project"
+    }
+}
