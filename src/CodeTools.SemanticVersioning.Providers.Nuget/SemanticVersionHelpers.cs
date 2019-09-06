@@ -6,7 +6,7 @@
 
 using System;
 
-namespace SemanticVersioning
+namespace CodeTools.SemanticVersioning.Providers.Nuget
 {
 	internal static class SemanticVersionHelpers
 	{

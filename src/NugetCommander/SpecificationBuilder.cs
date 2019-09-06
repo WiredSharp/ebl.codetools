@@ -9,20 +9,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Hosting;
 using System.Runtime.Versioning;
-using System.Security.Policy;
 using System.Xml.Linq;
 using NuGet.Frameworks;
 using NuGet.Packaging;
 using NuGet.Packaging.Core;
 using NuGet.Versioning;
 
-namespace CodeTools.VisualStudio.Tools
+namespace CodeTools.NugetCommander
 {
     public class SpecificationBuilder
     {

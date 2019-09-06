@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace SemanticVersioning
+namespace CodeTools.SemanticVersioning
 {
 	public struct SemanticVersion : IComparable, IComparable<SemanticVersion>, IEquatable<SemanticVersion>
 	{

@@ -14,7 +14,7 @@ using System.Linq;
 using System.Xml.Linq;
 using CodeTools.MSBuild.Helpers.VisualStudio;
 
-namespace CodeTools.VisualStudio.Tools
+namespace CodeTools.VSProjectCloner
 {
 	/// <summary>
 	/// Synchronize C# Project

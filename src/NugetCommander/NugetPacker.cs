@@ -12,7 +12,7 @@ using System.IO;
 using NuGet.Packaging;
 using NuGet.Versioning;
 
-namespace CodeTools.VisualStudio.Tools
+namespace CodeTools.NugetCommander
 {
     /// <summary>
     /// wrapper for <see cref="NuGet.Packaging.PackageBuilder"/>

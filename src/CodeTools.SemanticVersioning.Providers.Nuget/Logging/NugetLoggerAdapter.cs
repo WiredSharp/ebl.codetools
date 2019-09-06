@@ -1,11 +1,7 @@
-﻿using SemanticVersioning.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using CodeTools.SemanticVersioning.Logging;
 
-namespace SemanticVersioning.Providers.Nuget.Logging
+namespace CodeTools.SemanticVersioning.Providers.Nuget.Logging
 {
 	internal class NugetLoggerAdapter: NuGet.Common.ILogger
 	{

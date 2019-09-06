@@ -5,7 +5,7 @@ using NuGet.Frameworks;
 using NuGet.Packaging;
 using NuGet.Versioning;
 
-namespace CodeTools.VisualStudio.Tools
+namespace CodeTools.NugetCommander
 {
     internal class Specification
     {
@@ -83,8 +83,7 @@ namespace CodeTools.VisualStudio.Tools
             {
                 if (assemblyName == null) throw new ArgumentNullException(nameof(assemblyName));
                 if (targetFramework == null) throw new ArgumentNullException(nameof(targetFramework));
-                FrameworkAssemblyReference fmkRef;
-                if (Dictionary != null && Dictionary.TryGetValue(assemblyName, out fmkRef))
+                if (Dictionary != null && Dictionary.TryGetValue(assemblyName, out FrameworkAssemblyReference fmkRef))
                 {
                     var targetFmks = new HashSet<NuGetFramework> { targetFramework };
                     foreach (NuGetFramework framework in fmkRef.SupportedFrameworks)

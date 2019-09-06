@@ -1,4 +1,4 @@
-﻿namespace CodeTools.VisualStudio.Tools
+﻿namespace CodeTools.VSProjectCloner
 {
 	class VSProjectClonerCli
 	{

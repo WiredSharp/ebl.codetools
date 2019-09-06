@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CodeTools.SemanticVersioning.Core\CodeTools.SemanticVersioning.Core.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>CodeTools.SemanticVersioning.Tools.Tests</RootNamespace>
+  </PropertyGroup>
+
+</Project>

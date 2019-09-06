@@ -1,8 +1,7 @@
-﻿using NUnit.Framework;
-using SemanticVersioning.Tools.Core;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 
-namespace SemanticVersioning.Tools.Tests
+namespace CodeTools.SemanticVersioning.Tools.Tests
 {
 	[TestFixture]
 	class SemanticVersionExtensionsTest

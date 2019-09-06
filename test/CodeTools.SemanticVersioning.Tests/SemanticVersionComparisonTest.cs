@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
+using CodeTools.SemanticVersioning.Tools.Tests.TestHelpers;
 using NUnit.Framework;
-using SemanticVersioning.Tools.Core;
-using SemanticVersioning.Tools.Tests.TestHelpers;
 
-namespace SemanticVersioning.Tools.Tests
+namespace CodeTools.SemanticVersioning.Tools.Tests
 {
 	[TestFixture]
 	public class SemanticVersionComparisonTest

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SemanticVersioning
+namespace CodeTools.SemanticVersioning
 {
 	public static class SemanticVersionExtensions
 	{
@@ -29,9 +27,9 @@ namespace SemanticVersioning
 			switch (field)
 			{
 				case VersionField.Major:
-					return new SemanticVersion(version.Major+update, version.Minor, version.Patch);
+					return new SemanticVersion(version.Major+update, 0, 0);
 				case VersionField.Minor:
-					return new SemanticVersion(version.Major, version.Minor + update, version.Patch);
+					return new SemanticVersion(version.Major, version.Minor + update, 0);
 				case VersionField.Patch:
 					return new SemanticVersion(version.Major, version.Minor, version.Patch + update);
 				default:

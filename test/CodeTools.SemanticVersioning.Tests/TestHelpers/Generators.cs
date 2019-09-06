@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-using SemanticVersioning.Tools.Core;
 
-namespace SemanticVersioning.Tools.Tests.TestHelpers
+namespace CodeTools.SemanticVersioning.Tools.Tests.TestHelpers
 {
     internal static class Generators
     {

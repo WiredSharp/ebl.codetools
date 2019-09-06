@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>SemanticVersioning</RootNamespace>
+    <RootNamespace>CodeTools.SemanticVersioning</RootNamespace>
   </PropertyGroup>
 
 </Project>

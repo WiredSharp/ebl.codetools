@@ -1,4 +1,4 @@
-﻿namespace SemanticVersioning
+﻿namespace CodeTools.SemanticVersioning
 {
 	public enum VersionField
 	{

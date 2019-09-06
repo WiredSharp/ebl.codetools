@@ -1,4 +1,4 @@
-﻿namespace SemanticVersioning.Logging
+﻿namespace CodeTools.SemanticVersioning.Logging
 {
 	public class NopLogger : ILogger
 	{

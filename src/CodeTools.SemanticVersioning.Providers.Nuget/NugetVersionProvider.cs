@@ -9,21 +9,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CodeTools.SemanticVersioning.Logging;
 using NuGet.Configuration;
 using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
 using NuGet.Protocol.Core.v2;
 using NuGet.Versioning;
-using SemanticVersioning.Logging;
+using CodeTools.SemanticVersioning.Providers.Nuget.Logging;
 
-namespace SemanticVersioning
+namespace CodeTools.SemanticVersioning.Providers.Nuget
 {
     /// <summary>
     /// Generate next version according to last nuget package pushed in repository
     /// </summary>
-    public class NugetVersionProvider: IVersionProvider
+    public class NugetVersionProvider: IVersionAsyncProvider
     {
         private PackageMetadataResource _packages;
+
+        private readonly ILogger _logger;
+
         public string Repository { get; set; } = "https://api.nuget.org/v3/index.json";
 
         public NugetVersionProvider(string repositoryAddress)
@@ -44,19 +48,39 @@ namespace SemanticVersioning
         /// </summary>
         /// <param name="packageId"></param>
         /// <param name="major"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<SemanticVersion> GetNextVersionAsync(string packageId, int major, CancellationToken cancellationToken)
+        {
+            NuGetVersion lastVersion = await GetLastVersion(packageId, p => p.Identity.Version.Major == major, cancellationToken);
+            if (lastVersion == null)
+            {
+                return new SemanticVersion(major, 0, 0);
+            }
+            else
+            {
+                return new SemanticVersion(major, lastVersion.Minor+1, 0);
+            }
+        }
+
+        /// <summary>
+        /// returns the next patch for package <paramref name="packageId"/> with major <paramref name="major"/> and minor <paramref name="minor"/>
+        /// </summary>
+        /// <param name="packageId"></param>
+        /// <param name="major"></param>
         /// <param name="minor"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<int> GetNextPatchAsync(string packageId, int major, int minor, CancellationToken cancellationToken)
+        public async Task<SemanticVersion> GetNextVersionAsync(string packageId, int major, int minor, CancellationToken cancellationToken)
         {
             NuGetVersion lastVersion = await GetLastVersion(packageId, p => p.Identity.Version.Major == major && p.Identity.Version.Minor == minor, cancellationToken);
             if (lastVersion == null)
             {
-                return 0;
+                return new SemanticVersion(major, minor, 0);
             }
             else
             {
-                return lastVersion.Patch + 1;
+                return new SemanticVersion(major, minor, lastVersion.Patch + 1);
             }
         }
 
@@ -75,8 +99,8 @@ namespace SemanticVersioning
 
         private async Task<NuGetVersion> GetLastVersion(string packageId, Func<IPackageSearchMetadata, bool> filter, CancellationToken cancellationToken)
         {
-            _logger.Information($"retrieving nuget package metadata from {Repository}");
-            NuGetLoggerAdapter logger = new NuGetLoggerAdapter(_logger);
+            _logger.Info($"retrieving nuget package metadata from {Repository}");
+            var logger = new NugetLoggerAdapter(_logger);
             PackageMetadataResource packageMetadataResource = await GetPackageMetadataResourceAsync().ConfigureAwait(false);
             IEnumerable<IPackageSearchMetadata> matchingPackages = await packageMetadataResource
                 .GetMetadataAsync(packageId, true, false, logger, cancellationToken).ConfigureAwait(false);

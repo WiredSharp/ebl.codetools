@@ -1,4 +1,4 @@
-﻿namespace CodeTools.VisualStudio.Tools
+﻿namespace CodeTools.NugetCommander
 {
 	class NugetCommander
 	{

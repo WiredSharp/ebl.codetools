@@ -1,6 +1,6 @@
 ﻿using NuGet.Packaging;
 
-namespace CodeTools.VisualStudio.Tools
+namespace CodeTools.NugetCommander
 {
     public class ToolFiles : ManifestFile
     {

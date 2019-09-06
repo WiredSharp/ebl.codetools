@@ -11,7 +11,7 @@ using System;
 using System.IO;
 using CodeTools.Nuget.Helpers;
 
-namespace CodeTools.VisualStudio.Tools
+namespace CodeTools.NugetCommander
 {
     internal class NugetSpecer
     {
