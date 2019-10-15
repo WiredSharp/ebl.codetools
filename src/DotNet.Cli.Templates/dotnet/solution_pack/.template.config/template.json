@@ -10,5 +10,122 @@
     "tags": {
         "language": "C#",
         "type": "project"
+    },
+    "symbols": {
+        "Author": {
+            "type": "parameter",
+            "defaultValue": "<you>",
+            "replaces": "$Author"
+        },
+        "Company": {
+            "type": "parameter",
+            "defaultValue": "<your company>",
+            "replaces": "$Company"
+        },
+        "ArtifactFolder": {
+            "type": "parameter",
+            "defaultValue": "artifacts",
+            "replaces": "$ArtifactFolder"
+        },
+        "IntermediateFolder": {
+            "type": "parameter",
+            "defaultValue": "artifacts/obj",
+            "replaces": "$IntermediateFolder"
+        },
+        "TargetFrameworkOverride": {
+            "type": "parameter",
+            "description": "Overrides the target framework",
+            "replaces": "TargetFrameworkOverride",
+            "datatype": "string",
+            "defaultValue": ""
+        },
+        "Framework": {
+            "type": "parameter",
+            "description": "The target framework for the project.",
+            "datatype": "choice",
+            "choices": [{
+                    "choice": "netstandard1.6",
+                    "description": "Target netstandard1.6"
+                },
+                {
+                    "choice": "netstandard2.0",
+                    "description": "Target netstandard2.0"
+                },
+                {
+                    "choice": "netcoreapp1.0",
+                    "description": "Target netcoreapp1.0"
+                },
+                {
+                    "choice": "netcoreapp1.1",
+                    "description": "Target netcoreapp1.1"
+                },
+                {
+                    "choice": "netcoreapp2.0",
+                    "description": "Target netcoreapp2.0"
+                },
+                {
+                    "choice": "netcoreapp2.1",
+                    "description": "Target netcoreapp2.1"
+                },
+                {
+                    "choice": "netcoreapp2.2",
+                    "description": "Target netcoreapp2.2"
+                },
+                {
+                    "choice": "netcoreapp3.0",
+                    "description": "Target netcoreapp3.0"
+                },
+                {
+                    "choice": "net35",
+                    "description": "Target net35"
+                },
+                {
+                    "choice": "net40",
+                    "description": "Target net40"
+                },
+                {
+                    "choice": "net45",
+                    "description": "Target net45"
+                },
+                {
+                    "choice": "net451",
+                    "description": "Target net451"
+                },
+                {
+                    "choice": "net452",
+                    "description": "Target net452"
+                },
+                {
+                    "choice": "net46",
+                    "description": "Target net46"
+                },
+                {
+                    "choice": "net461",
+                    "description": "Target net461"
+                },
+                {
+                    "choice": "net462",
+                    "description": "Target net462"
+                },
+                {
+                    "choice": "net47",
+                    "description": "Target net47"
+                },
+                {
+                    "choice": "net471",
+                    "description": "Target net471"
+                },
+                {
+                    "choice": "net472",
+                    "description": "Target net472"
+                },
+                {
+                    "choice": "net48",
+                    "description": "Target net48"
+                }
+            ],
+            "replaces": "netcoreapp2.2",
+            "defaultValue": "netcoreapp2.2"
+        }
     }
 }
