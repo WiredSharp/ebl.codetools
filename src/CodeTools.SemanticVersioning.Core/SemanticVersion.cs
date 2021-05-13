@@ -6,9 +6,15 @@ namespace CodeTools.SemanticVersioning
 {
 	public readonly struct SemanticVersion : IComparable, IComparable<SemanticVersion>, IEquatable<SemanticVersion>
 	{
-		public const string RegularExpression = @"(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(?<prerelease>\-[0-9A-Za-z\-\.]+|)(?<metadata>\+[0-9A-Za-z\-\.]+|)";
+		public static class RegularExpressions 
+		{
+			public const string Identifier = @"[1-9A-Za-z][0-9A-Za-z\-]*";
+			public static readonly string DotSeperatedIdentifier = $@"({Identifier})(\.{Identifier})*";
+			public static readonly string Semver = $@"^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(?<prerelease>\-{DotSeperatedIdentifier}|)(?<metadata>\+{DotSeperatedIdentifier}|)$";
 
-		private static readonly Regex SemverRegex = new Regex($"^{RegularExpression}$", RegexOptions.Compiled);
+		}
+
+		private static readonly Regex SemverRegex = new Regex($"^{RegularExpressions.Semver}$", RegexOptions.Compiled);
 
 		public readonly int Major;
 
@@ -43,7 +49,7 @@ namespace CodeTools.SemanticVersioning
 				}
 				else
 				{
-					PreRelease = $"-{PreRelease}";
+					PreRelease = $"-{preRelease}";
 				}
 				display.Append(PreRelease);
 			}
@@ -156,7 +162,7 @@ namespace CodeTools.SemanticVersioning
 			Match match = SemverRegex.Match(version);
 			if (!match.Success)
 			{
-				throw new ArgumentException("not a valid semantic version", nameof(version));
+				throw new ArgumentException($"'{version}': not a valid semantic version", nameof(version));
 			}
 			return new SemanticVersion(Int32.Parse(match.Groups["major"].Value)
 			, Int32.Parse(match.Groups["minor"].Value)
