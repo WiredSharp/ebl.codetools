@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace CodeTools.SemanticVersioning
 {
-	public struct SemanticVersion : IComparable, IComparable<SemanticVersion>, IEquatable<SemanticVersion>
+	public readonly struct SemanticVersion : IComparable, IComparable<SemanticVersion>, IEquatable<SemanticVersion>
 	{
 		public const string RegularExpression = @"(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(?<prerelease>\-[0-9A-Za-z\-\.]+|)(?<metadata>\+[0-9A-Za-z\-\.]+|)";
 
@@ -56,7 +56,7 @@ namespace CodeTools.SemanticVersioning
 				}
 				else
 				{
-					Metadata = $"+{Metadata}";
+					Metadata = $"+{metadata}";
 				}
 				display.Append(Metadata);
 			}
